@@ -1,92 +1,349 @@
-# cinema_2
+# cinema_base
+
+## Документация
+
+## 1. Запуск проекта
+
+В пропертях проекта для подключения к БД используются параметры типа: ${PSQL_SERVER:localhost}, важно, значение идущее после двоеточия, обозначает значение по умолчанию, если параметр не переопределить, то будет использоваться это значение
+![](src/main/resources/static/readme/img.png)
 
 
+Их можно прописать в конфигурации проекта
 
-## Getting started
+1 шаг
+![](src/main/resources/static/readme/img_1.png)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+2 шаг  
+![](src/main/resources/static/readme/img_2.png)
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+3 шаг
+![](src/main/resources/static/readme/img_3.png)
 
-## Add your files
+в проекте используется checkstyle и мапстракт, для их корректной работы необходимо добавить шаг validate и clean перед билдом
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+1 шаг
+![](src/main/resources/static/readme/img_1.png)
+
+2 шаг добавить add before launch task
+![](src/main/resources/static/readme/img_4.png)
+
+3 шаг
+![](src/main/resources/static/readme/img_5.png)
+
+
+4 шаг
+![](src/main/resources/static/readme/img_6.png)
+
+5 шаг
+![](src/main/resources/static/readme/img_7.png)
+
+6 шаг, проверить порядок!!
+![](src/main/resources/static/readme/img_8.png)
+
+
+## 2. Создание merge request
+
+
+### 2.1. Создание merge request через карточку
+Открываем за асигненую за вами карточку
+![](src/main/resources/static/readme/img11.png)
+
+
+Перед созданием мердж реквеста необходимо задать осмысленное(!) название для ветки,
+для этого открой мердж реквест(1), пропишите имя для ветки(2) и убедитесь,
+что новая ветка будет создана от **main** ветки(3) (**в данном проекте вместо dev ветки используется main**)
+![](src/main/resources/static/readme/img_2_2.png)
+
+В мердж реквесте в разделе **Overview**(1) будут отображаться замечания к коду,
+свои изменения можно будет посмотреть в разделе **Changes**(2),
+созданная ветка и куда она будет мерджиться можно будет посмотреть в блоке (3),
+в случае если мердж реквест нужно изменить, это можно сделать в кнопке **Edit**(4),
+после выполнения задания обязательно нажимайте кнопку **Mark as ready**(5),
+в гитлабе за асигненые за вами карточки можно просмотреть по кнопке справа в виде
+карточек(6), а ваши мердж реквесты в кнопке в виде веток(7)
+![](src/main/resources/static/readme/img_3_3.png)
+
+
+### 2.2. Создание merge request если уже создана ветка
+Нажмите на вкладку **Merge request** слева (1), нажмите на кнопку **New merge request** (2)
+![](src/main/resources/static/readme/img_1_1.png)
+
+На открывшейся странице выберите в сурса свою ветку (1), проверьте, что в ветке куда вы собрались мерджить свои изменения стоит **main** (2)  ,
+нажмите кнопку **Compare branches and continue** (3)
+![](src/main/resources/static/readme/img11.png)
+
+На новой странице в селекторе **Assignee** выберите себя (1), в селекторе **Reviewer** выберите проверяющего (2). Проверьте, что стоит чекбокс на удаление после мерджа (3), нажмите кнопку **Create merge request** (4).
+
+### **После создания реквеста приложите ссылку на него в карточку в комментариях**!!!!!!!!!!!!!!
+
+![](src/main/resources/static/readme/img_5_5.png)
+
+## 3. Актуализация ветки и подготовка ее к пуши
+Прежде чем запушить свои изменения, необходимо подготовить ветку к отправке.
+
+Чтобы иметь на руках актуальную версию проекта, необходимо обновить мастер-ветку,
+это нужно делать каждый раз перед отправкой задачи на проверку
+Для этого нажмите на текущую ветку в правом нижнем углу. Выберите опцию **main | update**.
+![](src/main/resources/static/readme/img_6_6.png)
+
+Чтобы подтянуть все смерженные коммиты в локальную ветку, в которой вы работаете, нужно:
+![](src/main/resources/static/readme/img_7_7.png)
+
+## Инструкция по commit-ам
+
+Предлагаю в принудительном порядке соблюдать стандарт при коммитах, более подробно по стайлгайду
+можно ознакомиться по этим статьям и нагуглить дополнительную информацию (важно понимать, что это субъективизм и
+на разных проектах могут быть свои правила или их отсутствие)
+https://habr.com/ru/company/sberbank/blog/662744/
+https://www.conventionalcommits.org/ru/v1.0.0-beta.2/
+
+Далее будет краткое описание правил при написании коммитов, которым мы будем придерживаться в рамках данного проекта
+
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/gusanimax/cinema_2.git
-git branch -M main
-git push -uf origin main
+<type> [optional область]: <Заголовок краткое описание>
+[optional тело] 
+[подвал]
 ```
 
-## Integrate with your tools
+Есть следующие типы
 
-- [ ] [Set up project integrations](https://gitlab.com/gusanimax/cinema_2/-/settings/integrations)
+- fix - исправление багов
+- feat - новый функционал
+- docs - правки/написание документации
+- style - правки код стайла
+- test - написание/изменение теста
+- refactor - рефактор
 
-## Collaborate with your team
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+В теле описания должны быть ответы на вопросы: «Что?» и «Почему?», если делать это не целесообразно(много кода), можно в крации описать, как было до и как стало после
+В подвале мы указываем номер задачи так: issue #"Номер задачи"
 
-## Test and Deploy
+Желательно избегать смешивание коммитов разных типов, но допускается создание дополнительных заголовков в теле
 
-Use the built-in continuous integration in GitLab.
+(в данном случае можно описывать коммиты на русском)
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
 
-***
 
-# Editing this README
+## Описание сущностей
+(ссылка на диаграмму - https://dbdiagram.io/d/61f1b1147cf3fc0e7c6dce0e)
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+### users - `таблица обозначающая аккаунт пользователя в система`
+- id - уникальный идентификатор
+- email - почта
+- first_name - имя
+- last_name - фамилия
+- password - пароль
+- birthday - дата рождения
+- enable - доступность пользователя к системе
 
-## Name
-Choose a self-explaining name for your project.
+### users_role - `связующая таблица` для связи ManyToMany
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+### roles - `определяет права пользователя в системе`
+- id - уникальный идентификатор
+- name - наименование роли, имеет тип enum
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+### score - `таблица отвечающая за оценку пользователей на фильм`
+- id - уникальный идентификатор
+- movie_id - уникальный идентификатор фильма
+- user_id - уникальный идентификатор пользователя
+- score - оценка
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+### movies - `таблица отвечающая за фильмы/сериалы`
+- id - уникальный идентификатор
+- name - наименование
+- original_name - оригинальное наименование фильма
+- countries - страны производства
+- date_release - дата выхода
+- rars - возрастная классификация информационной продукции в России
+- mpaa - система рейтингов Американской киноассоциации
+- time - продолжительность фильма
+- desciption - описание фильма
+- type - тип сериал/фильм, принимает следующее значение MOVIES, SERIALS
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+### genres - `таблица отвечающая за жанры фильмов`
+- id - уникальный идентификатор
+- name - имя жанра
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+### persons - `знаменитости разной деятельности в кино`
+- id - уникальный идентификатор
+- first_name - имя
+- last_name - фамилия
+- height - рост
+- date_birth - дата рождения
+- place_of_birth место рождения
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+### cast - `каст фильма`
+- movie_id - уникальный идентификатор фильма
+- profession_id - уникальный идентификатор професии
+- person_id - уникальный идентификатор персоны(реального человека)
+- character_id - уникальный идентификатор персонажа фильмы
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+### characters - `песонажи фильма`
+- id - уникальный идентификатор
+- person_id - уникальный идентификатор персоны
+- name - имя
+- age - возраст
+- description - описание
+- movie_id - уникальный идентификатор фильма
+- type_character - тип персонажа в фильме/сериале, может принимать следующие значения MAIN_CHARACTER, MINOR_CHARACTER, NO_CHARACTER_MOVIE
 
-## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+### dubbing_actors - `актеры дубляжа`
+- id - уникальный идентификатор
+- character_id - уникальный идентификатор озвучиваемого персонажа
+- person_id - уникальный идентификатор персоны
+- language - язык озвучки
+
+
+### professions - `деятельность в кино`
+- id - уникальный идентификатор
+- name - наименование
+
+
+### person_marriage - `личный статус персоны`
+- id - уникальный идентификатор
+- person_id - уникальный идентификатор одной персоны
+- human_id - уникальный идентификатор другой персоны
+- marriageStatus - сам статус
+
+### excertion - `факты/цитаты персон или персонажей фильма`
+- id - уникальный идентификатор
+- description - описание
+- person_id - уникальный идентификатор персоны
+- movie_id - уникальный идентификатор фильма
+
+### folders_movies - `пользовательские папки для отслеживание фильмов`
+- id - уникальный идентификатор
+- type - тип фолдера, могут принимать следующие значения WAITING_MOVIES("Буду смотреть" ), FAVORITE_MOVIES("Любимые фильмы" ), VIEWED_MOVIES("Просмотренные" ), CUSTOM("Новый список" )
+- user_id - уникальный идентификатор пользователя
+- privacy - доступность папки для других пользователей, может принимать следующие параметры PRIVATE, PUBLIC
+- name - имя для собственных папок
+- description - описание
+
+### folders_persons - `пользовательские папки для отслеживание персон`
+- id - уникальный идентификатор
+- type - тип фолдера, может принимать следующие значения FAVOURITES("Избранное"), CUSTOM("Новая папка")
+- user_id - идентификатор пользователя
+- privacy - доступность папки для других пользователей, может принимать следующие параметры PRIVATE, PUBLIC
+- name - имя для собственных папок
+- description - описание
+
+### media - `определяет медия новости`
+- id - уникальный идентификатор
+- category_id - id категории, к которой относится media
+- date - дата публикации
+- title - заголовок
+- html_body - содержание статьи
+- user_id - идентификатор пользователя
+
+
+### categories - `категория/тип media (к примеру новость, подкаст, тест и т.д.)`
+- id - уникальный идентификатор
+- name - наименование категории
+
+### questions - `вопросы в media, может использовать как шуточный тест или опросник (еще может расширяться)`
+- id - уникальный идентификатор
+- name - наименование фильма
+- originalName - оригинальное название фильма
+- media_id - идентификатор медии
+
+### answers - `ответы на вопрос`
+- id - уникальный идентификатор
+- answer - ответ
+- is_right - указатель на правильный ответ, в нескольких ансверах на один вопрос может быть true
+- question_id - идентификатор вопроса
+
+### results - `результат по количеству правильных ответов`
+- id - уникальный идентификатор
+- count_right_answer - количество правильных ответ
+- result - зависит от количества правильных ответов
+- question_id - идентификатор вопроса
+
+### reviews - `отзыв к  фильму`
+- id - уникальный идентификатор
+- type_reviews
+- title
+- description
+- date
+- user_id
+- movie_id
+- is_moderate
+
+### rating_review - `рейтинг комментария`
+- id - уникальный идентификатор
+- rating - сама оценка (enum)
+- review_id - уникальный идентификатор отзыва
+- user_id - уникальный идентификатор пользователя
+
+### collections - `подборки фильмов`
+- id - уникальный идентификатор
+- name - наименование подборки
+- enable - отвечает за отображение подборки
+- description - описание
+- collection_category_id - уникальный идентификатор категорий коллекций
+
+### user_collections - `пользовательские подборки фильмов`
+- id - уникальный идентификатор
+- user_id - уникальный идентификатор пользователя
+- collection_id - уникальный идентификатор коллекций
+
+### collection_category - `категории коллекций`
+- id - уникальный идентификатор
+- name - наименование
+
+
+### rating_collection - `рейтинг коллекций от пользователей (де факто оценка)`
+- id - уникальный идентификатор
+- rating - сама оценка (enum)
+- collection_id - уникальный идентификатор коллекций
+- user_id - уникальный идентификатор пользователя
+
+### awards_ceremony_result - `результаты церемонии награждения`
+- id - уникальный идентификатор
+- person_id - уникальный идентификатор пользователя
+- movie_id - уникальный идентификатор фильма
+- nomination_id - уникальный идентификатор номинации
+- awards_ceremony_id - уникальный идентификатор церемонии награждения
+- nomination_status - статус номинации, может принимать следующие параметры: NOMINATED, WINNER
+
+
+### awards_ceremony - `церемония награждения`
+- id - уникальный идентификатор
+- date_event - дата проведения
+- place_event - место проведение
+- award_id - уникальный идентификатор награды
+
+
+### awards - `награда`
+- id - уникальный идентификатор
+- name - название (к примеру, золотой глобус, оскар, сезар и т.д.)
+- place_event - место проведение
+- award_id - уникальный идентификатор награды
+
+
+### nomination - `номинация`
+- id - уникальный идентификатор
+- name - название номинации
+
+
+### comments - `комментарии к медиа`
+- id - уникальный идентификатор
+- message - текст комментария
+- date - дата комментария
+- is_moderate - проверен ли комментарий модератором
+- level - уровень вложенности комментария (1 самый верхний)
+- parent_id - уникальный идентификатор родительского комментария (может быть null)
+- media_id - уникальный идентификатор медиа
+
+
+### rating_comment - `рейтинг комментария`
+- id - уникальный идентификатор
+- rating - сама оценка (enum)
+- comment_id - уникальный идентификатор комментария
+- user_id - уникальный идентификатор пользователя
