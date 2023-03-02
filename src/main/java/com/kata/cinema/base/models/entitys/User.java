@@ -1,11 +1,22 @@
 package com.kata.cinema.base.models.entitys;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import java.sql.Date;
 import java.util.Objects;
 import java.util.Set;
-import lombok.*;
-
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 @Table(name = "users")
@@ -16,7 +27,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
-    private int id;
+    private Long id;
     @Column(name = "email", unique = true, nullable = false)
     private String email;
     @Column(name = "first_name", nullable = false)
