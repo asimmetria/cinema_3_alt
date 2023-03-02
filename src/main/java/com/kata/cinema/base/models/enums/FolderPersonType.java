@@ -10,4 +10,7 @@ public enum FolderPersonType {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
 }

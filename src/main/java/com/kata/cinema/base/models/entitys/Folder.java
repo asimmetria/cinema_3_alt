@@ -25,12 +25,15 @@ import static jakarta.persistence.InheritanceType.SINGLE_TABLE;
 @Setter
 @ToString
 public abstract class Folder {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     public User user;
+
     @Column(name = "privacy")
     private Privacy privacy;
 

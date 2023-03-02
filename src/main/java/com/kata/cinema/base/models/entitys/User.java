@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 import jakarta.persistence.JoinTable;
@@ -24,22 +25,26 @@ import jakarta.persistence.JoinColumn;
 @Setter
 @ToString
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
     private Long id;
+
     @Column(name = "email", unique = true, nullable = false)
     private String email;
+
     @Column(name = "first_name", nullable = false)
     private String name;
+
     @Column(name = "last_name")
     private String lastName;
 
     @Column(name = "password", nullable = false)
     private String password;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "birthday")
-    private Date birthday;
+    private LocalDate birthday;
 
     @Column(name = "enable")
     private boolean enable;
@@ -53,6 +58,7 @@ public class User {
     private Set<Role> roles;
 
     public User() {
+
     }
 
     @Override

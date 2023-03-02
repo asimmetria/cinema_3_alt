@@ -19,6 +19,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Role {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;

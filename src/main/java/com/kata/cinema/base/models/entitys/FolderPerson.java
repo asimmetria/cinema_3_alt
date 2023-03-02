@@ -17,6 +17,7 @@ import jakarta.persistence.Enumerated;
 @ToString
 @DiscriminatorValue("folders_persons")
 public class FolderPerson extends Folder {
+
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     private FolderPersonType folderPersonType;
