@@ -20,7 +20,7 @@ import static jakarta.persistence.InheritanceType.SINGLE_TABLE;
 @Entity
 @Table(name = "folders")
 @Inheritance(strategy = SINGLE_TABLE)
-@DiscriminatorColumn(name = "BD_TYPE")
+@DiscriminatorColumn(name = "type_folder")
 @Getter
 @Setter
 @ToString
