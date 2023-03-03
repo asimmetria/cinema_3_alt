@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
