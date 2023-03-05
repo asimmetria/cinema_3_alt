@@ -20,7 +20,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "category")
-public class Category {
+public class Categories {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -33,7 +33,7 @@ public class Category {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Category category = (Category) o;
+        Categories category = (Categories) o;
         return id != null && Objects.equals(id, category.id);
     }
 

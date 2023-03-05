@@ -40,7 +40,7 @@ public class Collection {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-    private Category category;
+    private CollectionCategories category;
 
     //TODO
 //    @ManyToMany

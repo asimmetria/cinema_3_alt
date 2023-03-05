@@ -36,7 +36,7 @@ public class Media {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-    private Category category;
+    private Categories category;
 
     @Column(name = "date")
     @CreationTimestamp
