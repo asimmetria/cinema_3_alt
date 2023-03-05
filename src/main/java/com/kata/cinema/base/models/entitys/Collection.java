@@ -1,6 +1,8 @@
 package com.kata.cinema.base.models.entitys;
 
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +13,8 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.Hibernate;
+
 import java.util.Objects;
 
 @Entity
@@ -19,20 +23,24 @@ import java.util.Objects;
 @Setter
 @ToString
 public class Collection {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
     @Column(name = "name", nullable = false)
     private String name;
+
     @Column(name = "enable", nullable = false)
     private byte enable;
 
+    @Lob
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "collection_category_id")
-    private CollectionCategory collectionCategoryId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     //TODO
 //    @ManyToMany
@@ -49,12 +57,13 @@ public class Collection {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Collection that)) return false;
-        return enable == that.enable && id==that.id;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Collection that = (Collection) o;
+        return id != null && Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, enable);
+        return getClass().hashCode();
     }
 }

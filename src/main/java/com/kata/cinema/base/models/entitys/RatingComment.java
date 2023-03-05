@@ -1,7 +1,20 @@
 package com.kata.cinema.base.models.entitys;
 
-import jakarta.persistence.*;
-import lombok.*;
+import com.kata.cinema.base.models.enums.TypeRating;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -9,15 +22,14 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"comments", "user"})
 public class RatingComment {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rating_comment_seq")
-    @SequenceGenerator(name = "rating_comment_seq", sequenceName = "rating_comment_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-//    @Enumerated(EnumType.STRING)
-//    private Rating rating; TODO Enum Rating
+    @Enumerated(EnumType.STRING)
+    private TypeRating rating;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comment_id")

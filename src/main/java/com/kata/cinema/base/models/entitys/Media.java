@@ -1,10 +1,25 @@
 package com.kata.cinema.base.models.entitys;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.Hibernate;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -12,8 +27,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"questions", "comments", "user"})
 public class Media {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "media_seq")
     @SequenceGenerator(name = "media_seq", sequenceName = "media_seq", allocationSize = 1)
@@ -24,11 +39,13 @@ public class Media {
     private Category category;
 
     @Column(name = "date")
+    @CreationTimestamp
     private LocalDate date;
 
     @Column(name = "title")
     private String title;
 
+    @Lob
     @Column(name = "html_body")
     private String htmlBody;
 
@@ -36,9 +53,16 @@ public class Media {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "media", fetch = FetchType.LAZY)
-    private List<Comment> comments;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Media media = (Media) o;
+        return id != null && Objects.equals(id, media.id);
+    }
 
-    @OneToMany(mappedBy = "media", fetch = FetchType.LAZY)
-    private List<Question> questions;
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

@@ -11,6 +11,8 @@ import lombok.Setter;
 import lombok.ToString;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import org.hibernate.Hibernate;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -20,6 +22,7 @@ import java.util.Objects;
 @Setter
 @ToString
 public class ProductionStudios {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -40,12 +43,13 @@ public class ProductionStudios {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ProductionStudios that)) return false;
-        return id == that.id;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        ProductionStudios that = (ProductionStudios) o;
+        return id != null && Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return getClass().hashCode();
     }
 }

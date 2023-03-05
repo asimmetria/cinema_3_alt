@@ -9,6 +9,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import java.util.Objects;
 
@@ -31,12 +32,13 @@ public class StudiosPerformance {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof StudiosPerformance that)) return false;
-        return id == that.id;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        StudiosPerformance that = (StudiosPerformance) o;
+        return id != null && Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return getClass().hashCode();
     }
 }

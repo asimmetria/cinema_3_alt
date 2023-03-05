@@ -17,12 +17,13 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.JoinColumn;
+import org.hibernate.Hibernate;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
-@ToString
 public class User {
 
     @Id
@@ -41,7 +42,6 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "birthday")
     private LocalDate birthday;
 
@@ -53,7 +53,6 @@ public class User {
             name = "users_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    @ToString.Exclude
     private Set<Role> roles;
 
     public User() {
@@ -63,12 +62,13 @@ public class User {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User user)) return false;
-        return id == user.id && enable == user.enable;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        User user = (User) o;
+        return id != null && Objects.equals(id, user.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, enable);
+        return getClass().hashCode();
     }
 }

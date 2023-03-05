@@ -1,6 +1,7 @@
 package com.kata.cinema.base.models.entitys;
 
 import com.kata.cinema.base.models.enums.Privacy;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Entity;
@@ -14,6 +15,8 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.Hibernate;
+
 import java.util.Objects;
 import static jakarta.persistence.InheritanceType.SINGLE_TABLE;
 
@@ -23,14 +26,13 @@ import static jakarta.persistence.InheritanceType.SINGLE_TABLE;
 @DiscriminatorColumn(name = "type_folder")
 @Getter
 @Setter
-@ToString
 public abstract class Folder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     public User user;
 
@@ -46,12 +48,13 @@ public abstract class Folder {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Folder folder)) return false;
-        return id == folder.id;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Folder folder = (Folder) o;
+        return id != null && Objects.equals(id, folder.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return getClass().hashCode();
     }
 }

@@ -1,5 +1,6 @@
 package com.kata.cinema.base.models.entitys;
 
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Entity;
@@ -10,6 +11,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import java.util.Objects;
 
@@ -18,8 +20,8 @@ import java.util.Objects;
 @Table(name = "production_studios_movies")
 @Getter
 @Setter
-@ToString
-public class ProductionStudiosMovies {
+public class ProductionStudiosMovie {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -29,26 +31,27 @@ public class ProductionStudiosMovies {
 //    @JoinColumn(name = "movie_id", nullable = false)
 //    public Movies movies;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "performance_id", nullable = false)
     public StudiosPerformance studiosPerformance;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "studios_id", nullable = false)
     public ProductionStudios productionStudios;
 
-    public ProductionStudiosMovies() {
+    public ProductionStudiosMovie() {
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ProductionStudiosMovies that)) return false;
-        return id == that.id;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        ProductionStudiosMovie that = (ProductionStudiosMovie) o;
+        return id != null && Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return getClass().hashCode();
     }
 }
