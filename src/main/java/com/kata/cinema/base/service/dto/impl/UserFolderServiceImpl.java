@@ -7,45 +7,48 @@ import com.kata.cinema.base.repository.UserFolderPersonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserFolderServiceImpl implements UserFolderService{
 
     private final UserFolderMovieRepository userFolderMovieRepository;
     private final UserFolderPersonRepository userFolderPersonRepository;
+    private final MappingUtils mappingUtils;
 
-    public UserFolderServiceImpl(UserFolderMovieRepository userFolderMovieRepository, UserFolderPersonRepository userFolderPersonRepository) {
+    public UserFolderServiceImpl(UserFolderMovieRepository userFolderMovieRepository, UserFolderPersonRepository userFolderPersonRepository, MappingUtils mappingUtils) {
         this.userFolderMovieRepository = userFolderMovieRepository;
         this.userFolderPersonRepository = userFolderPersonRepository;
+        this.mappingUtils = mappingUtils;
     }
 
     @Override
     public List<FolderMovieResponseDto> getFolderMovies() {
-        return userFolderMovieRepository.findAll();
+        return userFolderMovieRepository.findAll().stream().map(mappingUtils::mapToMovieDto).collect(Collectors.toList());
     }
 
     @Override
     public List<FolderPersonResponseDto> getFolderPersons() {
-        return userFolderPersonRepository.findAll();
+        return userFolderPersonRepository.findAll().stream().map(mappingUtils::mapToPersonDto).collect(Collectors.toList());
     }
 
     @Override
     public void createFolderPersons(FolderPersonResponseDto folderPersonResponseDto) {
-        userFolderPersonRepository.save(folderPersonResponseDto);
+        userFolderPersonRepository.save(mappingUtils.mapToPersonEntity(folderPersonResponseDto));
     }
 
     @Override
     public void createFolderMovies(FolderMovieResponseDto folderMovieResponseDto) {
-        userFolderMovieRepository.save(folderMovieResponseDto);
+        userFolderMovieRepository.save(mappingUtils.mapToMovieEntity(folderMovieResponseDto));
     }
 
     @Override
     public void deleteFolderPersons(FolderPersonResponseDto folderPersonResponseDto) {
-        userFolderPersonRepository.delete(folderPersonResponseDto);
+        userFolderPersonRepository.delete(mappingUtils.mapToPersonEntity(folderPersonResponseDto));
     }
 
     @Override
     public void deleteFolderMovies(FolderMovieResponseDto folderMovieResponseDto) {
-        userFolderMovieRepository.delete(folderMovieResponseDto);
+        userFolderMovieRepository.delete(mappingUtils.mapToMovieEntity(folderMovieResponseDto));
     }
 }
