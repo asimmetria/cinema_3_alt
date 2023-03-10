@@ -2,7 +2,6 @@ package com.kata.cinema.base.webapp.controller;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
@@ -19,9 +18,7 @@ public class ErrorResponse {
     private HttpStatus httpStatus;
     private int code;
 
-    public ErrorResponse() {
-    }
 
-    public ErrorResponse(int code, String text, HttpStatus httpStatus) {
+    public ErrorResponse(String text, HttpStatus httpStatus, int code, Date date) {
     }
 }
