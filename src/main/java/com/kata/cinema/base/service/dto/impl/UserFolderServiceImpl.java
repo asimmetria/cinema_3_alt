@@ -1,7 +1,8 @@
 package com.kata.cinema.base.service.dto.impl;
 
-import com.kata.cinema.base.models.dto.FolderMovieResponseDto;
-import com.kata.cinema.base.models.dto.FolderPersonResponseDto;
+import com.kata.cinema.base.models.dto.request.FolderRequestDto;
+import com.kata.cinema.base.models.dto.response.FolderMovieResponseDto;
+import com.kata.cinema.base.models.dto.response.FolderPersonResponseDto;
 import com.kata.cinema.base.repository.UserFolderMovieRepository;
 import com.kata.cinema.base.repository.UserFolderPersonRepository;
 import org.springframework.stereotype.Service;
@@ -23,23 +24,23 @@ public class UserFolderServiceImpl implements UserFolderService{
     }
 
     @Override
-    public List<FolderMovieResponseDto> getFolderMovies() {
-        return userFolderMovieRepository.findAll().stream().map(mappingUtils::mapToMovieDto).collect(Collectors.toList());
+    public List<FolderMovieResponseDto> getMovieFoldersByUserId(Long userId) {
+        return userFolderMovieRepository.findById(userId).stream().map(mappingUtils::mapToMovieDto).collect(Collectors.toList());
     }
 
     @Override
-    public List<FolderPersonResponseDto> getFolderPersons() {
-        return userFolderPersonRepository.findAll().stream().map(mappingUtils::mapToPersonDto).collect(Collectors.toList());
+    public List<FolderPersonResponseDto> getPersonFoldersByUserId(Long userId) {
+        return userFolderPersonRepository.findById(userId).stream().map(mappingUtils::mapToPersonDto).collect(Collectors.toList());
     }
 
     @Override
-    public void createFolderPersons(FolderPersonResponseDto folderPersonResponseDto) {
-        userFolderPersonRepository.save(mappingUtils.mapToPersonEntity(folderPersonResponseDto));
+    public void createFolderPersons(FolderRequestDto folderRequestDto, Long userId) {
+        userFolderPersonRepository.save(mappingUtils.mapRToPersonEntity(folderRequestDto));
     }
 
     @Override
-    public void createFolderMovies(FolderMovieResponseDto folderMovieResponseDto) {
-        userFolderMovieRepository.save(mappingUtils.mapToMovieEntity(folderMovieResponseDto));
+    public void createFolderMovies(FolderRequestDto folderRequestDto, Long userId) {
+        userFolderMovieRepository.save(mappingUtils.mapRToMovieEntity(folderRequestDto));
     }
 
     @Override

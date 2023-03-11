@@ -1,7 +1,8 @@
 package com.kata.cinema.base.service.dto.impl;
 
-import com.kata.cinema.base.models.dto.FolderMovieResponseDto;
-import com.kata.cinema.base.models.dto.FolderPersonResponseDto;
+import com.kata.cinema.base.models.dto.request.FolderRequestDto;
+import com.kata.cinema.base.models.dto.response.FolderMovieResponseDto;
+import com.kata.cinema.base.models.dto.response.FolderPersonResponseDto;
 import com.kata.cinema.base.models.entitys.FolderMovie;
 import com.kata.cinema.base.models.entitys.FolderPerson;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,22 @@ public class MappingUtils {
         entity.setId(dto.getId());
         entity.setName(dto.getName());
         entity.setFolderPersonType(dto.getType());
+        entity.setDescription(dto.getDescription());
+        entity.setPrivacy(dto.getPrivacy());
+        return entity;
+    }
+
+    public FolderPerson mapRToPersonEntity(FolderRequestDto dto){
+        FolderPerson entity = new FolderPerson();
+        entity.setName(dto.getName());
+        entity.setDescription(dto.getDescription());
+        entity.setPrivacy(dto.getPrivacy());
+        return entity;
+    }
+
+    public FolderMovie mapRToMovieEntity(FolderRequestDto dto){
+        FolderMovie entity = new FolderMovie();
+        entity.setName(dto.getName());
         entity.setDescription(dto.getDescription());
         entity.setPrivacy(dto.getPrivacy());
         return entity;

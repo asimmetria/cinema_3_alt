@@ -1,8 +1,8 @@
 package com.kata.cinema.base.webapp.controller;
 
-import com.kata.cinema.base.models.dto.FolderMovieResponseDto;
-import com.kata.cinema.base.models.dto.FolderPersonResponseDto;
-import com.kata.cinema.base.models.dto.FolderRequestDto;
+import com.kata.cinema.base.models.dto.response.FolderMovieResponseDto;
+import com.kata.cinema.base.models.dto.response.FolderPersonResponseDto;
+import com.kata.cinema.base.models.dto.request.FolderRequestDto;
 import com.kata.cinema.base.models.enums.FolderMovieType;
 import com.kata.cinema.base.models.enums.FolderPersonType;
 import com.kata.cinema.base.service.dto.impl.UserFolderService;
@@ -24,27 +24,27 @@ public class UserFolderRestController {
     }
 
     @GetMapping("/movies")
-    public ResponseEntity<List<FolderMovieResponseDto>> getFolderMovies() {
-        return ResponseEntity.ok(userFolderService.getFolderMovies());
+    public ResponseEntity<List<FolderMovieResponseDto>> getFolderMovies(@RequestParam Long userId) {
+        return ResponseEntity.ok(userFolderService.getMovieFoldersByUserId(userId));
     }
 
     @GetMapping("/persons")
-    public ResponseEntity<List<FolderPersonResponseDto>> getFolderPersons() {
-        return ResponseEntity.ok(userFolderService.getFolderPersons());
+    public ResponseEntity<List<FolderPersonResponseDto>> getFolderPersons(@RequestParam Long userId) {
+        return ResponseEntity.ok(userFolderService.getPersonFoldersByUserId(userId));
     }
 
     @PostMapping("/persons")
-    public ResponseEntity<FolderRequestDto> createFolderPersons(@Valid @RequestBody FolderRequestDto folderRequestDto) {
+    public ResponseEntity<FolderRequestDto> createFolderPersons(@RequestParam Long userId, @Valid @RequestBody FolderRequestDto folderRequestDto) {
         if (folderRequestDto.getName() == null) folderRequestDto.setName(FolderPersonType.CUSTOM.getName());
-        //
+        userFolderService.createFolderPersons(folderRequestDto, userId);
         return ResponseEntity.ok(folderRequestDto);
     }
 
 
     @PostMapping("/movies")
-    public ResponseEntity<FolderRequestDto> createFolderMovies(@Valid @RequestBody FolderRequestDto folderRequestDto) {
+    public ResponseEntity<FolderRequestDto> createFolderMovies(@RequestParam Long userId, @Valid @RequestBody FolderRequestDto folderRequestDto) {
         if (folderRequestDto.getName() == null) folderRequestDto.setName(FolderMovieType.CUSTOM.getName());
-        //
+        userFolderService.createFolderMovies(folderRequestDto, userId);
         return ResponseEntity.ok(folderRequestDto);
     }
 
@@ -65,6 +65,4 @@ public class UserFolderRestController {
             new ResponseEntity<>(HttpStatus.OK);
         }
     }
-
-
 }

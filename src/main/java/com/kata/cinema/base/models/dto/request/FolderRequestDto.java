@@ -1,15 +1,15 @@
-package com.kata.cinema.base.models.dto;
+package com.kata.cinema.base.models.dto.request;
 
 import com.kata.cinema.base.models.enums.Privacy;
 import lombok.Data;
 
+
 @Data
-public abstract class FolderResponseDto {
-    public Long id;
+public class FolderRequestDto {
     public Privacy privacy;
     public String name;
     public String description;
 
-    public FolderResponseDto() {
+    public FolderRequestDto() {
     }
 }
