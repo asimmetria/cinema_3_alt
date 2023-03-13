@@ -8,17 +8,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.persistence.JoinColumn;
 import org.hibernate.Hibernate;
-import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "users")
