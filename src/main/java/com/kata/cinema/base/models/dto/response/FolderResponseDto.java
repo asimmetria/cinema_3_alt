@@ -12,4 +12,11 @@ public abstract class FolderResponseDto {
 
     public FolderResponseDto() {
     }
+
+    public FolderResponseDto(Long id, Privacy privacy, String name, String description) {
+        this.id = id;
+        this.privacy = privacy;
+        this.name = name;
+        this.description = description;
+    }
 }

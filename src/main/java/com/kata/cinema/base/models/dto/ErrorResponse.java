@@ -1,4 +1,4 @@
-package com.kata.cinema.base.webapp.controller;
+package com.kata.cinema.base.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

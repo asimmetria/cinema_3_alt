@@ -1,13 +1,12 @@
-package com.kata.cinema.base.webapp.controller;
+package com.kata.cinema.base.webapp.controller.config;
 
-
+import com.kata.cinema.base.models.dto.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.Date;
-
 
 @RestControllerAdvice
 public class ExceptionRestController {

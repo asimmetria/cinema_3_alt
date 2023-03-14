@@ -13,7 +13,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.mail.Folder;
 import java.time.LocalDate;
 import java.util.Set;
 
