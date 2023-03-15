@@ -13,6 +13,31 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
+    public void update(User user) {
+        userRepository.save(user);
+    }
+
+    @Override
+    public void save(User user) {
+        userRepository.save(user);
+    }
+
+    @Override
+    public void deleteEnableFlagById (Long id, boolean enable) {
+        userRepository.deleteEnableFlagById(id,enable);
+    }
+
+    @Override
+    public void deleteRoleFromUser(Long userId, Long roleId) {
+        userRepository.deleteRoleFromUser(userId, roleId);
+    }
+
+    @Override
+    public void addRoleToUser(Long userId, Long roleId) {
+        userRepository.addRoleToUser(userId, roleId);
+    }
+
+    @Override
     public User getProxyById(long id) {
         return userRepository.getReferenceById(id);
     }
