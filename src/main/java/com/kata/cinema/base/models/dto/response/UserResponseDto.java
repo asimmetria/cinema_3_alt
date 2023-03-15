@@ -5,12 +5,12 @@ import java.time.LocalDate;
 
 @Data
 public class UserResponseDto {
-    Long id;
-    String email;
-    String firstName;
-    String lastName;
-    String password;
-    LocalDate birthday;
+    public Long id;
+    public String email;
+    public String firstName;
+    public String lastName;
+    public String password;
+    public LocalDate birthday;
     public UserResponseDto() {
     }
 
