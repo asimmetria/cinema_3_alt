@@ -1,6 +1,5 @@
 package com.kata.cinema.base.service.dto;
 
-import com.kata.cinema.base.models.dto.request.FolderRequestDto;
 import com.kata.cinema.base.models.dto.response.FolderMovieResponseDto;
 import com.kata.cinema.base.models.dto.response.FolderPersonResponseDto;
 
