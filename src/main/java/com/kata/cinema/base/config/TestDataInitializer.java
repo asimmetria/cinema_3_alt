@@ -17,6 +17,8 @@ import com.kata.cinema.base.service.entity.RoleService;
 import com.kata.cinema.base.service.entity.UserService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -38,8 +40,8 @@ public class TestDataInitializer {
         this.roleService = roleService;
         this.folderService = folderService;
     }
-    @PostConstruct
-    public void init() {
+    @EventListener
+    public void onApplicationEvent(ContextRefreshedEvent event) {
         if (runInit) {
             initRoles();
             initUsers();
