@@ -5,4 +5,7 @@ import com.kata.cinema.base.models.entitys.User;
 public interface UserService {
 
     User getProxyById(long id);
+    void save(User user);
+
+    User findByEmail(String email);
 }
