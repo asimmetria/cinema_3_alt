@@ -42,7 +42,6 @@ public class UserFolderMovieRestController {
         if (folderRequestDto.getName() == null) {
             folderRequestDto.setName(FolderMovieType.CUSTOM.getName());
         }
-
         Folder folder = folderMovieMapper.toEntity(folderRequestDto);
         folder.setUser(userService.getProxyById(userId));
         folderService.save(folder);
