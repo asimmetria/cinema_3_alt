@@ -10,4 +10,7 @@ public interface UserService {
     void addRoleToUser(Long userId, Long roleId);
     void deleteEnableFlagById(Long id, boolean enable);
     User getProxyById(long id);
+    void save(User user);
+
+    User findByEmail(String email);
 }
