@@ -31,7 +31,7 @@ public class TestDataInitializer {
     private final RoleService roleService;
     private final FolderService folderService;
 
-    public TestDataInitializer(@Value("${RUN_INIT}") boolean runInit,
+    public TestDataInitializer(@Value("${RUN_INIT:true}") boolean runInit,
                                UserService userService,
                                RoleService roleService,
                                FolderService folderService) {
@@ -68,7 +68,7 @@ public class TestDataInitializer {
                     .plusDays(random.nextInt(365))
                     .plusYears(random.nextInt(41));
             Set<Role> roles = new HashSet<>();
-            roles.add(roleService.findByName(String.valueOf(RoleNameEnum.USER)));
+            roles.add(roleService.findByName(RoleNameEnum.USER));
             User newUser = new User();
             newUser.setEmail(email);
             newUser.setName(firstName);
@@ -92,8 +92,8 @@ public class TestDataInitializer {
                 .plusDays(random.nextInt(365))
                 .plusYears(random.nextInt(41));
         Set<Role> adminRoles = new HashSet<>();
-        adminRoles.add(roleService.findByName(String.valueOf(RoleNameEnum.USER)));
-        adminRoles.add(roleService.findByName(String.valueOf(RoleNameEnum.ADMIN)));
+        adminRoles.add(roleService.findByName(RoleNameEnum.USER));
+        adminRoles.add(roleService.findByName(RoleNameEnum.ADMIN));
         User newAdmin = new User();
         newAdmin.setEmail(email);
         newAdmin.setName(firstName);
@@ -114,8 +114,8 @@ public class TestDataInitializer {
                 .plusDays(random.nextInt(365))
                 .plusYears(random.nextInt(41));
         Set<Role> publicistRoles = new HashSet<>();
-        publicistRoles.add(roleService.findByName(String.valueOf(RoleNameEnum.USER)));
-        publicistRoles.add(roleService.findByName(String.valueOf(RoleNameEnum.PUBLICIST)));
+        publicistRoles.add(roleService.findByName(RoleNameEnum.USER));
+        publicistRoles.add(roleService.findByName(RoleNameEnum.PUBLICIST));
         User newPublicist = new User();
         newPublicist.setEmail(email);
         newPublicist.setName(firstName);

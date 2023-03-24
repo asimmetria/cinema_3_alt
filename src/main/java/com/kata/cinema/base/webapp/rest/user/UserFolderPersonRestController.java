@@ -1,13 +1,8 @@
-package com.kata.cinema.base.webapp.controller.user;
+package com.kata.cinema.base.webapp.rest.user;
 
-import com.kata.cinema.base.converter.folder.FolderPersonMapper;
 import com.kata.cinema.base.models.dto.response.FolderPersonResponseDto;
 import com.kata.cinema.base.models.dto.request.FolderRequestDto;
-import com.kata.cinema.base.models.entitys.Folder;
-import com.kata.cinema.base.models.enums.FolderPersonType;
-import com.kata.cinema.base.service.dto.FolderDtoService;
-import com.kata.cinema.base.service.entity.FolderService;
-import com.kata.cinema.base.service.entity.UserService;
+import com.kata.cinema.base.webapp.facade.folder.UserFolderPersonServiceFacade;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,31 +22,22 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserFolderPersonRestController {
 
-    private final FolderDtoService  folderDtoService;
-    private final FolderService folderService;
-    private final FolderPersonMapper folderPersonMapper;
-    private final UserService userService;
+    private final UserFolderPersonServiceFacade userFolderPersonServiceFacade;
 
     @GetMapping("/persons")
     public ResponseEntity<List<FolderPersonResponseDto>> getFolderPersons(@RequestParam Long userId) {
-        return ResponseEntity.ok(folderDtoService.getPersonFoldersByUserId(userId));
+        return ResponseEntity.ok(userFolderPersonServiceFacade.getFolderPersonsByUserId(userId));
     }
 
     @PostMapping("/persons")
     public ResponseEntity<Void> createFolderPersons(@RequestParam Long userId, @Valid @RequestBody FolderRequestDto folderRequestDto) {
-        if (folderRequestDto.getName() == null) {
-            folderRequestDto.setName(FolderPersonType.CUSTOM.getName());
-        }
-
-        Folder folder = folderPersonMapper.toEntity(folderRequestDto);
-        folder.setUser(userService.getProxyById(userId));
-        folderService.save(folder);
+        userFolderPersonServiceFacade.createFolderPerson(folderRequestDto);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("persons/{id}")
     public ResponseEntity<Void> deleteFolderPersons(@PathVariable Long id) {
-        folderService.deleteById(id);
+        userFolderPersonServiceFacade.deleteFolderById(id);
         return ResponseEntity.ok().build();
     }
 }
