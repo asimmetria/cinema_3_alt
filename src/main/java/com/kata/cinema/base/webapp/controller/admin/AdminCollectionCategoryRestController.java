@@ -1,31 +1,36 @@
 package com.kata.cinema.base.webapp.controller.admin;
 
+import com.kata.cinema.base.models.dto.ErrorResponse;
+import com.kata.cinema.base.models.dto.request.CategoryRequestDto;
 import com.kata.cinema.base.models.dto.response.CategoryResponseDto;
+import com.kata.cinema.base.models.dto.validator.CategoryRequestDtoValidator;
 import com.kata.cinema.base.models.entitys.CollectionCategories;
 import com.kata.cinema.base.service.entity.CollectionCategoryService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/admin/collections/categories")
+@Validated
 public class AdminCollectionCategoryRestController {
 
     private final CollectionCategoryService categoryService;
+    private final CategoryRequestDtoValidator categoryRequestDtoValidator;
 
-    public AdminCollectionCategoryRestController(CollectionCategoryService categoryService) {
+    public AdminCollectionCategoryRestController(CollectionCategoryService categoryService,
+                                                 CategoryRequestDtoValidator categoryRequestDtoValidator) {
         this.categoryService = categoryService;
+        this.categoryRequestDtoValidator = categoryRequestDtoValidator;
     }
 
     @GetMapping
@@ -59,8 +64,18 @@ public class AdminCollectionCategoryRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createCategory(@RequestParam String name) {
-        categoryService.createCategory(name);
+    public ResponseEntity<Void> createCategory(@Valid @RequestBody CategoryRequestDto categoryRequestDto,
+                                               BindingResult bindingResult) {
+        categoryRequestDtoValidator.validate(categoryRequestDto, bindingResult);
+        if (bindingResult.hasErrors()) {
+            List<String> errors = bindingResult.getAllErrors().stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .collect(Collectors.toList());
+            ErrorResponse errorResponse = new ErrorResponse("Validation failed", HttpStatus.BAD_REQUEST, 400, new Date());
+            errorResponse.setText(errors.toString());
+            return ResponseEntity.badRequest().body(null);
+        }
+        categoryService.createCategory(categoryRequestDto.getName());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
