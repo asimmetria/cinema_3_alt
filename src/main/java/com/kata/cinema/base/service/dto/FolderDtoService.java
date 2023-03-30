@@ -8,6 +8,7 @@ import java.util.List;
 public interface FolderDtoService {
 
     List<FolderMovieResponseDto> getMovieFoldersByUserId(Long userId);
+
     List<FolderPersonResponseDto> getPersonFoldersByUserId(Long userId);
 
 

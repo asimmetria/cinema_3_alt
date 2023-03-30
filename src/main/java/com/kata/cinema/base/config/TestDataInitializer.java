@@ -40,6 +40,7 @@ public class TestDataInitializer {
         this.roleService = roleService;
         this.folderService = folderService;
     }
+
     @EventListener
     public void onApplicationEvent(ContextRefreshedEvent event) {
         if (runInit) {

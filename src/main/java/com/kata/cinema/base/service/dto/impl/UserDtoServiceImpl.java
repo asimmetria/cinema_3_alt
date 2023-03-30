@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserDtoServiceImpl implements UserDtoService {
     private final UserRepository userRepository;
+
     @Override
     public UserResponseDto getUserById(Long userId) {
         return userRepository.getUserById(userId);
