@@ -41,6 +41,8 @@ public class Collection {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private CollectionCategories category;
+    @Column(name = "collection_url")
+    private String collectionUrl;
 
     //TODO
 //    @ManyToMany
