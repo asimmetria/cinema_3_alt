@@ -5,7 +5,7 @@ import com.kata.cinema.base.models.dto.request.CategoryRequestDto;
 import com.kata.cinema.base.models.dto.response.CategoryResponseDto;
 import com.kata.cinema.base.models.dto.validator.CategoryRequestDtoValidator;
 import com.kata.cinema.base.models.entitys.CollectionCategories;
-import com.kata.cinema.base.service.entity.CollectionCategoryService;
+import com.kata.cinema.base.service.facade.CollectionCategoryFacade;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -24,18 +24,22 @@ import java.util.stream.Collectors;
 @Validated
 public class AdminCollectionCategoryRestController {
 
-    private final CollectionCategoryService categoryService;
+    private final CollectionCategoryFacade categoryFacade;
     private final CategoryRequestDtoValidator categoryRequestDtoValidator;
 
-    public AdminCollectionCategoryRestController(CollectionCategoryService categoryService,
+    public AdminCollectionCategoryRestController(CollectionCategoryFacade categoryFacade,
                                                  CategoryRequestDtoValidator categoryRequestDtoValidator) {
-        this.categoryService = categoryService;
+        this.categoryFacade = categoryFacade;
         this.categoryRequestDtoValidator = categoryRequestDtoValidator;
+    }
+
+    private boolean isExistById(Long id) {
+        return categoryFacade.getCategoryById(id) != null;
     }
 
     @GetMapping
     public ResponseEntity<List<CategoryResponseDto>> getCategories() {
-        List<CollectionCategories> categories = categoryService.getAllCategories();
+        List<CollectionCategories> categories = categoryFacade.getAllCategories();
         List<CategoryResponseDto> categoryResponseDtos = categories.stream()
                 .map(CategoryResponseDto::new)
                 .collect(Collectors.toList());
@@ -44,22 +48,22 @@ public class AdminCollectionCategoryRestController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
-        CollectionCategories category = categoryService.getCategoryById(id);
-        if (category == null) {
+        if (!isExistById(id)) {
             throw new EntityNotFoundException("Category with id " + id + " not found");
         }
-        categoryService.deleteCategory(category);
+        CollectionCategories category = categoryFacade.getCategoryById(id);
+        categoryFacade.deleteCategory(category);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateCategory(@PathVariable Long id, @RequestParam String name) {
-        CollectionCategories category = categoryService.getCategoryById(id);
-        if (category == null) {
+        if (!isExistById(id)) {
             throw new EntityNotFoundException("Category with id " + id + " not found");
         }
+        CollectionCategories category = categoryFacade.getCategoryById(id);
         category.setName(name);
-        categoryService.updateCategory(category);
+        categoryFacade.updateCategory(category);
         return ResponseEntity.noContent().build();
     }
 
@@ -75,7 +79,7 @@ public class AdminCollectionCategoryRestController {
             errorResponse.setText(errors.toString());
             return ResponseEntity.badRequest().body(null);
         }
-        categoryService.createCategory(categoryRequestDto.getName());
+        categoryFacade.createCategory(categoryRequestDto.getName());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
