@@ -10,6 +10,9 @@ public class UserCommentResponseDto {
     public String message;
     public UserNameResponseDto user;
 
+    public UserCommentResponseDto() {
+    }
+
     public UserCommentResponseDto(Long id, Long parentId, Integer level, String message, UserNameResponseDto user) {
         this.id = id;
         this.parentId = parentId;

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping( "api/media/{id}/comments")
+@RequestMapping("api/media/{id}/comments")
 @RequiredArgsConstructor
 public class MediaCommentRestController {
 

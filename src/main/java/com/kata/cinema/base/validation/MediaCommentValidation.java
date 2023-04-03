@@ -7,8 +7,6 @@ public interface MediaCommentValidation {
     void isExistCommentById(long id);
     void checkMediaIdAndCommentIdHaveSameId(long id, long commentId) throws Exception;
 
-    void commentIsModerate(CommentRequestDto commentRequestDto) throws Exception;
-
     void commentHasParentComment(CommentRequestDto commentRequestDto) throws Exception;
 
 }

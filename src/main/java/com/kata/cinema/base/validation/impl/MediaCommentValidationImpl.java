@@ -17,10 +17,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 public class MediaCommentValidationImpl implements MediaCommentValidation {
-
     private final CommentRepository commentRepository;
     private final MediaRepository mediaRepository;
-
     private final CommentMapper commentMapper;
 
 
@@ -65,25 +63,20 @@ public class MediaCommentValidationImpl implements MediaCommentValidation {
     }
 
     @Override
-    public void commentIsModerate(CommentRequestDto commentRequestDto) throws Exception {
-        log.debug("Checking that the comment is being moderated");
-        Comment comment = commentMapper.toEntity(commentRequestDto);
-        if (!comment.isModerate()) {
-            log.error("The comment is not moderated");
-            throw new Exception("Комментарий не прошёл модерацию");
-        }
-        log.info("Successful check that the comment is moderated");
-    }
-
-    @Override
     public void commentHasParentComment(CommentRequestDto commentRequestDto) throws Exception {
         log.debug("Checking that the comment has a parent comment");
-        Comment comment = commentMapper.toEntity(commentRequestDto);
-        if (comment.getParentComment() == null){
-            log.error("The comment doesn't have a parent comment");
-            throw new Exception("Корневой комментарий не найден");
+        Comment comment;
+        if (commentRequestDto.parentId != null) {
+            comment = commentMapper.toEntity(commentRequestDto);
+            if (comment.getParentComment() == null){
+                log.error("The comment doesn't have a parent comment");
+                throw new Exception("Корневой комментарий не найден");
+            }
+            log.info("Successful check that the comment has a parent comment");
+        } else {
+            log.error("The DTO is null");
+            throw new Exception("Идентификатор ДТО, объекта передачи данных, равен нулю");
         }
-        log.info("Successful check that the comment has a parent comment");
     }
 
 }

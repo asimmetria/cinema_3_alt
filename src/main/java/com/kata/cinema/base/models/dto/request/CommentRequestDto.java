@@ -8,6 +8,9 @@ public class CommentRequestDto {
     public Long parentId;
     public Integer level;
 
+    public CommentRequestDto() {
+    }
+
     public CommentRequestDto(String message, Long parentId, Integer level) {
         this.message = message;
         this.parentId = parentId;

@@ -39,10 +39,10 @@ public class MediaCommentServiceFacadeImpl implements MediaCommentServiceFacade 
     @Override
     public void sendComment(Long mediaId, CommentRequestDto commentRequestDto) throws Exception {
         mediaCommentValidation.isExistMediaById(mediaId);
-        Media media = mediaService.getMediaById(mediaId);
-        mediaCommentValidation.commentIsModerate(commentRequestDto);
         mediaCommentValidation.commentHasParentComment(commentRequestDto);
+        Media media = mediaService.getMediaById(mediaId);
         Comment comment = commentMapper.toEntity(commentRequestDto);
+        comment.setModerate(false);
         comment.setMedia(media);
         commentService.save(comment);
     }
@@ -51,8 +51,8 @@ public class MediaCommentServiceFacadeImpl implements MediaCommentServiceFacade 
     public void editComment(String message, Long mediaId, Long commentId) throws Exception {
         mediaCommentValidation.isExistMediaById(mediaId);
         mediaCommentValidation.isExistCommentById(commentId);
-        Comment comment = commentService.getCommentById(commentId);
         mediaCommentValidation.checkMediaIdAndCommentIdHaveSameId(mediaId, commentId);
+        Comment comment = commentService.getCommentById(commentId);
         comment.setMessage(message);
         commentService.save(comment);
     }
@@ -61,8 +61,8 @@ public class MediaCommentServiceFacadeImpl implements MediaCommentServiceFacade 
     public void deleteComment(Long mediaId, Long commentId) throws Exception {
         mediaCommentValidation.isExistMediaById(mediaId);
         mediaCommentValidation.isExistCommentById(commentId);
-        Comment comment = commentService.getCommentById(commentId);
         mediaCommentValidation.checkMediaIdAndCommentIdHaveSameId(mediaId, commentId);
+        Comment comment = commentService.getCommentById(commentId);
         commentService.delete(comment);
     }
 
