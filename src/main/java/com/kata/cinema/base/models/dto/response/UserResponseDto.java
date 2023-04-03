@@ -11,6 +11,7 @@ public class UserResponseDto {
     public String lastName;
     public String password;
     public LocalDate birthday;
+
     public UserResponseDto() {
     }
 

@@ -15,6 +15,7 @@ public class UserRequestDto {
     @NotBlank
     public String password;
     public LocalDate birthday;
+
     public UserRequestDto() {
     }
 

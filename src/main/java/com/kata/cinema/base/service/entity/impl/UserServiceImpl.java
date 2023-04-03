@@ -1,12 +1,16 @@
 package com.kata.cinema.base.service.entity.impl;
 
+import com.kata.cinema.base.exception.NotFoundEntityException;
 import com.kata.cinema.base.models.entitys.Role;
 import com.kata.cinema.base.models.entitys.User;
+import com.kata.cinema.base.models.enums.RoleNameEnum;
 import com.kata.cinema.base.repository.RoleRepository;
 import com.kata.cinema.base.repository.UserRepository;
 import com.kata.cinema.base.service.entity.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -22,13 +26,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) {
+        Role role = roleRepository.getRoleByName(RoleNameEnum.USER);
+        user.setRoles(Set.of(role));
         userRepository.save(user);
-    }
-
-    @Override
-    public void deleteEnableFlagById (Long id, boolean enable) {
-        User user = userRepository.getReferenceById(id);
-        user.setEnable(enable);
     }
 
     @Override
@@ -51,7 +51,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(User user) {
+    public User getById(long id) {
+        return userRepository.findById(id).orElseThrow(() -> new NotFoundEntityException("Пользователя не существует"));
+    }
+
+    @Override
+    public void offEnable(long id) {
+        User user = userRepository.findById(id).get();
+        user.setEnable(false);
         userRepository.save(user);
     }
 
