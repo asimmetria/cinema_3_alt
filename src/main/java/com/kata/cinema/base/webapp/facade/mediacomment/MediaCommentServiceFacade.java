@@ -6,8 +6,8 @@ import org.springframework.data.domain.Page;
 
 public interface MediaCommentServiceFacade {
 
-    Page<UserCommentResponseDto> getComment(Long commentId);
-    void sendComment (Long commentId, CommentRequestDto commentRequestDto) throws Exception;
+    Page<UserCommentResponseDto> getComment(Long mediaId);
+    void sendComment (Long mediaId, CommentRequestDto commentRequestDto) throws Exception;
     void editComment(String message, Long mediaId, Long commentId) throws Exception;
 
     void deleteComment(Long mediaId, Long commentId) throws Exception;

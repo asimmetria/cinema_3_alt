@@ -29,8 +29,8 @@ public class MediaCommentServiceFacadeImpl implements MediaCommentServiceFacade 
     private final CommentMapper commentMapper;
 
     @Override
-    public Page<UserCommentResponseDto> getComment(Long commentId) {
-        UserCommentResponseDto userCommentResponseDto = commentDtoService.getUserCommentById(commentId);
+    public Page<UserCommentResponseDto> getComment(Long mediaId) {
+        UserCommentResponseDto userCommentResponseDto = commentDtoService.getUserCommentById(mediaId);
         List<UserCommentResponseDto> comments = new ArrayList<>();
         comments.add(userCommentResponseDto);
         return new PageImpl<>(comments);
