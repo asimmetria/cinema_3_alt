@@ -13,11 +13,15 @@ public class UserCommentResponseDto {
     public UserCommentResponseDto() {
     }
 
-    public UserCommentResponseDto(Long id, Long parentId, Integer level, String message, UserNameResponseDto user) {
+    public UserCommentResponseDto(Long id) {
+        this.id = id;
+    }
+
+
+    public UserCommentResponseDto(Long id, Long parentId, Integer level, String message) {
         this.id = id;
         this.parentId = parentId;
         this.level = level;
         this.message = message;
-        this.user = user;
     }
 }

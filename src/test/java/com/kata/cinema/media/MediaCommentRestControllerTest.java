@@ -1,4 +1,4 @@
-package com.kata.cinema.base.webapp.rest.media;
+package com.kata.cinema.media;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
