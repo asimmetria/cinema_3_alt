@@ -57,7 +57,7 @@ public class MediaCommentRestControllerTest {
 
         Page<UserCommentResponseDto> expectedPage = new PageImpl<>(Collections.singletonList(userCommentResponseDto));
 
-        when(mediaCommentServiceFacade.getComment(anyLong())).thenReturn(expectedPage);
+        when(mediaCommentServiceFacade.getComments(anyLong())).thenReturn(expectedPage);
 
         MvcResult mvcResult = mockMvc.perform(get("/api/media/{id}/comments", MEDIA_COMMENT_ID))
                 .andExpect(status().isOk())

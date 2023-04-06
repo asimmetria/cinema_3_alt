@@ -19,7 +19,7 @@ public class MediaCommentRestController {
 
     @GetMapping
     public ResponseEntity<Page<UserCommentResponseDto>> getComment(@PathVariable Long id) {
-        return ResponseEntity.ok(mediaCommentServiceFacade.getComment(id));
+        return ResponseEntity.ok(mediaCommentServiceFacade.getComments(id));
     }
 
     @PostMapping

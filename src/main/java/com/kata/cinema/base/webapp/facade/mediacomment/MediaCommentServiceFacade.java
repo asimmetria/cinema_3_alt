@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 
 public interface MediaCommentServiceFacade {
 
-    Page<UserCommentResponseDto> getComment(Long mediaId);
+    Page<UserCommentResponseDto> getComments(Long mediaId);
     void sendComment (Long mediaId, CommentRequestDto commentRequestDto) throws Exception;
     void editComment(String message, Long mediaId, Long commentId) throws Exception;
 

@@ -15,8 +15,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -29,11 +27,8 @@ public class MediaCommentServiceFacadeImpl implements MediaCommentServiceFacade 
     private final CommentMapper commentMapper;
 
     @Override
-    public Page<UserCommentResponseDto> getComment(Long mediaId) {
-        UserCommentResponseDto userCommentResponseDto = commentDtoService.getUserCommentById(mediaId);
-        List<UserCommentResponseDto> comments = new ArrayList<>();
-        comments.add(userCommentResponseDto);
-        return new PageImpl<>(comments);
+    public Page<UserCommentResponseDto> getComments(Long mediaId) {
+        return new PageImpl<>(commentDtoService.listWellDoneUserCommentResponseDto(mediaId));
     }
 
     @Override
