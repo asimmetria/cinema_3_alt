@@ -14,7 +14,7 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     @Query("SELECT new com.kata.cinema.base.models.dto.response.UserCommentResponseDto(c.id) " +
             "FROM Comment c WHERE c.media.id = :mediaId")
-    List<UserCommentResponseDto> listDto(@Param("mediaId") Long mediaId);
+    List<UserCommentResponseDto> listUserCommentResponseDto(@Param("mediaId") Long mediaId);
 
     @Query("SELECT new com.kata.cinema.base.models.entitys.User(c.user.id) FROM Comment c WHERE c.id IN :commentIds")
     List<UserNameResponseDto> getUsersByCommentIds(@Param("commentIds") List<Long> commentIds);

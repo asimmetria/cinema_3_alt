@@ -16,24 +16,18 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CommentDtoServiceImpl implements CommentDtoService {
 
-
     private final CommentRepository commentRepository;
 
-    List<Long> ids;
-
     @Override
-    public List<UserCommentResponseDto> listDto(Long mediaId) {
-        List<UserCommentResponseDto> userCommentResponseDtos = commentRepository.listDto(mediaId);
-        ids = userCommentResponseDtos.stream()
-                .map(UserCommentResponseDto::getId)
-                .toList();
-        return userCommentResponseDtos;
+    public List<UserCommentResponseDto> listUserCommentResponseDto(Long mediaId) {
+        return commentRepository.listUserCommentResponseDto(mediaId);
     }
 
     @Override
-    public List<UserNameResponseDto> getUserDtoByCommentIds() {
+    public List<UserNameResponseDto> getUserDtoByCommentIds(Long mediaId) {
         List<UserNameResponseDto> result = new ArrayList<>();
-        for (Long commentId : ids) {
+        List<Long> idUserCommentResponseDto = listUserCommentResponseDto(mediaId).stream().map(UserCommentResponseDto::getId).toList();
+        for (Long commentId : idUserCommentResponseDto) {
             result.add(new UserNameResponseDto(commentId));
         }
         return result;
@@ -46,7 +40,7 @@ public class CommentDtoServiceImpl implements CommentDtoService {
         Optional<Comment> optional = commentRepository.findById(mediaId);
         if(optional.isPresent()) comment = optional.get();
         userCommentResponseDto.setId(comment.getId());
-        userCommentResponseDto.setUser(getUserDtoByCommentIds().get(comment.getUser().getId().intValue()));
+        userCommentResponseDto.setUser(getUserDtoByCommentIds(mediaId).get(comment.getUser().getId().intValue()));
         userCommentResponseDto.setParentId(comment.getParentComment().getId());
         userCommentResponseDto.setLevel(comment.getLevel());
         userCommentResponseDto.setMessage(comment.getMessage());

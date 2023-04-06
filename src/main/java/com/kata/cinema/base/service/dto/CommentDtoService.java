@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface CommentDtoService {
 
-    List<UserCommentResponseDto> listDto(Long mediaId);
+    List<UserCommentResponseDto> listUserCommentResponseDto(Long mediaId);
     UserCommentResponseDto getUserCommentById(Long mediaId);
-    List<UserNameResponseDto> getUserDtoByCommentIds();
+    List<UserNameResponseDto> getUserDtoByCommentIds(Long mediaId);
 
 }
