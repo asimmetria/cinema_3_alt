@@ -3,7 +3,6 @@ package com.kata.cinema.base.service.dto.impl;
 import com.kata.cinema.base.models.dto.response.UserCommentResponseDto;
 import com.kata.cinema.base.models.dto.response.UserNameResponseDto;
 import com.kata.cinema.base.models.entitys.Comment;
-import com.kata.cinema.base.models.entitys.User;
 import com.kata.cinema.base.repository.CommentRepository;
 import com.kata.cinema.base.service.dto.CommentDtoService;
 import lombok.RequiredArgsConstructor;
@@ -11,9 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,17 +27,14 @@ public class CommentDtoServiceImpl implements CommentDtoService {
         ids = userCommentResponseDtos.stream()
                 .map(UserCommentResponseDto::getId)
                 .toList();
-        return commentRepository.listDto(mediaId);
+        return userCommentResponseDtos;
     }
 
     @Override
     public List<UserNameResponseDto> getUserDtoByCommentIds() {
-        List<User> users = commentRepository.getUsersByCommentIds(ids);
-        Map<Long, User> userMap = users.stream().collect(Collectors.toMap(User::getId, Function.identity()));
         List<UserNameResponseDto> result = new ArrayList<>();
         for (Long commentId : ids) {
-            User user = userMap.get(commentRepository.getOne(commentId).getUser().getId());
-            result.add(new UserNameResponseDto(user.getId(), user.getName() + " " + user.getLastName(), ""));
+            result.add(new UserNameResponseDto(commentId));
         }
         return result;
     }
@@ -48,7 +42,9 @@ public class CommentDtoServiceImpl implements CommentDtoService {
     @Override
     public UserCommentResponseDto getUserCommentById(Long mediaId) {
         UserCommentResponseDto userCommentResponseDto = new UserCommentResponseDto();
-        Comment comment = commentRepository.findById(mediaId).get();
+        Comment comment = new Comment();
+        Optional<Comment> optional = commentRepository.findById(mediaId);
+        if(optional.isPresent()) comment = optional.get();
         userCommentResponseDto.setId(comment.getId());
         userCommentResponseDto.setUser(getUserDtoByCommentIds().get(comment.getUser().getId().intValue()));
         userCommentResponseDto.setParentId(comment.getParentComment().getId());
