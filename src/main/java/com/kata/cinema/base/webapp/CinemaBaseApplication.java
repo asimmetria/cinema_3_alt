@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories({"com.kata.cinema.base"})
 public class CinemaBaseApplication {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         SpringApplication.run(CinemaBaseApplication.class, args);
     }
 }

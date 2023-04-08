@@ -7,5 +7,5 @@ import com.kata.cinema.base.models.entitys.ProductionStudios;
 import org.mapstruct.Mapper;
 
 @Mapper(config = ConfigMapper.class)
-public interface ProductionStudioMapper extends EntityMapper<ProductionStudiosRequestDto, ProductionStudios>{
+public interface ProductionStudioMapper extends EntityMapper<ProductionStudiosRequestDto, ProductionStudios> {
 }
