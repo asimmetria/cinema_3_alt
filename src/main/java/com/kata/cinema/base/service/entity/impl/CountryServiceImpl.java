@@ -2,7 +2,6 @@ package com.kata.cinema.base.service.entity.impl;
 
 import com.kata.cinema.base.models.entitys.Country;
 import com.kata.cinema.base.repository.MovieCountryRepository;
-import com.kata.cinema.base.repository.MovieRepository;
 import com.kata.cinema.base.service.entity.CountryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,8 +11,6 @@ import org.springframework.stereotype.Service;
 public class CountryServiceImpl implements CountryService {
 
     private final MovieCountryRepository movieCountryRepository;
-
-    private final MovieRepository movieRepository;
 
     @Override
     public void save(Country country) {
