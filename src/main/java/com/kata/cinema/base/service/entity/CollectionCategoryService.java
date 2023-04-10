@@ -12,7 +12,12 @@ public interface CollectionCategoryService {
 
     void deleteCategory(CollectionCategories category);
 
-    void updateCategory(CollectionCategories category);
+
+    CollectionCategories updateCategory(Long id, String name);
+
+
 
     void createCategory(String name);
+
+    boolean isCategoryExistById(Long id);
 }

@@ -3,7 +3,6 @@ package com.kata.cinema.base.service.entity.impl;
 import com.kata.cinema.base.models.entitys.CollectionCategories;
 import com.kata.cinema.base.repository.CollectionCategoryRepository;
 import com.kata.cinema.base.service.entity.CollectionCategoryService;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,8 +32,10 @@ public class CollectionCategoryServiceImpl implements CollectionCategoryService 
     }
 
     @Override
-    public void updateCategory(CollectionCategories category) {
-        categoryRepository.save(category);
+    public CollectionCategories updateCategory(Long id, String name) {
+        CollectionCategories category = getCategoryById(id);
+        category.setName(name);
+        return categoryRepository.save(category);
     }
 
     @Override
@@ -42,5 +43,10 @@ public class CollectionCategoryServiceImpl implements CollectionCategoryService 
         CollectionCategories category = new CollectionCategories();
         category.setName(name);
         categoryRepository.save(category);
+    }
+
+    @Override
+    public boolean isCategoryExistById(Long id) {
+        return categoryRepository.existsById(id);
     }
 }
