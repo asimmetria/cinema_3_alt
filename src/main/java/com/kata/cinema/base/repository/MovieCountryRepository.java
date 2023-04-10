@@ -16,4 +16,11 @@ public interface MovieCountryRepository extends JpaRepository<Country, Long> {
     List<CountryResponseDto> getCountriesByMovieId(@Param("movieId") Long id);
 
     Country getCountryById(Long id);
+
+    Country getCountryByName(String name);
+
+    boolean existsCountryById(Long id);
+
+    boolean existsCountryByName(String name);
+
 }

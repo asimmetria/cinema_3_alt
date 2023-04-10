@@ -5,11 +5,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class CountryResponseDto {
 
     private Long id;
 
     private String name;
+
+    public CountryResponseDto(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

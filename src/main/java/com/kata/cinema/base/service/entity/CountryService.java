@@ -6,11 +6,18 @@ public interface CountryService {
 
     void save(Country country);
 
-    void update(Country country);
+    void saveCountryByName(String name);
+
+    void update(Long id, String name);
 
     void deleteById(Long id);
 
     Country getProxyById(Long id);
 
     Country getCountryById(Long id);
+
+    boolean isExistCountryByName(String name);
+
+    boolean isExistCountryById(Long id);
+
 }

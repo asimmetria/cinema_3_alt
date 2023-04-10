@@ -1,7 +1,6 @@
-package com.kata.cinema.base.webapp.controller.admin;
+package com.kata.cinema.base.webapp.rest.admin;
 
 import com.kata.cinema.base.models.dto.response.CountryResponseDto;
-import com.kata.cinema.base.models.entitys.Country;
 import com.kata.cinema.base.service.dto.CountryDtoService;
 import com.kata.cinema.base.service.entity.CountryService;
 import lombok.RequiredArgsConstructor;
@@ -28,28 +27,27 @@ public class AdminCountryRestController {
     private final CountryService countryService;
 
     @PostMapping("/admin/countries")
-    public ResponseEntity<Void> createCountryByName(@RequestParam String name) {
-        Country country = new Country();
-        country.setName(name);
-        countryService.save(country);
+    public ResponseEntity<String> createCountryByName(@RequestParam String name) {
+        if (countryService.isExistCountryByName(name)) {
+            return ResponseEntity.badRequest().body(String.format("Страна - %s уже добавлена", name));
+        }
+        countryService.saveCountryByName(name);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("admin/countries/{id}")
-    public ResponseEntity<Void> putCountryById(@PathVariable Long id, @RequestParam String name) {
-        if (countryService.getCountryById(id) == null) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<String> putCountryById(@PathVariable Long id, @RequestParam String name) {
+        if (!countryService.isExistCountryById(id)) {
+            return ResponseEntity.badRequest().body(String.format("Страны с id - %s не существует", id));
         }
-        Country country = countryService.getCountryById(id);
-        country.setName(name);
-        countryService.save(country);
+        countryService.update(id, name);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("admin/countries/{id}")
-    public ResponseEntity<Void> deleteCountryById(@PathVariable Long id) {
-        if (countryService.getProxyById(id) == null) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<String> deleteCountryById(@PathVariable Long id) {
+        if (!countryService.isExistCountryById(id)) {
+            return ResponseEntity.badRequest().body(String.format("Страны с id - %s не существует", id));
         }
         countryService.deleteById(id);
         return ResponseEntity.ok().build();
