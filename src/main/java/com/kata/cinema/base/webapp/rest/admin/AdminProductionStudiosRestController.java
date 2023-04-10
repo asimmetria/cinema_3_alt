@@ -1,4 +1,4 @@
-package com.kata.cinema.base.webapp.controller.admin;
+package com.kata.cinema.base.webapp.rest.admin;
 
 import com.kata.cinema.base.converter.production.ProductionStudioMapper;
 import com.kata.cinema.base.models.dto.request.ProductionStudiosRequestDto;
@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
-
 @RestController
 @RequestMapping("api/admin/studios")
 @AllArgsConstructor
+//TODO переписать на фасад
 public class AdminProductionStudiosRestController {
 
 

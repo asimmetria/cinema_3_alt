@@ -1,7 +1,10 @@
 package com.kata.cinema.base.models.entitys;
 
+import com.kata.cinema.base.models.enums.MediaStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.CreationTimestamp;
@@ -52,6 +56,14 @@ public class Media {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private MediaStatus status;
+
+    @Column(name = "enable")
+    @NonNull
+    private boolean enable;
 
     @Override
     public boolean equals(Object o) {
