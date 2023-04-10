@@ -1,19 +1,18 @@
 package com.kata.cinema.base.models.dto.response;
 
-import com.kata.cinema.base.models.entitys.CollectionCategories;
-import lombok.*;
+import lombok.Data;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class CategoryResponseDto {
 
-    private Long id;
-    private String name;
+    Long id;
+    String name;
 
-    public CategoryResponseDto(CollectionCategories category) {
-        this.id = category.getId();
-        this.name = category.getName();
+    public CategoryResponseDto() {
+    }
+
+    public CategoryResponseDto(Long id, String name) {
+        this.id = id;
+        this.name = name;
     }
 }
