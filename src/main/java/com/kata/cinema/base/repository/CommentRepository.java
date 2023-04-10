@@ -1,7 +1,6 @@
 package com.kata.cinema.base.repository;
 
 import com.kata.cinema.base.models.dto.response.UserCommentResponseDto;
-import com.kata.cinema.base.models.dto.response.UserNameResponseDto;
 import com.kata.cinema.base.models.entitys.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,8 +14,5 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     @Query("SELECT new com.kata.cinema.base.models.dto.response.UserCommentResponseDto(c.id) " +
             "FROM Comment c WHERE c.media.id = :mediaId")
     List<UserCommentResponseDto> listUserCommentResponseDto(@Param("mediaId") Long mediaId);
-
-    @Query("SELECT new com.kata.cinema.base.models.dto.response.UserNameResponseDto(c.user.id) FROM Comment c WHERE c.id IN :commentIds")
-    List<UserNameResponseDto> getUsersByCommentIds(@Param("commentIds") List<Long> commentIds);
 
 }
