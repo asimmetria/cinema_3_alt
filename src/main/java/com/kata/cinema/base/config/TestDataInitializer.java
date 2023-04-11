@@ -29,7 +29,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConditionalOnExpression("${RUN_INIT:true}")
+@ConditionalOnExpression("${run.init:true}")
 @RequiredArgsConstructor
 public class TestDataInitializer {
     private final RoleNameEnum[] roles = RoleNameEnum.values();
