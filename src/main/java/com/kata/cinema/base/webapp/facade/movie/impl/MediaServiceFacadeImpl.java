@@ -22,11 +22,6 @@ public class MediaServiceFacadeImpl implements MediaServiceFacade {
     private final MediaMapper mediaMapper;
 
     @Override
-    public Page<MediaTitleResponseDto> findEnabledAndVerifiedMedias(Integer pageNumber, Long countItems, Long categoryId) {
-        return mediaService.findEnabledAndVerifiedMedias(pageNumber, countItems, categoryId);
-    }
-
-    @Override
     public void createMedia(MediaRequestDto mediaRequestDto) {
 
         Media media = mediaMapper.toEntity(mediaRequestDto);

@@ -1,6 +1,8 @@
 package com.kata.cinema.base.models.entitys;
 
 import com.kata.cinema.base.models.enums.Privacy;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -36,6 +38,7 @@ public abstract class Folder {
     public User user;
 
     @Column(name = "privacy")
+    @Enumerated(EnumType.STRING)
     private Privacy privacy;
 
     @Column(name = "name")

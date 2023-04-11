@@ -25,14 +25,6 @@ public class PublicistMediaRestController {
 
     private final MediaServiceFacade mediaServiceFacade;
 
-    @GetMapping("/medias/page/{pageNumber}")
-    public ResponseEntity<Page<MediaTitleResponseDto>> getMedias(
-            @RequestParam(defaultValue = "0")  @PathVariable int pageNumber,
-            @RequestParam(defaultValue = "10") Long countItems,
-            @RequestParam(required = false) Long categoryId) {
-        return ResponseEntity.ok(mediaServiceFacade.findEnabledAndVerifiedMedias(pageNumber, countItems, categoryId));
-    }
-
     @PostMapping("/publicist/medias")
     public ResponseEntity<Void> createMedia(@RequestBody MediaRequestDto mediaRequestDto) {
         mediaServiceFacade.createMedia(mediaRequestDto);

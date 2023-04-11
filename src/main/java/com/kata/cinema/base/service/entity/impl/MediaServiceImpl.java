@@ -24,18 +24,6 @@ public class MediaServiceImpl implements MediaService {
     private final MediaRepository mediaRepository;
     private final CategoryRepository categoryRepository;
 
-
-    @Override
-    public Page<MediaTitleResponseDto> findEnabledAndVerifiedMedias(Integer pageNumber, Long countItems, Long categoryId) {
-
-        Pageable pageable = PageRequest.of(pageNumber, Math.toIntExact(countItems), Sort.by("created").descending());
-
-        if (categoryId != null) {
-            return mediaRepository.findAllByCategoryIdAndEnableTrueAndStatusEqualsOrderByCreatedDesc(categoryId, pageable);
-        }
-        return mediaRepository.findAllByEnableTrueAndStatusEqualsOrderByCreatedDesc(pageable);
-    }
-
     @Override
     public void createMedia(Media media) {
 

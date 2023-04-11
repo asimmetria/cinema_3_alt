@@ -8,8 +8,6 @@ import org.springframework.data.domain.Page;
 
 public interface MediaServiceFacade {
 
-    Page<MediaTitleResponseDto> findEnabledAndVerifiedMedias(Integer pageNumber, Long countItems, Long categoryId);
-
     void createMedia(MediaRequestDto mediaRequestDto);
 
     void updateMedia(Long id, MediaRequestDto mediaRequestDto);

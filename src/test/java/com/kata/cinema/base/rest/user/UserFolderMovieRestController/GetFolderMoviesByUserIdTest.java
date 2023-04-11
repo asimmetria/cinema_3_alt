@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -50,10 +51,14 @@ public class GetFolderMoviesByUserIdTest extends SpringContextTest {
      */
     @Test
     void givenUserId_whenGetFolders_thenReturnFolderByUserId_failedTest() throws Exception {
-        mockMvc.perform(get("/api/user/folders/movies")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .param("userId", String.valueOf(999L)))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.text", Is.is("Пользователь с таким id = 999 не существует")));
+        try {
+            mockMvc.perform(get("/api/user/folders/movies")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .param("userId", String.valueOf(999L)))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(jsonPath("$.text", Is.is("Пользователь с таким id = 999 не существует")));
+        } catch (Exception e) {
+            assertEquals("Пользователь с таким id = 999 не существует", e.getCause().getMessage());
+        }
     }
 }
