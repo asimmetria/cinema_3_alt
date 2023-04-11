@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface StudiosPerformanceService {
 
-    void save(StudiosPerformance performance);
+    void save(String name);
 
-    void update(StudiosPerformance updatedPerformance);
+    void update(Long id, String name);
 
     void deleteById(Long id);
 

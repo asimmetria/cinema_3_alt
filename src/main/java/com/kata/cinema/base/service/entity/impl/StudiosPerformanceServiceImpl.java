@@ -13,13 +13,17 @@ public class StudiosPerformanceServiceImpl implements StudiosPerformanceService 
     private final StudiosPerformanceRepository performanceRepository;
 
     @Override
-    public void save(StudiosPerformance performance) {
+    public void save(String name) {
+        StudiosPerformance performance = new StudiosPerformance();
+        performance.setName(name);
         performanceRepository.save(performance);
     }
 
     @Override
-    public void update(StudiosPerformance updatedPerformance) {
-        performanceRepository.save(updatedPerformance);
+    public void update(Long id, String name) {
+        StudiosPerformance performance = performanceRepository.getReferenceById(id);
+        performance.setName(name);
+        performanceRepository.save(performance);
     }
 
     @Override

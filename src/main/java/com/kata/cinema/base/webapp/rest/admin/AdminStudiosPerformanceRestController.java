@@ -1,9 +1,6 @@
 package com.kata.cinema.base.webapp.rest.admin;
 
-import com.kata.cinema.base.exception.NoSuchConnectionException;
 import com.kata.cinema.base.models.dto.response.PerformanceResponseDto;
-import com.kata.cinema.base.models.entitys.ProductionStudiosMovie;
-import com.kata.cinema.base.models.entitys.StudiosPerformance;
 import com.kata.cinema.base.webapp.facade.performance.StudiosPerformanceServiceFacade;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,22 +22,16 @@ import java.util.List;
 public class AdminStudiosPerformanceRestController {
 
     private final StudiosPerformanceServiceFacade performanceServiceFacade;
-    private final StudiosPerformance performance;
 
     @PostMapping("/performance/")
     public ResponseEntity<Void> createPerformance(@RequestParam String name) {
+
         performanceServiceFacade.save(name);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/performance/{id}")
     public ResponseEntity<Void> deletePerformance(@PathVariable("id") Long id) {
-
-        ProductionStudiosMovie movie = (ProductionStudiosMovie) performance.getMovies();
-
-        if (performance.getMovies().size() > 0) {
-            throw new NoSuchConnectionException();
-        }
 
         performanceServiceFacade.deleteById(id);
         return ResponseEntity.ok().build();
@@ -55,6 +46,7 @@ public class AdminStudiosPerformanceRestController {
 
     @GetMapping("/performance")
     public ResponseEntity<List<PerformanceResponseDto>> getPerformance() {
+
         List<PerformanceResponseDto> dto = performanceServiceFacade.getPerformance();
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
