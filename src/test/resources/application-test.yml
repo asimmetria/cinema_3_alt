@@ -7,3 +7,5 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+
+RUN_INIT: false
