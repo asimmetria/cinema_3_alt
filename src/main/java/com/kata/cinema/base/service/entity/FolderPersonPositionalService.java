@@ -4,11 +4,12 @@ import com.kata.cinema.base.models.entitys.FolderPersonPositional;
 
 public interface FolderPersonPositionalService {
 
-    void save(FolderPersonPositional folderPersonPositional);
+    void save(Long folderId, Long personId);
 
-    void update(FolderPersonPositional folderPersonPositional);
+    void update(Long folderId, Long personId, Integer newPosition);
 
     void deleteById(Long id);
 
     FolderPersonPositional getProxyById(Long id);
+
 }

@@ -4,9 +4,9 @@ import com.kata.cinema.base.models.entitys.FolderMoviePositional;
 
 public interface FolderMoviePositionalService {
 
-    void save(FolderMoviePositional folderMoviePositional);
+    void save(Long folderId, Long movieId);
 
-    void update(FolderMoviePositional folderMoviePositional);
+    void update(Long folderId, Long movieId, Integer newPosition);
 
     void deleteById(Long id);
 

@@ -6,8 +6,6 @@ import com.kata.cinema.base.service.dto.FolderMoviePositionalDtoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class FolderMoviePositionalDtoServiceImpl implements FolderMoviePositionalDtoService {
@@ -15,14 +13,8 @@ public class FolderMoviePositionalDtoServiceImpl implements FolderMoviePositiona
     private final FolderMoviePositionalRepository folderMoviePositionalRepository;
 
     @Override
-    public FolderMoviePositionalResponseDto getFolderMoviePositionalByFolderAndMovie(Long folderId, Long movieId) {
-        return folderMoviePositionalRepository.getFolderMoviePositionalByFolderAndMovie(folderId, movieId);
+    public FolderMoviePositionalResponseDto getByFolderIdAndMovieId(Long folderId, Long movieId) {
+        return folderMoviePositionalRepository.getByFolderIdAndMovieId(folderId, movieId);
     }
-
-    @Override
-    public List<FolderMoviePositionalResponseDto> getAll() {
-        return folderMoviePositionalRepository.getAll();
-    }
-
 
 }

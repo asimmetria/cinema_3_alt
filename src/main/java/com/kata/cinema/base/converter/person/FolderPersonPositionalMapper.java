@@ -9,6 +9,5 @@ import com.kata.cinema.base.models.entitys.FolderPersonPositional;
 import org.mapstruct.Mapper;
 
 @Mapper(config = ConfigMapper.class)
-public interface FolderPersonPositionalMapper extends DtoMapper<FolderPersonPositionalResponseDto, FolderPersonPositional>,
-        EntityMapper<FolderPersonPositionalRequestDto, FolderPersonPositional> {
+public interface FolderPersonPositionalMapper extends EntityMapper<FolderPersonPositionalResponseDto, FolderPersonPositional> {
 }

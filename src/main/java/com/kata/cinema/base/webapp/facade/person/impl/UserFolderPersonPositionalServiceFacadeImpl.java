@@ -1,35 +1,29 @@
 package com.kata.cinema.base.webapp.facade.person.impl;
 
-
 import com.kata.cinema.base.converter.person.FolderPersonPositionalMapper;
-import com.kata.cinema.base.models.dto.request.FolderPersonPositionalRequestDto;
-import com.kata.cinema.base.models.dto.response.FolderPersonPositionalResponseDto;
+import com.kata.cinema.base.models.entitys.FolderPersonPositional;
 import com.kata.cinema.base.service.dto.FolderPersonPositionalDtoService;
 import com.kata.cinema.base.service.entity.FolderPersonPositionalService;
 import com.kata.cinema.base.webapp.facade.person.UserFolderPersonPositionalServiceFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 @RequiredArgsConstructor
 public class UserFolderPersonPositionalServiceFacadeImpl implements UserFolderPersonPositionalServiceFacade {
 
     private final FolderPersonPositionalService folderPersonPositionalService;
-    private final FolderPersonPositionalMapper folderPersonPositionalMapper;
     private final FolderPersonPositionalDtoService folderPersonPositionalDtoService;
-
+    private final FolderPersonPositionalMapper folderPersonPositionalMapper;
 
     @Override
-    public FolderPersonPositionalResponseDto getFolderPersonPositionalByFolderAndPerson(Long folderId, Long personId) {
-        return folderPersonPositionalDtoService.getFolderPersonPositionalByFolderAndPerson(folderId, personId);
+    public FolderPersonPositional getByFolderIdAndPersonId(Long folderId, Long personId) {
+        return folderPersonPositionalMapper.toEntity(folderPersonPositionalDtoService.getByFolderIdAndPersonId(folderId, personId));
     }
 
     @Override
-    public void addPersonToFolder(FolderPersonPositionalRequestDto personPositionalRequestDto) {
-        folderPersonPositionalService.save(folderPersonPositionalMapper.toEntity(personPositionalRequestDto));
-
+    public void createFolderPersonPositional(Long folderId, Long personId) {
+        folderPersonPositionalService.save(folderId, personId);
     }
 
     @Override
@@ -38,12 +32,7 @@ public class UserFolderPersonPositionalServiceFacadeImpl implements UserFolderPe
     }
 
     @Override
-    public List<FolderPersonPositionalResponseDto> getAll() {
-        return folderPersonPositionalDtoService.getAll();
-    }
-
-    @Override
-    public void updatePerson(FolderPersonPositionalRequestDto personPositionalRequestDto) {
-        folderPersonPositionalService.update(folderPersonPositionalMapper.toEntity(personPositionalRequestDto));
+    public void updateFolderPersonPositional(Long folderId, Long personId, Integer newPosition) {
+        folderPersonPositionalService.update(folderId, personId, newPosition);
     }
 }

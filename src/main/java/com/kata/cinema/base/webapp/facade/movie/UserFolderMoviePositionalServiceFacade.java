@@ -1,19 +1,15 @@
 package com.kata.cinema.base.webapp.facade.movie;
 
-import com.kata.cinema.base.models.dto.request.FolderMoviePositionalRequestDto;
 import com.kata.cinema.base.models.dto.response.FolderMoviePositionalResponseDto;
-
-import java.util.List;
+import com.kata.cinema.base.models.entitys.FolderMoviePositional;
 
 public interface UserFolderMoviePositionalServiceFacade {
-    FolderMoviePositionalResponseDto getFolderMoviePositionalByFolderAndMovie(Long folderId, Long movieId);
 
-    void addMovieToFolder(FolderMoviePositionalRequestDto movieRequestDto);
+    FolderMoviePositional getByFolderIdAndMovieId(Long folderId, Long movieId);
+
+    void createFolderMoviePositional(Long folderId, Long movieId);
 
     void deleteFolderMoviePositionalById(Long id);
 
-    List<FolderMoviePositionalResponseDto> getAll();
-
-    void updateMovie(FolderMoviePositionalRequestDto movieRequestDto);
-
+    void updateFolderMoviePositional(Long folderId, Long movieId, Integer newPosition);
 }
