@@ -15,7 +15,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "cast")
+@Table(name = "casts")
 public class Cast {
 
     @Id
