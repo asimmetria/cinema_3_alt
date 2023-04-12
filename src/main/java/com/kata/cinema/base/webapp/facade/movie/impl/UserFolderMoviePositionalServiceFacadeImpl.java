@@ -1,7 +1,6 @@
 package com.kata.cinema.base.webapp.facade.movie.impl;
 
 import com.kata.cinema.base.converter.movie.FolderMoviePositionalMapper;
-import com.kata.cinema.base.models.dto.response.FolderMoviePositionalResponseDto;
 import com.kata.cinema.base.models.entitys.FolderMoviePositional;
 import com.kata.cinema.base.service.dto.FolderMoviePositionalDtoService;
 import com.kata.cinema.base.service.entity.FolderMoviePositionalService;

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -34,10 +35,10 @@ public class UserFolderPersonPositionalRestController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{id}/persons/{personId}?position={position}")
+    @PutMapping("/{id}/persons/{personId}")
     public ResponseEntity<Void> changePersonPositionInFolder(@PathVariable Long id,
-                                                            @PathVariable Long personId,
-                                                            @PathVariable Integer position) {
+                                                             @PathVariable Long personId,
+                                                             @RequestParam("position") Integer position) {
         userPersonPositionalServiceFacade.updateFolderPersonPositional(id, personId, position);
         return ResponseEntity.ok().build();
     }
