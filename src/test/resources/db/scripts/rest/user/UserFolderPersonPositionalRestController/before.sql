@@ -15,15 +15,13 @@ INSERT INTO persons (id, first_name, last_name, height, date_birth, place_of_bir
 VALUES (100, 'John', 'Doe', 175.5, '1990-05-15', 'New York'),
        (101, 'Jane', 'Smith', 160.0, '1995-02-28', 'Los Angeles'),
        (102, 'Michael', 'Johnson', 185.2, '1988-11-10', 'Chicago'),
-       (103, 'Sarah', 'Brown', 170.8, '1993-07-20', 'Houston'),
-       (104, 'David', 'Taylor', 195.1, '1985-09-05', 'Miami'),
-       (105, 'Emily', 'Wilson', 155.7, '2000-04-18', 'San Francisco');
+       (103, 'Sarah', 'Brown', 170.8, '1993-07-20', 'Houston');
 
 -- Добавление тестовых данных в таблицу folders_movies_positional
 -- Добавление записи 1
 INSERT INTO folders_persons_positional (id, person, folder, positional)
 VALUES (
-            1,
+            100,
             (SELECT id FROM persons WHERE first_name = 'John' AND last_name = 'Doe'), -- Здесь указываем id нужной персоны
             (SELECT id FROM folders WHERE type_folder = 'folders_persons' AND name = 'Новая папка1'), -- Здесь указываем id нужной папки
             1 -- Здесь указываем позицию персоны в папке
@@ -32,7 +30,7 @@ VALUES (
 -- Добавление записи 2
 INSERT INTO folders_persons_positional (id, person, folder, positional)
 VALUES (
-            2,
+            101,
             (SELECT id FROM persons WHERE first_name = 'Jane' AND last_name = 'Smith'), -- Здесь указываем id нужной персоны
             (SELECT id FROM folders WHERE type_folder = 'folders_persons' AND name = 'Новая папка1'), -- Здесь указываем id нужной папки
             2 -- Здесь указываем позицию персоны в папке
@@ -41,7 +39,7 @@ VALUES (
 -- Добавление записи 2
 INSERT INTO folders_persons_positional (id, person, folder, positional)
 VALUES (
-           3,
+           102,
            (SELECT id FROM persons WHERE first_name = 'Michael' AND last_name = 'Johnson'), -- Здесь указываем id нужной персоны
            (SELECT id FROM folders WHERE type_folder = 'folders_persons' AND name = 'Новая папка1'), -- Здесь указываем id нужной папки
            3 -- Здесь указываем позицию персоны в папке

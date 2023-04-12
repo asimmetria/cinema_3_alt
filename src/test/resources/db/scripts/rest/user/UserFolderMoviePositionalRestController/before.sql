@@ -21,7 +21,7 @@ VALUES (100, 'Тест 1', 'Страна 1, Страна 2', '2022-01-01', 'SIXT
 -- Добавление записи 1
 INSERT INTO folders_movies_positional (id, movie, folder, positional)
 VALUES (
-            1,
+            100,
             (SELECT id FROM movies WHERE name = 'Тест 1'), -- Здесь указываем id нужного фильма
             (SELECT id FROM folders WHERE type_folder = 'folders_movies' AND name = 'Новая папка1'), -- Здесь указываем id нужной папки
             1 -- Здесь указываем позицию фильма в папке
@@ -30,17 +30,17 @@ VALUES (
 -- Добавление записи 2
 INSERT INTO folders_movies_positional (id, movie, folder, positional)
 VALUES (
-            2,
-            (SELECT id FROM movies WHERE name = 'Тест 2'), -- Здесь указываем id нужного фильма
-            (SELECT id FROM folders WHERE type_folder = 'folders_movies' AND name = 'Новая папка1'), -- Здесь указываем id нужной папки
+            101,
+            (SELECT id FROM movies WHERE name = 'Тест 2'), -- Здесь указываем id нужного фильма (101)
+            (SELECT id FROM folders WHERE type_folder = 'folders_movies' AND name = 'Новая папка1'), -- Здесь указываем id нужной папки (100)
             2 -- Здесь указываем позицию фильма в папке
        );
 
 -- Добавление записи 3
 INSERT INTO folders_movies_positional (id, movie, folder, positional)
 VALUES (
-           3,
-           (SELECT id FROM movies WHERE name = 'Тест 3'), -- Здесь указываем id нужного фильма
-           (SELECT id FROM folders WHERE type_folder = 'folders_movies' AND name = 'Новая папка1'), -- Здесь указываем id нужной папки
+           102,
+           (SELECT id FROM movies WHERE name = 'Тест 3'), -- Здесь указываем id нужного фильма (102)
+           (SELECT id FROM folders WHERE type_folder = 'folders_movies' AND name = 'Новая папка1'), -- Здесь указываем id нужной папки (100)
            3 -- Здесь указываем позицию фильма в папке
        );

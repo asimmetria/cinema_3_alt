@@ -12,6 +12,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,17 +36,19 @@ public class UserFolderMoviePositionalRestControllerTest extends SpringContextTe
     void givenFolderIdAndMovieId_whenAddMovieToFolder_thenSuccessTest() throws Exception {
         // Given
         Long id = 100L;
-        Long movieId = 100L;
+        Long movieId = 103L;
 
         // When
         mockMvc.perform(post("/api/user/folders/{id}/movies/{movieId}", id, movieId)
                         .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
                 .andExpect(status().isOk());
 
         // Then
         // Проверка, что фильм был добавлен в фолдер
         FolderMoviePositional folderMoviePositional = userFolderMoviePositionalServiceFacade.getByFolderIdAndMovieId(id, movieId);
         assertNotNull(folderMoviePositional);
+
     }
 
     /**
@@ -53,24 +56,31 @@ public class UserFolderMoviePositionalRestControllerTest extends SpringContextTe
      * Успешное изменение позиции фильма в фолдер
      */
     @Test
-    void givenFolderIdAndMovieIdAndPosition_whenChangeMoviePositionInFolder_thenSuccessTest() throws Exception {
+    void givenFolderIdAndMovieIdAndPosition_whenChangeMoviePositionInFolder_thenUpdateNextMoviesPositions_successTest() throws Exception {
         // Given
         Long id = 100L;
         Long movieId = 100L;
-        Integer position = 1;
-        Integer newPosition = 2;
+        Integer position = 2;
+
 
         // When
-        mockMvc.perform(put("/api/user/folders/{id}/movies/{movieId}?position={position}", id, movieId, position)
-                        .param("positional", String.valueOf(newPosition))
+        mockMvc.perform(put("/api/user/folders/{id}/movies/{movieId}", id, movieId)
+                        .param("position", String.valueOf(position))
                         .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
                 .andExpect(status().isOk());
 
         // Then
         // Проверка, что позиция фильма была обновлена в фолдер
         FolderMoviePositional folderMoviePositional = userFolderMoviePositionalServiceFacade.getByFolderIdAndMovieId(id, movieId);
         assertNotNull(folderMoviePositional);
-        assertEquals(newPosition, folderMoviePositional.getPositional());
+        assertEquals(position, folderMoviePositional.getPositional());
+
+        // Проверка, что позиция следующих фильмов была обновлена
+        FolderMoviePositional folderMoviePositional1 = userFolderMoviePositionalServiceFacade.getByFolderIdAndMovieId(100L, 101L);
+        FolderMoviePositional folderMoviePositional2 = userFolderMoviePositionalServiceFacade.getByFolderIdAndMovieId(100L, 102L);
+        assertEquals(position + 1, folderMoviePositional1.getPositional());
+        assertEquals(position + 2, folderMoviePositional2.getPositional());
     }
 
     /**
@@ -78,20 +88,29 @@ public class UserFolderMoviePositionalRestControllerTest extends SpringContextTe
      * Успешное удаление фильма из фолдер
      */
     @Test
-    void givenFolderIdAndMovieId_whenDeleteMovieFromFolder_thenSuccessTest() throws Exception {
+    void givenFolderIdAndMovieId_whenDeleteMovieFromFolder_thenUpdateNextMoviesPositions_successTest() throws Exception {
         // Given
         Long id = 100L;
         Long movieId = 100L;
+        Integer deletedMoviePosition = userFolderMoviePositionalServiceFacade.getByFolderIdAndMovieId(id, movieId).getPositional();
 
         // When
         mockMvc.perform(delete("/api/user/folders/{id}/movies/{movieId}", id, movieId)
                         .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
                 .andExpect(status().isOk());
 
         // Then
         // Проверка, что фильмы был удален из фолдер
         FolderMoviePositional folderMoviePositional = userFolderMoviePositionalServiceFacade.getByFolderIdAndMovieId(id, movieId);
         assertNull(folderMoviePositional);
+
+        // Проверка, что позиция следующих фильма была обновлена
+        FolderMoviePositional folderMoviePositional1 = userFolderMoviePositionalServiceFacade.getByFolderIdAndMovieId(100L, 101L);
+        FolderMoviePositional folderMoviePositional2 = userFolderMoviePositionalServiceFacade.getByFolderIdAndMovieId(100L, 102L);
+        assertEquals(deletedMoviePosition, folderMoviePositional1.getPositional());
+        assertEquals(deletedMoviePosition + 1, folderMoviePositional2.getPositional());
+
     }
 
 }
