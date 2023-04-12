@@ -106,7 +106,7 @@ public class UserFolderPersonPositionalRestControllerTest extends SpringContextT
         FolderPersonPositional folderPersonPositional = userFolderPersonPositionalServiceFacade.getByFolderIdAndPersonId(id, personId);
         assertNull(folderPersonPositional);
 
-        // Проверка, что позиция следующей персоны была обновлена
+        // Проверка, что позиция следующих персон была обновлена
         FolderPersonPositional folderPersonPositional1 = userFolderPersonPositionalServiceFacade.getByFolderIdAndPersonId(100L, 101L);
         FolderPersonPositional folderPersonPositional2 = userFolderPersonPositionalServiceFacade.getByFolderIdAndPersonId(100L, 102L);
         assertEquals(deletedPersonPosition, folderPersonPositional1.getPositional());

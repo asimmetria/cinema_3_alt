@@ -105,7 +105,7 @@ public class UserFolderMoviePositionalRestControllerTest extends SpringContextTe
         FolderMoviePositional folderMoviePositional = userFolderMoviePositionalServiceFacade.getByFolderIdAndMovieId(id, movieId);
         assertNull(folderMoviePositional);
 
-        // Проверка, что позиция следующих фильма была обновлена
+        // Проверка, что позиция следующих фильмов была обновлена
         FolderMoviePositional folderMoviePositional1 = userFolderMoviePositionalServiceFacade.getByFolderIdAndMovieId(100L, 101L);
         FolderMoviePositional folderMoviePositional2 = userFolderMoviePositionalServiceFacade.getByFolderIdAndMovieId(100L, 102L);
         assertEquals(deletedMoviePosition, folderMoviePositional1.getPositional());
