@@ -6,18 +6,20 @@ import java.util.List;
 
 public interface CollectionCategoryService {
 
-    List<CollectionCategories> getAllCategories();
+    List<CollectionCategories> getAllCollectionCategories();
 
-    CollectionCategories getCategoryById(Long id);
+    CollectionCategories getCollectionCategoriesById(Long id);
 
-    void deleteCategory(CollectionCategories category);
-
-
-    CollectionCategories updateCategory(Long id, String name);
+    void deleteCollectionCategories(CollectionCategories collectionCategories);
 
 
+    CollectionCategories updateCollectionCategories(Long id, String name);
 
-    void createCategory(String name);
 
-    boolean isCategoryExistById(Long id);
+
+    void createCollectionCategories(CollectionCategories collectionCategories);
+
+    boolean isCollectionCategoriesExistsById(Long id);
+
+    void updateCollectionCategories(CollectionCategories collectionCategories);
 }
