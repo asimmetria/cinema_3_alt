@@ -1,8 +1,6 @@
 package com.kata.cinema.base.webapp.facade.person;
 
-import com.kata.cinema.base.models.dto.response.FolderPersonPositionalResponseDto;
 import com.kata.cinema.base.models.entitys.FolderPersonPositional;
-
 
 public interface UserFolderPersonPositionalServiceFacade {
 

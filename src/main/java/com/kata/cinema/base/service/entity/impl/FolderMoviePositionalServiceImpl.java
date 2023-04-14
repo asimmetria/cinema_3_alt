@@ -1,7 +1,5 @@
 package com.kata.cinema.base.service.entity.impl;
 
-import com.kata.cinema.base.exception.NotFoundEntityException;
-import com.kata.cinema.base.models.dto.response.FolderMoviePositionalResponseDto;
 import com.kata.cinema.base.models.entitys.FolderMovie;
 import com.kata.cinema.base.models.entitys.FolderMoviePositional;
 import com.kata.cinema.base.repository.FolderMoviePositionalRepository;
@@ -12,7 +10,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 
 @Service
@@ -25,63 +23,54 @@ public class FolderMoviePositionalServiceImpl implements FolderMoviePositionalSe
 
     @Override
     public void save(Long folderId, Long movieId) {
-        try {
-            FolderMoviePositional folderMoviePositional = new FolderMoviePositional();
-            folderMoviePositional.setFolder((FolderMovie) folderRepository.findById(folderId).orElseThrow(EntityNotFoundException::new));
-            folderMoviePositional.setMovie(movieRepository.findById(movieId).orElseThrow(EntityNotFoundException::new));
-            folderMoviePositional.setPositional(folderMoviePositionalRepository.getLastMoviePosition() + 1);
-            folderMoviePositionalRepository.save(folderMoviePositional);
-        } catch (NotFoundEntityException e) {
-            throw new RuntimeException("Failed to save FolderMoviePositional. Folder with id " + folderId + " not found.", e);
-        }
+        FolderMoviePositional folderMoviePositional = new FolderMoviePositional();
+        folderMoviePositional.setFolder((FolderMovie) folderRepository.findById(folderId).orElseThrow(EntityNotFoundException::new));
+        folderMoviePositional.setMovie(movieRepository.findById(movieId).orElseThrow(EntityNotFoundException::new));
+        folderMoviePositional.setPositional(folderMoviePositionalRepository.getLastMoviePosition() + 1);
+        folderMoviePositionalRepository.save(folderMoviePositional);
     }
 
 
     @Override
     public void update(Long folderId, Long movieId, Integer newPosition) {
-
-        FolderMoviePositionalResponseDto folderMoviePositionalResponse =
+        FolderMoviePositional folderMoviePositional =
                 folderMoviePositionalRepository.getByFolderIdAndMovieId(folderId, movieId);
-        Optional<FolderMoviePositional> folderMoviePositionalOptional =
-                folderMoviePositionalRepository.findById(folderMoviePositionalResponse.getId());
+        Integer oldPosition = folderMoviePositional.getPositional();
 
-        if (folderMoviePositionalOptional.isPresent()) {
-            folderMoviePositionalRepository.findAll()
-                    .stream()
-                    .filter(x -> x.getPositional() >= newPosition)
-                    .forEach(x -> {
-                        Optional<FolderMoviePositional> fmpOptional = folderMoviePositionalRepository.findById(x.getId());
-                        if (fmpOptional.isPresent()) {
-                            FolderMoviePositional fmp = fmpOptional.get();
-                            fmp.setPositional(x.getPositional() + 1);
-                            folderMoviePositionalRepository.save(fmp);
-                        }
+        if (oldPosition > newPosition) {
+            folderMoviePositionalRepository.getAllBetweenTwoPositionsOrderedPositionDecreased(oldPosition, newPosition)
+                    .forEach(fmp -> {
+                        fmp.setPositional(fmp.getPositional() + 1);
+                        folderMoviePositionalRepository.save(fmp);
                     });
-
-                FolderMoviePositional folderMoviePositional = folderMoviePositionalOptional.get();
-                folderMoviePositional.setPositional(newPosition);
-                folderMoviePositionalRepository.save(folderMoviePositional);
+        } else {
+            folderMoviePositionalRepository.getAllBetweenTwoPositionsOrderedPositionIncreased(oldPosition, newPosition)
+                    .forEach(fmp -> {
+                        fmp.setPositional(fmp.getPositional() - 1);
+                        folderMoviePositionalRepository.save(fmp);
+                    });
         }
+
+        folderMoviePositional.setPositional(newPosition);
+        folderMoviePositionalRepository.save(folderMoviePositional);
     }
 
     @Override
     public void deleteById(Long id) {
-        Optional<FolderMoviePositional> folderMoviePositionalOptional = folderMoviePositionalRepository.findById(id);
-        if (folderMoviePositionalOptional.isPresent()) {
-            folderMoviePositionalRepository.deleteById(id);
-            FolderMoviePositional folderMoviePositional = folderMoviePositionalOptional.get();
-            folderMoviePositionalRepository.findAll().stream()
-                    .filter(x -> x.getPositional() > folderMoviePositional.getPositional())
-                    .forEach(x -> {
-                        Optional<FolderMoviePositional> fmpOptional = folderMoviePositionalRepository.findById(x.getId());
-                        if (fmpOptional.isPresent()) {
-                            FolderMoviePositional fmp = fmpOptional.get();
-                            fmp.setPositional(x.getPositional() - 1);
-                            folderMoviePositionalRepository.save(fmp);
-                        }
-                    });
-        }
-
+        Integer deletedRecordPosition = folderMoviePositionalRepository.findById(id).orElseThrow(EntityNotFoundException::new).getPositional();
+        folderMoviePositionalRepository.deleteById(id);
+        List<FolderMoviePositional> nextRecords =
+                folderMoviePositionalRepository.getAllNextByPositionOrdered(deletedRecordPosition);
+        nextRecords.forEach(fmp -> {
+            fmp.setPositional(fmp.getPositional() - 1);
+            folderMoviePositionalRepository.save(fmp);
+        });
     }
+
+    @Override
+    public FolderMoviePositional getByFolderIdAndMovieId(Long folderId, Long movieId) {
+        return folderMoviePositionalRepository.getByFolderIdAndMovieId(folderId, movieId);
+    }
+
 
 }

@@ -1,7 +1,5 @@
 package com.kata.cinema.base.service.entity.impl;
 
-import com.kata.cinema.base.exception.NotFoundEntityException;
-import com.kata.cinema.base.models.dto.response.FolderPersonPositionalResponseDto;
 import com.kata.cinema.base.models.entitys.FolderPerson;
 import com.kata.cinema.base.models.entitys.FolderPersonPositional;
 import com.kata.cinema.base.repository.FolderPersonPositionalRepository;
@@ -12,7 +10,8 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
+
 
 
 @Service
@@ -26,61 +25,53 @@ public class FolderPersonPositionalServiceImpl implements FolderPersonPositional
 
     @Override
     public void save(Long folderId, Long personId) {
-        try {
-
-            FolderPersonPositional folderPersonPositional = new FolderPersonPositional();
-            folderPersonPositional.setFolder((FolderPerson) folderRepository.findById(folderId).orElseThrow(EntityNotFoundException::new));
-            folderPersonPositional.setPerson(personRepository.findById(personId).orElseThrow(EntityNotFoundException::new));
-            folderPersonPositional.setPositional(folderPersonPositionalRepository.getLastPersonPosition() + 1);
-            folderPersonPositionalRepository.save(folderPersonPositional);
-        } catch (NotFoundEntityException e) {
-            throw new RuntimeException("Failed to save FolderPersonPositional. Folder with id " + folderId + " not found.", e);
-        }
+        FolderPersonPositional folderPersonPositional = new FolderPersonPositional();
+        folderPersonPositional.setFolder((FolderPerson) folderRepository.findById(folderId).orElseThrow(EntityNotFoundException::new));
+        folderPersonPositional.setPerson(personRepository.findById(personId).orElseThrow(EntityNotFoundException::new));
+        folderPersonPositional.setPositional(folderPersonPositionalRepository.getLastPersonPosition() + 1);
+        folderPersonPositionalRepository.save(folderPersonPositional);
     }
 
     @Override
     public void update(Long folderId, Long personId, Integer newPosition) {
-        FolderPersonPositionalResponseDto folderPersonPositionalResponse =
+        FolderPersonPositional folderPersonPositional =
                 folderPersonPositionalRepository.getByFolderIdAndPersonId(folderId, personId);
-        Optional<FolderPersonPositional> folderPersonPositionalOptional =
-                folderPersonPositionalRepository.findById(folderPersonPositionalResponse.getId());
+        Integer oldPosition = folderPersonPositional.getPositional();
 
-        if (folderPersonPositionalOptional.isPresent()) {
-            folderPersonPositionalRepository.findAll()
-                    .stream()
-                    .filter(x -> x.getPositional() >= newPosition)
-                    .forEach(x -> {
-                        Optional<FolderPersonPositional> fppOptional = folderPersonPositionalRepository.findById(x.getId());
-                        if (fppOptional.isPresent()) {
-                            FolderPersonPositional fpp = fppOptional.get();
-                            fpp.setPositional(x.getPositional() + 1);
-                            folderPersonPositionalRepository.save(fpp);
-                        }
+        if (oldPosition > newPosition) {
+            folderPersonPositionalRepository.getAllBetweenTwoPositionsOrderedPositionDecreased(oldPosition, newPosition)
+                    .forEach(fpp -> {
+                        fpp.setPositional(fpp.getPositional() + 1);
+                        folderPersonPositionalRepository.save(fpp);
                     });
-
-            FolderPersonPositional folderPersonPositional = folderPersonPositionalOptional.get();
-            folderPersonPositional.setPositional(newPosition);
-            folderPersonPositionalRepository.save(folderPersonPositional);
+        } else {
+            folderPersonPositionalRepository.getAllBetweenTwoPositionsOrderedPositionIncreased(oldPosition, newPosition)
+                    .forEach(fpp -> {
+                        fpp.setPositional(fpp.getPositional() - 1);
+                        folderPersonPositionalRepository.save(fpp);
+                    });
         }
+
+        folderPersonPositional.setPositional(newPosition);
+        folderPersonPositionalRepository.save(folderPersonPositional);
     }
 
     @Override
     public void deleteById(Long id) {
-        Optional<FolderPersonPositional> folderPersonPositionalOptional = folderPersonPositionalRepository.findById(id);
-        if (folderPersonPositionalOptional.isPresent()) {
-            folderPersonPositionalRepository.deleteById(id);
-            FolderPersonPositional folderPersonPositional = folderPersonPositionalOptional.get();
-            folderPersonPositionalRepository.findAll().stream()
-                    .filter(x -> x.getPositional() > folderPersonPositional.getPositional())
-                    .forEach(x -> {
-                        Optional<FolderPersonPositional> fmpOptional = folderPersonPositionalRepository.findById(x.getId());
-                        if (fmpOptional.isPresent()) {
-                            FolderPersonPositional fpp = fmpOptional.get();
-                            fpp.setPositional(x.getPositional() - 1);
-                            folderPersonPositionalRepository.save(fpp);
-                        }
-                    });
-        }
+        Integer deletedRecordPosition =
+                folderPersonPositionalRepository.findById(id).orElseThrow(EntityNotFoundException::new).getPositional();
+        folderPersonPositionalRepository.deleteById(id);
+        List<FolderPersonPositional> nextRecords =
+                folderPersonPositionalRepository.getAllNextByPositionOrdered(deletedRecordPosition);
+        nextRecords.forEach(fpp -> {
+            fpp.setPositional(fpp.getPositional() - 1);
+            folderPersonPositionalRepository.save(fpp);
+        });
+    }
+
+    @Override
+    public FolderPersonPositional getByFolderIdAndPersonId(Long folderId, Long personId) {
+        return folderPersonPositionalRepository.getByFolderIdAndPersonId(folderId, personId);
     }
 
 }
