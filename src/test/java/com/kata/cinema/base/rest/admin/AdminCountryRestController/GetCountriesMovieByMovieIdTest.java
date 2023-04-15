@@ -24,13 +24,26 @@ public class GetCountriesMovieByMovieIdTest extends SpringContextTest {
     void givenListCountriesOnMovieId_successTest() throws Exception {
 
         mockMvc.perform(get("/api/countries/{id}", 21)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()", Is.is(2)))
-                .andExpect(jsonPath("[0].id", Is.is(27L)))
+                .andExpect(jsonPath("[0].id", Is.is(27)))
                 .andExpect(jsonPath("[0].name", Is.is("USA")))
 
-                .andExpect(jsonPath("[1].id", Is.is(91L)))
+                .andExpect(jsonPath("[1].id", Is.is(91)))
                 .andExpect(jsonPath("[1].name", Is.is("China")));
     }
+
+    /**
+     * ТЕСТ-КЕЙС
+     * Неудача при получении списка стран, по несуществующему фильму
+     */
+    @Test
+    void givenListCountriesOnMovieId_failedTest() throws Exception {
+        mockMvc.perform(get("/api/countries/{id}", 90)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+
 }

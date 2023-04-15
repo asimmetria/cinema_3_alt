@@ -20,4 +20,6 @@ public interface CountryService {
 
     boolean isExistCountryById(Long id);
 
+    boolean existsCountryByMovieId(Long id);
+
 }

@@ -23,4 +23,6 @@ public interface MovieCountryRepository extends JpaRepository<Country, Long> {
 
     boolean existsCountryByName(String name);
 
+    boolean existsCountryByMovieId(Long id);
+
 }

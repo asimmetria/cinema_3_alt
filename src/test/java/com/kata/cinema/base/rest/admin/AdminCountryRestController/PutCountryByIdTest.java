@@ -1,14 +1,12 @@
 package com.kata.cinema.base.rest.admin.AdminCountryRestController;
 
 import com.kata.cinema.base.SpringContextTest;
-import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, value = "/db/scripts/rest/admin/AdminCountryRestController/before.sql")
 @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, value = "/db/scripts/rest/admin/AdminCountryRestController/after.sql")
@@ -21,8 +19,8 @@ public class PutCountryByIdTest extends SpringContextTest {
 
     @Test
     void putCountryById_successTest() throws Exception {
-        mockMvc.perform(put("/apt/admin/countries/{id}", 33)
-                .contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(put("/api/admin/countries/{id}", 33)
+                        .contentType(MediaType.APPLICATION_JSON)
                         .param("name", "UK"))
                 .andExpect(status().isOk());
     }
@@ -33,10 +31,9 @@ public class PutCountryByIdTest extends SpringContextTest {
      */
     @Test
     void putCountryById_failedTest() throws Exception {
-        mockMvc.perform(put("/apt/admin/countries/{id}", 50)
+        mockMvc.perform(put("/api/admin/countries/{id}", 50)
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("name", "UK"))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.text", Is.is("Страны с id - 50 не существует")));
+                .andExpect(status().isNotFound());
     }
 }

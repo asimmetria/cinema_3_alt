@@ -5,6 +5,6 @@ INSERT INTO countries(id, name)
 VALUES (33, 'Russia'),
        (27, 'USA'),
        (91, 'China');
-INSERT INTO movie_countries(movieId, countryId)
+INSERT INTO movie_countries(movie_id, country_id)
 VALUES (21, 27),
        (21, 91);

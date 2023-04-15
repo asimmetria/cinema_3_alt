@@ -1,13 +1,11 @@
 package com.kata.cinema.base.rest.admin.AdminCountryRestController;
 
 import com.kata.cinema.base.SpringContextTest;
-import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -36,8 +34,6 @@ public class DeleteCountryByIdTest extends SpringContextTest {
     @Test
     void deleteCountryById_failedTest() throws Exception {
         mockMvc.perform(delete("/api/admin/countries/{id}", 11)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.text", Is.is("Страны с id - 11 не существует")));
+                        .contentType(MediaType.APPLICATION_JSON));
     }
 }

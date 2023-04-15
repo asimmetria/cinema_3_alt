@@ -29,7 +29,7 @@ public class AdminCountryRestController {
     @PostMapping("/admin/countries")
     public ResponseEntity<String> createCountryByName(@RequestParam String name) {
         if (countryService.isExistCountryByName(name)) {
-            return ResponseEntity.badRequest().body(String.format("Страна - %s уже добавлена", name));
+            return ResponseEntity.badRequest().build();
         }
         countryService.saveCountryByName(name);
         return ResponseEntity.ok().build();
@@ -38,7 +38,7 @@ public class AdminCountryRestController {
     @PutMapping("admin/countries/{id}")
     public ResponseEntity<String> putCountryById(@PathVariable Long id, @RequestParam String name) {
         if (!countryService.isExistCountryById(id)) {
-            return ResponseEntity.badRequest().body(String.format("Страны с id - %s не существует", id));
+            return ResponseEntity.notFound().build();
         }
         countryService.update(id, name);
         return ResponseEntity.ok().build();
@@ -47,7 +47,7 @@ public class AdminCountryRestController {
     @DeleteMapping("admin/countries/{id}")
     public ResponseEntity<String> deleteCountryById(@PathVariable Long id) {
         if (!countryService.isExistCountryById(id)) {
-            return ResponseEntity.badRequest().body(String.format("Страны с id - %s не существует", id));
+            return ResponseEntity.notFound().build();
         }
         countryService.deleteById(id);
         return ResponseEntity.ok().build();
@@ -55,6 +55,9 @@ public class AdminCountryRestController {
 
     @GetMapping("/countries/{id}")
     public ResponseEntity<List<CountryResponseDto>> getAllCountriesByMovieId(@PathVariable Long id) {
+        if (!countryService.existsCountryByMovieId(id)) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(countryDtoService.getCountriesByMovieId(id));
     }
 }

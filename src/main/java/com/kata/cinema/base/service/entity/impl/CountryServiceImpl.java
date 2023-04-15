@@ -56,4 +56,9 @@ public class CountryServiceImpl implements CountryService {
         return movieCountryRepository.existsCountryById(id);
     }
 
+    @Override
+    public boolean existsCountryByMovieId(Long id) {
+        return movieCountryRepository.existsCountryByMovieId(id);
+    }
+
 }
