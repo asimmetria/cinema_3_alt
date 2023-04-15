@@ -2,7 +2,9 @@ package com.kata.cinema.base.config;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -16,14 +18,20 @@ import com.kata.cinema.base.service.entity.FolderService;
 import com.kata.cinema.base.service.entity.RoleService;
 import com.kata.cinema.base.service.entity.UserService;
 import jakarta.annotation.PostConstruct;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
+@ConditionalOnExpression("${run.init:true}")
+@RequiredArgsConstructor
 public class TestDataInitializer {
-    private final boolean runInit;
     private final RoleNameEnum[] roles = RoleNameEnum.values();
     private final FolderMovieType[] folderTypes = FolderMovieType.values();
 
@@ -31,25 +39,10 @@ public class TestDataInitializer {
     private final RoleService roleService;
     private final FolderService folderService;
 
-    public TestDataInitializer(@Value("${RUN_INIT:true}") boolean runInit,
-                               UserService userService,
-                               RoleService roleService,
-                               FolderService folderService) {
-        this.runInit = runInit;
-        this.userService = userService;
-        this.roleService = roleService;
-        this.folderService = folderService;
-    }
 
-    @EventListener
-    public void onApplicationEvent(ContextRefreshedEvent event) {
-        if (runInit) {
-            initRoles();
-            initUsers();
-        }
-    }
-
-    private void initRoles() {
+    @EventListener(ApplicationReadyEvent.class)
+    @Order(1)
+    public void initRoles() {
         for (RoleNameEnum role : roles) {
             Role newRole = new Role();
             newRole.setName(role);
@@ -57,7 +50,9 @@ public class TestDataInitializer {
         }
     }
 
-    private void initUsers() {
+    @Order(2)
+    @EventListener(ApplicationReadyEvent.class)
+    public void initUsers() {
         Random random = new Random();
         int userNum = 1;
         for (int i = 0; i < 25; i++) {
