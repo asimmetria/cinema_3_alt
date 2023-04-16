@@ -1,12 +1,12 @@
 package com.kata.cinema.base.service.entity.impl;
 
+import com.kata.cinema.base.exception.NotFoundEntityException;
 import com.kata.cinema.base.models.entitys.FolderMovie;
 import com.kata.cinema.base.models.entitys.FolderMoviePositional;
 import com.kata.cinema.base.repository.FolderMoviePositionalRepository;
 import com.kata.cinema.base.repository.FolderRepository;
 import com.kata.cinema.base.repository.MovieRepository;
 import com.kata.cinema.base.service.entity.FolderMoviePositionalService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +24,10 @@ public class FolderMoviePositionalServiceImpl implements FolderMoviePositionalSe
     @Override
     public void save(Long folderId, Long movieId) {
         FolderMoviePositional folderMoviePositional = new FolderMoviePositional();
-        folderMoviePositional.setFolder((FolderMovie) folderRepository.findById(folderId).orElseThrow(EntityNotFoundException::new));
-        folderMoviePositional.setMovie(movieRepository.findById(movieId).orElseThrow(EntityNotFoundException::new));
+        folderMoviePositional.setFolder((FolderMovie) folderRepository.findById(folderId).orElseThrow(
+                () -> new NotFoundEntityException("Папка не существует")));
+        folderMoviePositional.setMovie(movieRepository.findById(movieId).orElseThrow(
+                () -> new NotFoundEntityException("Фильм не существует")));
         folderMoviePositional.setPositional(folderMoviePositionalRepository.getLastMoviePosition() + 1);
         folderMoviePositionalRepository.save(folderMoviePositional);
     }
@@ -57,7 +59,8 @@ public class FolderMoviePositionalServiceImpl implements FolderMoviePositionalSe
 
     @Override
     public void deleteById(Long id) {
-        Integer deletedRecordPosition = folderMoviePositionalRepository.findById(id).orElseThrow(EntityNotFoundException::new).getPositional();
+        Integer deletedRecordPosition = folderMoviePositionalRepository.findById(id).orElseThrow(
+                () -> new NotFoundEntityException("FolderMoviePositional не существует")).getPositional();
         folderMoviePositionalRepository.deleteById(id);
         List<FolderMoviePositional> nextRecords =
                 folderMoviePositionalRepository.getAllNextByPositionOrdered(deletedRecordPosition);

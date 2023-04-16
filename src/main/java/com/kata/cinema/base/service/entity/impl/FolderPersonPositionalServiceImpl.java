@@ -1,12 +1,12 @@
 package com.kata.cinema.base.service.entity.impl;
 
+import com.kata.cinema.base.exception.NotFoundEntityException;
 import com.kata.cinema.base.models.entitys.FolderPerson;
 import com.kata.cinema.base.models.entitys.FolderPersonPositional;
 import com.kata.cinema.base.repository.FolderPersonPositionalRepository;
 import com.kata.cinema.base.repository.FolderRepository;
 import com.kata.cinema.base.repository.PersonRepository;
 import com.kata.cinema.base.service.entity.FolderPersonPositionalService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +26,10 @@ public class FolderPersonPositionalServiceImpl implements FolderPersonPositional
     @Override
     public void save(Long folderId, Long personId) {
         FolderPersonPositional folderPersonPositional = new FolderPersonPositional();
-        folderPersonPositional.setFolder((FolderPerson) folderRepository.findById(folderId).orElseThrow(EntityNotFoundException::new));
-        folderPersonPositional.setPerson(personRepository.findById(personId).orElseThrow(EntityNotFoundException::new));
+        folderPersonPositional.setFolder((FolderPerson) folderRepository.findById(folderId).orElseThrow(
+                () -> new NotFoundEntityException("Папка не существует")));
+        folderPersonPositional.setPerson(personRepository.findById(personId).orElseThrow(
+                () -> new NotFoundEntityException("Персона не существует")));
         folderPersonPositional.setPositional(folderPersonPositionalRepository.getLastPersonPosition() + 1);
         folderPersonPositionalRepository.save(folderPersonPositional);
     }
@@ -59,7 +61,8 @@ public class FolderPersonPositionalServiceImpl implements FolderPersonPositional
     @Override
     public void deleteById(Long id) {
         Integer deletedRecordPosition =
-                folderPersonPositionalRepository.findById(id).orElseThrow(EntityNotFoundException::new).getPositional();
+                folderPersonPositionalRepository.findById(id).orElseThrow(
+                        () -> new NotFoundEntityException("FolderPersonPositional не существует")).getPositional();
         folderPersonPositionalRepository.deleteById(id);
         List<FolderPersonPositional> nextRecords =
                 folderPersonPositionalRepository.getAllNextByPositionOrdered(deletedRecordPosition);
