@@ -1,9 +1,9 @@
 package com.kata.cinema.base.models.entitys;
 
-
 import com.kata.cinema.base.models.enums.MPAA;
 import com.kata.cinema.base.models.enums.RARS;
 import com.kata.cinema.base.models.enums.TypeMedia;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -14,12 +14,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -35,6 +39,9 @@ public class Movie {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "original_name", nullable = false)
+    private String originalName;
 
     @Column(name = "countries")
     private String countries;
@@ -65,6 +72,23 @@ public class Movie {
             joinColumns = @JoinColumn(name = "movie"),
             inverseJoinColumns = @JoinColumn(name = "news_id"))
     private Set<Media> media;
+
+    private String previewUrl;
+
+    @ManyToMany
+    @Fetch(FetchMode.JOIN)
+    @JoinTable(name = "movie_genre",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    private List<Genre> genre;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    @Fetch(FetchMode.JOIN)
+    private Set<Score> scores;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    @Fetch(FetchMode.JOIN)
+    private List<Cast> cast;
 
     public Movie() {
     }
