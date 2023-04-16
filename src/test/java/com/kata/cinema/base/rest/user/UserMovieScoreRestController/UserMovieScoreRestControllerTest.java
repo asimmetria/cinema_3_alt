@@ -37,7 +37,7 @@ public class UserMovieScoreRestControllerTest extends SpringContextTest {
      * Успешное создание оценки
      */
     @Test
-    void givenMovieIdAndUserId_whenCreateMovieScore_thenScoreCreatedAndDatabaseUpdated_successTest() throws Exception {
+    void givenMovieIdAndUserIdAndScore_whenCreateMovieScore_thenScoreCreatedAndDatabaseUpdated_successTest() throws Exception {
         // Given
         Long movieId = 100L;
         Integer score = 5;
@@ -65,7 +65,7 @@ public class UserMovieScoreRestControllerTest extends SpringContextTest {
      * Успешное изменение оценки
      */
     @Test
-    void givenMovieIdAndUserId_whenUpdateMovieScore_thenScoreUpdatedAndDatabaseUpdated_successTest() throws Exception {
+    void givenMovieIdAndScoreIdAndUpdatedScore_whenUpdateMovieScore_thenScoreUpdatedAndDatabaseUpdated_successTest() throws Exception {
         // Given
         Long movieId = 101L;
         Long scoreId = 102L;
@@ -90,7 +90,7 @@ public class UserMovieScoreRestControllerTest extends SpringContextTest {
      * Успешное удаление оценки
      */
     @Test
-    void givenMovieIdAndUserId_whenDeleteMovieScore_thenScoreDeletedAndDatabaseUpdated_successTest() throws Exception {
+    void givenMovieIdAndScoreId_whenDeleteMovieScore_thenScoreDeletedAndDatabaseUpdated_successTest() throws Exception {
         // Given
         Long movieId = 101L;
         Long deletedScoreId = 102L;
