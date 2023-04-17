@@ -1,13 +1,11 @@
 package com.kata.cinema.base.models.entitys;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -31,10 +29,8 @@ public class Genre {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany
-    @JoinTable(name = "movie_genre",
-               joinColumns = @JoinColumn(name = "genre_id"),
-               inverseJoinColumns = @JoinColumn(name = "movie_id"))
+    @ManyToMany(mappedBy = "genre")
+    @JsonIgnore
     @ToString.Exclude
     private Set<Movie> movie;
 
