@@ -16,4 +16,6 @@ public interface MediaService {
     void delete(Long id);
 
     void publish(Long id);
+
+    Media getMediaById(Long id);
 }

@@ -8,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
@@ -54,6 +53,10 @@ public class User {
     private Set<Role> roles;
 
     public User() {
+    }
+
+    public User(Long id) {
+        this.id = id;
     }
 
     public String getFullName() {

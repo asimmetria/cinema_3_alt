@@ -1,5 +1,9 @@
 package com.kata.cinema.base.service.entity.impl;
 
+import com.kata.cinema.base.models.entitys.Media;
+import com.kata.cinema.base.repository.MediaRepository;
+import com.kata.cinema.base.service.entity.MediaService;
+import lombok.RequiredArgsConstructor;
 import com.kata.cinema.base.models.entitys.Categories;
 import com.kata.cinema.base.models.entitys.Media;
 import com.kata.cinema.base.models.enums.MediaStatus;
@@ -68,5 +72,15 @@ public class MediaServiceImpl implements MediaService {
         mediaRepository.findByIdAndStatusEquals(id, MediaStatus.EDITED);
         media.setStatus(MediaStatus.WAIT_VERIFIED);
         mediaRepository.save(media);
+    }
+
+    @Override
+    public Media getMediaById(Long id) {
+        Media media = new Media();
+        Optional<Media> optional = mediaRepository.findById(id);
+        if(optional.isPresent()) {
+            media = optional.get();
+        }
+        return media;
     }
 }
