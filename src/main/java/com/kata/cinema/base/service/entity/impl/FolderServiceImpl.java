@@ -31,4 +31,9 @@ public class FolderServiceImpl implements FolderService {
     public Folder getProxyById(long id) {
         return folderRepository.getReferenceById(id);
     }
+
+    @Override
+    public boolean existsById(long id) {
+        return folderRepository.existsById(id);
+    }
 }

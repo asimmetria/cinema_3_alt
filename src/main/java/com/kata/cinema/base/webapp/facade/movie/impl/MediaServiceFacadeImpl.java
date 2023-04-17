@@ -2,15 +2,10 @@ package com.kata.cinema.base.webapp.facade.movie.impl;
 
 import com.kata.cinema.base.converter.media.MediaMapper;
 import com.kata.cinema.base.models.dto.request.MediaRequestDto;
-import com.kata.cinema.base.models.dto.response.MediaTitleResponseDto;
 import com.kata.cinema.base.models.entitys.Media;
-import com.kata.cinema.base.models.entitys.User;
-import com.kata.cinema.base.models.enums.MediaStatus;
-import com.kata.cinema.base.repository.CategoryRepository;
 import com.kata.cinema.base.service.entity.MediaService;
 import com.kata.cinema.base.webapp.facade.movie.MediaServiceFacade;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 

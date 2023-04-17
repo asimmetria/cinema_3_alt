@@ -1,14 +1,13 @@
 package com.kata.cinema.base.webapp.facade.user.impl;
 
-import com.kata.cinema.base.converter.EntityMapper;
 import com.kata.cinema.base.converter.user.UserMapper;
 import com.kata.cinema.base.models.dto.request.UserRequestDto;
 import com.kata.cinema.base.models.dto.response.UserResponseDto;
 import com.kata.cinema.base.models.entitys.User;
 import com.kata.cinema.base.service.dto.UserDtoService;
 import com.kata.cinema.base.service.entity.UserService;
-import com.kata.cinema.base.validation.UserValidation;
 import com.kata.cinema.base.webapp.facade.user.UserServiceFacade;
+import com.kata.cinema.base.validation.UserValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
