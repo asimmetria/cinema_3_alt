@@ -3,6 +3,7 @@ package com.kata.cinema.base.service.entity;
 import com.kata.cinema.base.models.entitys.Media;
 
 public interface MediaService {
+    Media getMedia(Long id);
 
     void createMedia(Media media);
 
@@ -16,4 +17,5 @@ public interface MediaService {
 
     void publish(Long id);
 
+    Media getMediaById(Long id);
 }

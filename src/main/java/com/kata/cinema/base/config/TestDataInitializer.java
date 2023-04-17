@@ -39,7 +39,6 @@ public class TestDataInitializer {
     private final RoleService roleService;
     private final FolderService folderService;
 
-
     @EventListener(ApplicationReadyEvent.class)
     @Order(1)
     public void initRoles() {

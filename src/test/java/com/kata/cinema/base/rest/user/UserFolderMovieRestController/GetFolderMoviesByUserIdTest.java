@@ -1,12 +1,17 @@
 package com.kata.cinema.base.rest.user.UserFolderMovieRestController;
 
 import com.kata.cinema.base.SpringContextTest;
+import com.kata.cinema.base.exception.NotFoundEntityException;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 
+
+import java.util.Objects;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -23,6 +28,7 @@ public class GetFolderMoviesByUserIdTest extends SpringContextTest {
     void givenUserId_whenGetFolders_thenReturnFolderByUserId_successTest() throws Exception {
         mockMvc.perform(get("/api/user/folders/movies")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
                         .param("userId", String.valueOf(100L)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()", Is.is(3)))
@@ -51,14 +57,12 @@ public class GetFolderMoviesByUserIdTest extends SpringContextTest {
      */
     @Test
     void givenUserId_whenGetFolders_thenReturnFolderByUserId_failedTest() throws Exception {
-        try {
-            mockMvc.perform(get("/api/user/folders/movies")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .param("userId", String.valueOf(999L)))
-                    .andExpect(status().isBadRequest())
-                    .andExpect(jsonPath("$.text", Is.is("Пользователь с таким id = 999 не существует")));
-        } catch (Exception e) {
-            assertEquals("Пользователь с таким id = 999 не существует", e.getCause().getMessage());
-        }
+        mockMvc.perform(get("/api/user/folders/movies")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("userId", String.valueOf(999L)))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundEntityException))
+                .andExpect(result -> assertEquals("Пользователь с таким id = 999 не существует",
+                        Objects.requireNonNull(result.getResolvedException()).getMessage()));
     }
 }
