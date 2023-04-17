@@ -7,9 +7,11 @@ import com.kata.cinema.base.service.entity.StudiosPerformanceService;
 import com.kata.cinema.base.validation.StudiosPerformanceValidation;
 import com.kata.cinema.base.webapp.facade.performance.StudiosPerformanceServiceFacade;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 @RequiredArgsConstructor
 public class StudiosPerformanceServiceFacadeImpl implements StudiosPerformanceServiceFacade {
 
@@ -17,7 +19,8 @@ public class StudiosPerformanceServiceFacadeImpl implements StudiosPerformanceSe
     private final StudioPerformanceDtoService performanceDtoService;
     private final StudiosPerformanceValidation performanceValidation;
 
-    public @Override List<PerformanceResponseDto> getPerformance() {
+    @Override
+    public List<PerformanceResponseDto> getPerformance() {
         return performanceDtoService.getPerformance();
     }
 
