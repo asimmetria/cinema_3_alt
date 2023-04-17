@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -35,7 +36,7 @@ public class MovieViewResponseDto {
     private MPAA mpaa;
     private String description;
     private String previewUrl;
-    private List<GenreResponseDto> genres;
+    private Set<GenreResponseDto> genres;
     private Double score;
     private Long countScore;
 

@@ -9,8 +9,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -47,7 +45,6 @@ public class Person {
     private String placeOfBirth;
 
     @OneToMany(mappedBy = "person")
-    @Fetch(FetchMode.JOIN)
     private Set<Cast> casts;
 
     public String getFullName() {
