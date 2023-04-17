@@ -78,7 +78,7 @@ public class MediaServiceImpl implements MediaService {
     public Media getMediaById(Long id) {
         Media media = new Media();
         Optional<Media> optional = mediaRepository.findById(id);
-        if(optional.isPresent()) {
+        if (optional.isPresent()) {
             media = optional.get();
         }
         return media;

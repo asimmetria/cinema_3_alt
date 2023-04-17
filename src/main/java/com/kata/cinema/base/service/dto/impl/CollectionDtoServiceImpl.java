@@ -15,12 +15,12 @@ public class CollectionDtoServiceImpl implements CollectionDtoService {
     private final CollectionRepository collectionRepository;
 
     @Override
-    public List<CollectionResponseDto> getAllCollections() {
-        return collectionRepository.getAllCollections();
+    public List<CollectionResponseDto> getAllCollections(Long userId) {
+        return collectionRepository.getAllCollections(userId);
     }
 
     @Override
-    public List<CollectionResponseDto> getCollectionsByCategoryId(Long categoryId) {
-        return collectionRepository.getCollectionsByCategoryId(categoryId);
+    public List<CollectionResponseDto> getCollectionsByCategoryId(Long categoryId, Long userId) {
+        return collectionRepository.getCollectionsByCategoryId(categoryId, userId);
     }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CollectionDtoService {
 
-    List<CollectionResponseDto> getAllCollections();
+    List<CollectionResponseDto> getAllCollections(Long userId);
 
-    List<CollectionResponseDto> getCollectionsByCategoryId(Long categoryId);
+    List<CollectionResponseDto> getCollectionsByCategoryId(Long categoryId, Long userId);
 }

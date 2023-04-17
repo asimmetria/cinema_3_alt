@@ -6,9 +6,13 @@ import com.kata.cinema.base.models.dto.response.CollectionResponseDto;
 import com.kata.cinema.base.models.entitys.Collection;
 import com.kata.cinema.base.service.dto.CollectionDtoService;
 import com.kata.cinema.base.service.entity.CollectionService;
+import com.kata.cinema.base.validation.UserValidation;
 import com.kata.cinema.base.webapp.facade.collection.CollectionServiceFacade;
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,6 +26,8 @@ public class CollectionServiceFacadeImpl implements CollectionServiceFacade {
 
     private final CollectionMapper collectionMapper;
 
+    private final UserValidation userValidation;
+
 
     @Override
     public void save(CollectionRequestDto requestDto) {
@@ -34,6 +40,8 @@ public class CollectionServiceFacadeImpl implements CollectionServiceFacade {
     }
 
     @Override
+    @Transactional
+    @Access(value = AccessType.FIELD)
     public void update(CollectionRequestDto requestDto, Long id) {
         Collection collection = collectionMapper.toEntity(requestDto);
         if (collectionService.getById(id) == null) {
@@ -49,12 +57,14 @@ public class CollectionServiceFacadeImpl implements CollectionServiceFacade {
     }
 
     @Override
-    public List<CollectionResponseDto> getAllCollections() {
-        return dtoService.getAllCollections();
+    public List<CollectionResponseDto> getAllCollections(Long userId) {
+        userValidation.isExistUserById(userId);
+        return dtoService.getAllCollections(userId);
     }
 
     @Override
-    public List<CollectionResponseDto> getCollectionsByCategoryId(Long categoryId) {
-        return dtoService.getCollectionsByCategoryId(categoryId);
+    public List<CollectionResponseDto> getCollectionsByCategoryId(Long categoryId, Long userId) {
+        userValidation.isExistUserById(userId);
+        return dtoService.getCollectionsByCategoryId(categoryId, userId);
     }
 }

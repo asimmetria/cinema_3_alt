@@ -26,21 +26,24 @@ public class CollectionRestController {
     private final CollectionServiceFacade collectionServiceFacade;
 
     @GetMapping
-    ResponseEntity<List<CollectionResponseDto>> getCollections(@RequestParam(required = false) Long categoryId) {
+    ResponseEntity<List<CollectionResponseDto>> getCollections(@RequestParam(required = false) Long categoryId,
+                                                               @RequestParam Long userId) {
         if (categoryId == null) {
-            return ResponseEntity.ok(collectionServiceFacade.getAllCollections());
+            return ResponseEntity.ok(collectionServiceFacade.getAllCollections(userId));
         }
-        return ResponseEntity.ok(collectionServiceFacade.getCollectionsByCategoryId(categoryId));
+        return ResponseEntity.ok(collectionServiceFacade.getCollectionsByCategoryId(categoryId, userId));
+        //TODO
+        //Реализовать получение юзера, после добавления секьюрности
     }
 
     @PostMapping
-    ResponseEntity<Void> newCollection(@RequestBody CollectionRequestDto requestDto) {
+    ResponseEntity<Void> createNewCollection(@RequestBody CollectionRequestDto requestDto) {
         collectionServiceFacade.save(requestDto);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<Void> putCollection(@RequestBody CollectionRequestDto requestDto,
+    ResponseEntity<Void> updateCollection(@RequestBody CollectionRequestDto requestDto,
                                        @PathVariable Long id) {
         collectionServiceFacade.update(requestDto, id);
         return ResponseEntity.ok().build();

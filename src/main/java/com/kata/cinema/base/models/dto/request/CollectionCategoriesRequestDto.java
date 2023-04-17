@@ -16,6 +16,7 @@ public class CollectionCategoriesRequestDto {
     @NotNull
     @Size(min = 1, max = 50)
     private String name;
+
     public void validate(CollectionCategoriesRequestDtoValidator validator) {
         validator.validate(this);
     }

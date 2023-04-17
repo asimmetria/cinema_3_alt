@@ -16,9 +16,9 @@ public interface CollectionServiceFacade {
 
     Collection getById(Long id);
 
-    List<CollectionResponseDto> getAllCollections();
+    List<CollectionResponseDto> getAllCollections(Long userId);
 
-    List<CollectionResponseDto> getCollectionsByCategoryId(Long categoryId);
+    List<CollectionResponseDto> getCollectionsByCategoryId(Long categoryId, Long userId);
 
 
 }

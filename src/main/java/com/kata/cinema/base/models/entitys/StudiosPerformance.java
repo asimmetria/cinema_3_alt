@@ -31,7 +31,7 @@ public class StudiosPerformance {
     public StudiosPerformance() {
     }
 
-    @OneToMany(mappedBy="studiosPerformance")
+    @OneToMany(mappedBy = "studiosPerformance")
     public Set<ProductionStudiosMovie> movies;
 
     @Override

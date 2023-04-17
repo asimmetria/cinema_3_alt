@@ -5,11 +5,17 @@ import com.kata.cinema.base.models.dto.response.CollectionCategoriesResponseDto;
 import com.kata.cinema.base.models.dto.validator.CollectionCategoriesRequestDtoValidator;
 import com.kata.cinema.base.models.entitys.CollectionCategories;
 import com.kata.cinema.base.webapp.facade.collection.CollectionCategoryFacade;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.stream.Collectors;
