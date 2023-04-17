@@ -31,4 +31,9 @@ public class FolderServiceImpl implements FolderService {
     public Folder getProxyById(long id) {
         return folderRepository.getReferenceById(id);
     }
+
+    @Override
+    public Folder findFolderByUserId(Long id) {
+        return folderRepository.findFolderByUserId(id);
+    }
 }

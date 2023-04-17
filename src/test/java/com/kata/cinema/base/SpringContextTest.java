@@ -1,6 +1,7 @@
 package com.kata.cinema.base;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kata.cinema.base.service.entity.FolderService;
 import com.kata.cinema.base.webapp.CinemaBaseApplication;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -28,6 +29,9 @@ public class SpringContextTest {
 
     @Autowired
     protected ObjectMapper objectMapper;
+
+    @Autowired
+    protected FolderService folderService;
 
     @PersistenceContext
     protected EntityManager entityManager;

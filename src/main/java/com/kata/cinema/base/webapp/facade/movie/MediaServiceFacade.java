@@ -1,12 +1,10 @@
 package com.kata.cinema.base.webapp.facade.movie;
 
-
 import com.kata.cinema.base.models.dto.request.MediaRequestDto;
-import com.kata.cinema.base.models.dto.response.MediaTitleResponseDto;
-import com.kata.cinema.base.models.entitys.Media;
-import org.springframework.data.domain.Page;
+import com.kata.cinema.base.models.dto.response.MediaBodyResponseDto;
 
 public interface MediaServiceFacade {
+    MediaBodyResponseDto getMedia(Long id);
 
     void createMedia(MediaRequestDto mediaRequestDto);
 
@@ -15,5 +13,4 @@ public interface MediaServiceFacade {
     void delete(Long id);
 
     void publish(Long id);
-
 }

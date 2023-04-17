@@ -1,9 +1,7 @@
 package com.kata.cinema.base.repository;
 
 import com.kata.cinema.base.models.dto.response.FolderMovieResponseDto;
-import com.kata.cinema.base.models.dto.response.FolderPersonResponseDto;
 import com.kata.cinema.base.models.entitys.FolderMovie;
-import com.kata.cinema.base.models.entitys.FolderPerson;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,5 +19,4 @@ public interface UserFolderMovieRepository extends JpaRepository<FolderMovie, Lo
             "fm.description," +
             "fm.folderMovieType) FROM FolderMovie fm WHERE fm.user.id = :userId")
     List<FolderMovieResponseDto> getFolderMovieByUserId(@Param("userId") Long userId);
-
 }
