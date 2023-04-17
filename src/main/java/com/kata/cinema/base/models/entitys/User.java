@@ -8,9 +8,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
+
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.JoinColumn;
@@ -52,6 +54,10 @@ public class User {
     private Set<Role> roles;
 
     public User() {
+    }
+
+    public String getFullName() {
+        return name + " " + lastName;
     }
 
     @Override

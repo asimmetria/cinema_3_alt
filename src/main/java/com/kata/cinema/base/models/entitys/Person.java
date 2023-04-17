@@ -35,6 +35,4 @@ public class Person {
 
     @Column(name = "place_of_birth")
     private String placeOfBirth;
-
-
 }
