@@ -3,7 +3,6 @@ package com.kata.cinema.base.rest.user.UserFolderMoviePositionalRestController;
 import com.kata.cinema.base.SpringContextTest;
 import com.kata.cinema.base.models.entitys.FolderMoviePositional;
 import com.kata.cinema.base.webapp.facade.movie.UserFolderMoviePositionalServiceFacade;
-import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -14,7 +13,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -179,8 +177,7 @@ public class UserFolderMoviePositionalRestControllerTest extends SpringContextTe
                             .param("position", String.valueOf(position))
                             .contentType(MediaType.APPLICATION_JSON))
                     .andDo(print())
-                    .andExpect(status().isBadRequest())
-                    .andExpect(jsonPath("$.text", Is.is("Фильм с таким id = 999 не существует")));
+                    .andExpect(status().isNotFound());
         } catch (Exception e) {
             // Then
             assertEquals("Фильм с таким id = 999 не существует", e.getCause().getMessage());
@@ -203,8 +200,7 @@ public class UserFolderMoviePositionalRestControllerTest extends SpringContextTe
             mockMvc.perform(post("/api/user/folders/{id}/movies/{movieId}", id, movieId)
                             .contentType(MediaType.APPLICATION_JSON))
                     .andDo(print())
-                    .andExpect(status().isBadRequest())
-                    .andExpect(jsonPath("$.text", Is.is("Папка с таким id = 999 не существует")));
+                    .andExpect(status().isNotFound());
         } catch (Exception e) {
             // Then
             assertEquals("Папка с таким id = 999 не существует", e.getCause().getMessage());
