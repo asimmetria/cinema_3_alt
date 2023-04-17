@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "studios_performance")
@@ -28,6 +30,9 @@ public class StudiosPerformance {
 
     public StudiosPerformance() {
     }
+
+    @OneToMany(mappedBy="studiosPerformance")
+    public Set<ProductionStudiosMovie> movies;
 
     @Override
     public boolean equals(Object o) {

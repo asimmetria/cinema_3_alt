@@ -1,0 +1,1 @@
+TRUNCATE TABLE collection_category CASCADE;

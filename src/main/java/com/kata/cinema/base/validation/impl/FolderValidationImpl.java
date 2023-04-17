@@ -13,9 +13,9 @@ import org.springframework.stereotype.Component;
 public class FolderValidationImpl implements FolderValidation {
 
     private final FolderRepository folderRepository;
-
+    
     @Override
-    public void isExistFolderById(long id) {
+    public void isExistFolderById(Long id) {
         log.debug("Start validation is exist folder with id = {}", id);
 
         if (!folderRepository.existsById(id)) {
