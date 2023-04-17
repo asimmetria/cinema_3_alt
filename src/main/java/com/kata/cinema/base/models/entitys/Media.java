@@ -1,15 +1,7 @@
 package com.kata.cinema.base.models.entitys;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
+import com.kata.cinema.base.models.enums.MediaStatus;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,9 +9,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -40,18 +37,36 @@ public class Media {
 
     @Column(name = "date")
     @CreationTimestamp
-    private LocalDate date;
+    private LocalDateTime date;
 
     @Column(name = "title")
     private String title;
 
     @Lob
     @Column(name = "html_body")
+    @JdbcTypeCode(SqlTypes.LONGVARCHAR)
     private String htmlBody;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "user_id")
-    private User user;
+    private User author;
+
+    @ManyToMany(mappedBy = "media")
+    private Set<Movie> movie;
+
+    private String previewUrl;
+
+    @OneToMany(mappedBy = "media", cascade = CascadeType.ALL)
+    @Fetch(FetchMode.JOIN)
+    private Set<Comment> comments;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private MediaStatus status;
+
+    @Column(name = "enable")
+    private boolean enable;
 
     @Override
     public boolean equals(Object o) {

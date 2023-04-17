@@ -1,13 +1,7 @@
 package com.kata.cinema.base.webapp.rest.user;
 
-import com.kata.cinema.base.converter.folder.FolderMovieMapper;
 import com.kata.cinema.base.models.dto.request.FolderRequestDto;
 import com.kata.cinema.base.models.dto.response.FolderMovieResponseDto;
-import com.kata.cinema.base.models.entitys.Folder;
-import com.kata.cinema.base.models.enums.FolderMovieType;
-import com.kata.cinema.base.service.dto.FolderDtoService;
-import com.kata.cinema.base.service.entity.FolderService;
-import com.kata.cinema.base.service.entity.UserService;
 import com.kata.cinema.base.webapp.facade.folder.UserFolderMovieServiceFacade;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping( "api/user/folders")
+@RequestMapping("api/user/folders")
 @RequiredArgsConstructor
 public class UserFolderMovieRestController {
 

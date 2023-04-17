@@ -11,6 +11,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
+
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.JoinColumn;
@@ -56,6 +57,10 @@ public class User {
 
     public User(Long id) {
         this.id = id;
+    }
+
+    public String getFullName() {
+        return name + " " + lastName;
     }
 
     @Override
