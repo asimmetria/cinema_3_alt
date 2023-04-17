@@ -5,6 +5,5 @@ public enum RARS {
     SIX_PLUS,
     TWELVE_PLUS,
     SIXTEEN_PLUS,
-    EIGHTEEN_PLUS;
-
+    EIGHTEEN_PLUS
 }

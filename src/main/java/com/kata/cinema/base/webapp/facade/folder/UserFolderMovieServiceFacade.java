@@ -9,7 +9,7 @@ public interface UserFolderMovieServiceFacade {
 
     List<FolderMovieResponseDto> getFolderMoviesByUserId(long userId);
 
-    void createFolderMovies(FolderRequestDto folderRequestDto);
+    void createFolderMovies(FolderRequestDto folderRequestDto, Long userId);
 
     void deleteFolderById(long id);
 }
