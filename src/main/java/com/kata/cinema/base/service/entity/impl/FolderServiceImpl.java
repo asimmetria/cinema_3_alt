@@ -33,6 +33,11 @@ public class FolderServiceImpl implements FolderService {
     }
 
     @Override
+    public boolean existsById(long id) {
+        return folderRepository.existsById(id);
+    }
+
+    @Override
     public Folder findFolderByUserId(Long id) {
         return folderRepository.findFolderByUserId(id);
     }
