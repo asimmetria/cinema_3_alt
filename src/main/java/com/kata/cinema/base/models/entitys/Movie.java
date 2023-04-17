@@ -35,9 +35,11 @@ public class Movie {
 
     @Column(name = "name", nullable = false)
     private String name;
-
-    @Column(name = "countries")
-    private String countries;
+    @ManyToMany()
+    @JoinTable(name = "movie_countries",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "country_id"))
+    private Set<Country> country;
 
     @Column(name = "date_release")
     private LocalDate dateRelease;

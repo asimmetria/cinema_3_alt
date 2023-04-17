@@ -1,0 +1,3 @@
+TRUNCATE TABLE movies CASCADE;
+TRUNCATE TABLE countries CASCADE;
+TRUNCATE TABLE movie_countries;
