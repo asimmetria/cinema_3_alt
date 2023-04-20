@@ -36,8 +36,7 @@ public class MovieRequestDto {
 
     List<Long> genreIds;
 
-    //TODO добавить после рефакта стран
-    //List<Long> countryIds;
+    List<Long> countryIds;
 
     public MovieRequestDto() {
     }

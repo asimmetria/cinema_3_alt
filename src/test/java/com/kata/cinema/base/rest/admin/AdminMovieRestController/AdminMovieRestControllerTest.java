@@ -29,7 +29,9 @@ public class AdminMovieRestControllerTest extends SpringContextTest {
     @Test
     void postMovie_successTest() throws Exception {
         List<Long> genreIds = new ArrayList<>();
+        List<Long> countryIds = new ArrayList<>();
         genreIds.add(1L);
+        countryIds.add(2L);
         MovieRequestDto movieDto = new MovieRequestDto();
         movieDto.setName("Cool");
         movieDto.setRars(RARS.SIX_PLUS);
@@ -38,6 +40,7 @@ public class AdminMovieRestControllerTest extends SpringContextTest {
         movieDto.setDescription("First description");
         movieDto.setOriginalName("Крутой");
         movieDto.setGenreIds(genreIds);
+        movieDto.setCountryIds(countryIds);
 
         MvcResult mvcResult = mockMvc.perform(post("/api/admin/movies")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -55,8 +58,10 @@ public class AdminMovieRestControllerTest extends SpringContextTest {
     @Test
     void putMovie_successTest() throws Exception {
         List<Long> genreIds = new ArrayList<>();
+        List<Long> countryIds = new ArrayList<>();
         genreIds.add(1L);
         genreIds.add(2L);
+        countryIds.add(1L);
         MovieRequestDto movieDto = new MovieRequestDto();
         movieDto.setName("Cool 2");
         movieDto.setRars(RARS.SIX_PLUS);
@@ -65,6 +70,7 @@ public class AdminMovieRestControllerTest extends SpringContextTest {
         movieDto.setDescription("Second description");
         movieDto.setOriginalName("Крутой 2");
         movieDto.setGenreIds(genreIds);
+        movieDto.setCountryIds(countryIds);
 
         MvcResult mvcResult = mockMvc.perform(put("/api/admin/movies/1")
                         .contentType(MediaType.APPLICATION_JSON)

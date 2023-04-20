@@ -6,6 +6,9 @@ import com.kata.cinema.base.service.entity.CountryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Set;
+
 @Service
 @RequiredArgsConstructor
 public class CountryServiceImpl implements CountryService {
@@ -44,6 +47,11 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public Country getCountryById(Long id) {
         return movieCountryRepository.getCountryById(id);
+    }
+
+    @Override
+    public Set<Country> getCountriesByIds(List<Long> ids) {
+        return movieCountryRepository.getAllCountriesByIds(ids);
     }
 
     @Override

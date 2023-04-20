@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminMovieRestController {
     private final MovieServiceFacade movieServiceFacade;
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<Void> saveMovie(@RequestBody MovieRequestDto movieDto) {
         movieServiceFacade.createMovie(movieDto);
         return ResponseEntity.ok().build();

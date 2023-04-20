@@ -6,6 +6,9 @@ import com.kata.cinema.base.service.entity.GenreService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Set;
+
 @Service
 @AllArgsConstructor
 public class GenreServiceImpl implements GenreService {
@@ -14,6 +17,11 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public Genre getGenre(Long id) {
         return genreRepository.getGenreById(id);
+    }
+
+    @Override
+    public Set<Genre> getGenresByIds(List<Long> ids) {
+        return genreRepository.getAllGenresByIds(ids);
     }
 
     @Override

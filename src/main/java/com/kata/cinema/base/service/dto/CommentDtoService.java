@@ -6,9 +6,9 @@ import com.kata.cinema.base.models.dto.response.UserNameResponseDto;
 import java.util.List;
 
 public interface CommentDtoService {
-
     List<UserCommentResponseDto> listRawUserCommentResponseDto(Long mediaId);
-    List<UserCommentResponseDto> listWellDoneUserCommentResponseDto(Long mediaId);
-    List<UserNameResponseDto> getUserDtoByCommentIds(Long mediaId);
 
+    List<UserCommentResponseDto> listWellDoneUserCommentResponseDto(Long mediaId);
+
+    List<UserNameResponseDto> getUserDtoByCommentIds(Long mediaId);
 }

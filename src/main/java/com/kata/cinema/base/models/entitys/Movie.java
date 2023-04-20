@@ -15,13 +15,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.NamedAttributeNode;
+import jakarta.persistence.NamedEntityGraph;
+import jakarta.persistence.NamedEntityGraphs;
+import jakarta.persistence.NamedSubgraph;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -32,6 +34,32 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "movies")
+@NamedEntityGraphs({
+        @NamedEntityGraph(
+                name = "movieGraph",
+                attributeNodes = {
+                        @NamedAttributeNode(value = "country"),
+                        @NamedAttributeNode(value = "genre"),
+                        @NamedAttributeNode(value = "scores"),
+                        @NamedAttributeNode(value = "cast", subgraph = "movieCastGraph")
+                },
+                subgraphs = {
+                        @NamedSubgraph(
+                                name = "movieCastGraph",
+                                attributeNodes = {
+                                        @NamedAttributeNode(value = "profession"),
+                                        @NamedAttributeNode(value = "person", subgraph = "personCastGraph")
+                                }
+                        ),
+                        @NamedSubgraph(
+                                name = "personCastGraph",
+                                attributeNodes = {
+                                        @NamedAttributeNode(value = "casts")
+                                }
+                        )
+                }
+        )
+})
 public class Movie {
 
     @Id
@@ -76,18 +104,15 @@ public class Movie {
     private String previewUrl;
 
     @ManyToMany
-    @Fetch(FetchMode.JOIN)
     @JoinTable(name = "movie_genre",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
-    private List<Genre> genre;
+    private Set<Genre> genre;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    @Fetch(FetchMode.JOIN)
     private Set<Score> scores;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    @Fetch(FetchMode.JOIN)
     private List<Cast> cast;
 
     public Movie() {

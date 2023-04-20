@@ -5,6 +5,7 @@ import jakarta.validation.ValidationException;
 
 public interface CollectionCategoriesRequestDtoValidator {
     boolean supports(Class<?> clazz);
+
     void validate(CollectionCategoriesRequestDto collectionCategoriesRequestDto) throws ValidationException;
 }
 
