@@ -6,4 +6,6 @@ public interface MovieService {
     Movie getMovie(Long id);
 
     void save(Movie movie);
+
+    void deleteById(Long id);
 }

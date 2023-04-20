@@ -11,6 +11,7 @@ public interface FolderService {
 
     Folder getProxyById(long id);
 
+    boolean existsById(long id);
     Folder findFolderByUserId(Long id);
 
 }

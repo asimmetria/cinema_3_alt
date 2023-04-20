@@ -12,13 +12,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.kata.cinema.base.models.dto.response.MovieViewResponseDto;
+import com.kata.cinema.base.webapp.facade.movie.MovieServiceFacade;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/movies")
 @AllArgsConstructor
 public class MovieRestController {
+    private final MovieServiceFacade movieServiceFacade;
     private final ExcertionServiceFacade excertionServiceFacade;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MovieViewResponseDto> getMovie(@PathVariable Long id) {
+        MovieViewResponseDto movieDto = movieServiceFacade.getMovie(id);
+        if (movieDto == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(movieDto, HttpStatus.OK);
+    }
 
     @GetMapping("/{id}/excertions/page/{pageNumber}")
     public Page<ExcertionResponseDto> getExcertion(@PathVariable Long id,
