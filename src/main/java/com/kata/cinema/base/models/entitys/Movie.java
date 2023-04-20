@@ -4,22 +4,13 @@ package com.kata.cinema.base.models.entitys;
 import com.kata.cinema.base.models.enums.MPAA;
 import com.kata.cinema.base.models.enums.RARS;
 import com.kata.cinema.base.models.enums.TypeMedia;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -27,6 +18,31 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "movies")
+@NamedEntityGraphs({
+        @NamedEntityGraph(
+                name = "movieGraph",
+                attributeNodes = {
+                        @NamedAttributeNode(value = "genre"),
+                        @NamedAttributeNode(value = "scores"),
+                        @NamedAttributeNode(value = "cast", subgraph = "movieCastGraph")
+                },
+                subgraphs = {
+                        @NamedSubgraph(
+                                name = "movieCastGraph",
+                                attributeNodes = {
+                                        @NamedAttributeNode(value = "profession"),
+                                        @NamedAttributeNode(value = "person", subgraph = "personCastGraph")
+                                }
+                        ),
+                        @NamedSubgraph(
+                                name = "personCastGraph",
+                                attributeNodes = {
+                                        @NamedAttributeNode(value = "casts")
+                                }
+                        )
+                }
+        )
+})
 public class Movie {
 
     @Id
@@ -35,7 +51,11 @@ public class Movie {
 
     @Column(name = "name", nullable = false)
     private String name;
-    @ManyToMany()
+
+    @Column(name = "original_name", nullable = false)
+    private String originalName;
+
+    @ManyToMany
     @JoinTable(name = "movie_countries",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "country_id"))
@@ -67,6 +87,20 @@ public class Movie {
             joinColumns = @JoinColumn(name = "movie"),
             inverseJoinColumns = @JoinColumn(name = "news_id"))
     private Set<Media> media;
+
+    private String previewUrl;
+
+    @ManyToMany
+    @JoinTable(name = "movie_genre",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    private Set<Genre> genre;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private Set<Score> scores;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private List<Cast> cast;
 
     public Movie() {
     }
