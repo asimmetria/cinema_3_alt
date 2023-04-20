@@ -16,6 +16,6 @@ public class StudioPerformanceDtoServiceImpl implements StudioPerformanceDtoServ
 
     @Override
     public List<PerformanceResponseDto> getPerformance() {
-        return performanceRepository.getPerformance();
+        return performanceRepository.getAll();
     }
 }

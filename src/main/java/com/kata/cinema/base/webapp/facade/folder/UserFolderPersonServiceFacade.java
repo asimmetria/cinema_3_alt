@@ -9,7 +9,7 @@ public interface UserFolderPersonServiceFacade {
 
     List<FolderPersonResponseDto> getFolderPersonsByUserId(long userId);
 
-    void createFolderPerson(FolderRequestDto newFolderPerson);
+    void createFolderPerson(Long userId, FolderRequestDto newFolderPerson);
 
     void deleteFolderById(long id);
 }
