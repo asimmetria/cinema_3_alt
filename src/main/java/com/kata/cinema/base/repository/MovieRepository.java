@@ -10,4 +10,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     @EntityGraph(value = "movieGraph")
     Movie getMovieById(Long id);
+
+    boolean existsMovieById(Long id);
 }

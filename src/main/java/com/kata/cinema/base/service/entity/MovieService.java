@@ -8,4 +8,6 @@ public interface MovieService {
     void save(Movie movie);
 
     void deleteById(Long id);
+
+    boolean isExist(Long id);
 }

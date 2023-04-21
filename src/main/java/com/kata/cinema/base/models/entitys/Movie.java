@@ -38,6 +38,7 @@ import java.util.Set;
         @NamedEntityGraph(
                 name = "movieGraph",
                 attributeNodes = {
+                        @NamedAttributeNode(value = "country"),
                         @NamedAttributeNode(value = "genre"),
                         @NamedAttributeNode(value = "scores"),
                         @NamedAttributeNode(value = "cast", subgraph = "movieCastGraph")
