@@ -26,8 +26,14 @@ public class Person {
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
+    @Column(name = "original_first_name", nullable = false)
+    private String originalFirstName;
+
     @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "original_last_name")
+    private String originalLastName;
 
     @Column(name = "height")
     private double height;
@@ -40,4 +46,12 @@ public class Person {
 
     @OneToMany(mappedBy = "person")
     private Set<Cast> casts;
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    public String getOriginalFullName() {
+        return originalFirstName + " " + originalLastName;
+    }
 }
