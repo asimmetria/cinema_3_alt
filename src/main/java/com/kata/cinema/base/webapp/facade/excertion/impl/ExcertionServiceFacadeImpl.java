@@ -29,16 +29,16 @@ public class ExcertionServiceFacadeImpl implements ExcertionServiceFacade {
 
     @Override
     public Page<ExcertionResponseDto> getMovieExcertion(Long id, int pageNumber, int size) {
-        List<Excertion> excertions = excertionService.getMovieExcertion(id);
         Pageable pageable = PageRequest.of(pageNumber, size);
+        List<Excertion> excertions = excertionService.getMovieExcertion(id, pageable);
         Page<Excertion> entityPage = new PageImpl<>(excertions, pageable, excertions.size());
         return entityPage.map(excertionMapper::toDto);
     }
 
     @Override
     public Page<ExcertionResponseDto> getPersonExcertion(Long id, int pageNumber, int size) {
-        List<Excertion> excertions = excertionService.getPersonExcertion(id);
         Pageable pageable = PageRequest.of(pageNumber, size);
+        List<Excertion> excertions = excertionService.getPersonExcertion(id, pageable);
         Page<Excertion> entityPage = new PageImpl<>(excertions, pageable, excertions.size());
         return entityPage.map(excertionMapper::toDto);
     }

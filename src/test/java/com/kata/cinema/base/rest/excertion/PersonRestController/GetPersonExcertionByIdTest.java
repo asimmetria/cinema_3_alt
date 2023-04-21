@@ -24,9 +24,7 @@ public class GetPersonExcertionByIdTest extends SpringContextTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()", Is.is(11)))
-                .andExpect(jsonPath("$.content[0].id", Is.is(1)))
-                .andExpect(jsonPath("$.content[0].description", Is.is("The first description")))
-                .andExpect(jsonPath("$.content[1].id", Is.is(2)))
-                .andExpect(jsonPath("$.content[1].description", Is.is("The second description")));
+                .andExpect(jsonPath("$.content[0].id", Is.is(2)))
+                .andExpect(jsonPath("$.content[0].description", Is.is("The second description")));
     }
 }

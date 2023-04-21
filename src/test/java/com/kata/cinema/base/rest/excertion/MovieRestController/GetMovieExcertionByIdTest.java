@@ -20,7 +20,7 @@ public class GetMovieExcertionByIdTest extends SpringContextTest {
      */
     @Test
     void getMovieExcertionById_successTest() throws Exception {
-        mockMvc.perform(get("/api/movies/1/excertions/page/1?itemsOnPage=1")
+        mockMvc.perform(get("/api/movies/1/excertions/page/0?itemsOnPage=2")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()", Is.is(11)))
