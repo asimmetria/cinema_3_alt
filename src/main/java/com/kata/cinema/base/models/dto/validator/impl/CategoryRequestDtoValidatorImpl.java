@@ -4,6 +4,7 @@ import com.kata.cinema.base.models.dto.request.CategoryRequestDto;
 import com.kata.cinema.base.models.dto.validator.CategoryRequestDtoValidator;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
+
 @Component
 public class CategoryRequestDtoValidatorImpl implements CategoryRequestDtoValidator {
 

@@ -13,14 +13,14 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class StudiosPerformanceValidationImpl implements StudiosPerformanceValidation {
 
-   private final StudiosPerformanceRepository performanceRepository;
+    private final StudiosPerformanceRepository performanceRepository;
 
     @Override
     public void isExistZeroPerformance(long id) {
 
         log.debug("Start validation = {}", id);
 
-        if(performanceRepository.existsStudiosPerformanceByZero(id)) {
+        if (performanceRepository.existsStudiosPerformanceByZero(id)) {
 
             log.error("Zero", id);
             throw new NotFoundEntityException(String.format("Равен нулю", id));

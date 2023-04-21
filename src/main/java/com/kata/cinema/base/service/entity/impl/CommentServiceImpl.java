@@ -11,8 +11,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
-
     private final CommentRepository commentRepository;
+
     @Override
     public void save(Comment comment) {
         commentRepository.save(comment);
@@ -22,7 +22,7 @@ public class CommentServiceImpl implements CommentService {
     public Comment getCommentById(long id) {
         Comment comment = new Comment();
         Optional<Comment> optional = commentRepository.findById(id);
-        if(optional.isPresent()) {
+        if (optional.isPresent()) {
             comment = optional.get();
         }
         return comment;

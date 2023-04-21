@@ -32,11 +32,12 @@ public class CommentDtoServiceImpl implements CommentDtoService {
         for (UserCommentResponseDto comment : result) comment.setUser(getUserNameResponseDto(users, comment.getId()));
         return result;
     }
-    private UserNameResponseDto getUserNameResponseDto (List<UserNameResponseDto> users, long commentId) {
+
+    private UserNameResponseDto getUserNameResponseDto(List<UserNameResponseDto> users, long commentId) {
         UserNameResponseDto userNameResponseDto = new UserNameResponseDto(commentId);
         Optional<UserNameResponseDto> optional = users.stream().filter(user -> user.commentId.equals(commentId)).findFirst();
-        if(optional.isPresent()) {
-            userNameResponseDto =  optional.get();
+        if (optional.isPresent()) {
+            userNameResponseDto = optional.get();
         }
         return userNameResponseDto;
     }

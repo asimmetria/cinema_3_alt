@@ -51,7 +51,7 @@ public class MediaCommentValidationImpl implements MediaCommentValidation {
         log.debug("Check if the transmitted media and the media comment have the same id = {}", mediaId);
         Comment comment = new Comment();
         Optional<Comment> optional = commentRepository.findById(commentId);
-        if(optional.isPresent()) {
+        if (optional.isPresent()) {
             comment = optional.get();
         }
         if (!comment.getMedia().getId().equals(mediaId)) {
@@ -68,7 +68,7 @@ public class MediaCommentValidationImpl implements MediaCommentValidation {
         Comment comment;
         if (commentRequestDto.parentId != null) {
             comment = commentMapper.toEntity(commentRequestDto);
-            if (comment.getParentComment() == null){
+            if (comment.getParentComment() == null) {
                 log.error("The comment doesn't have a parent comment");
                 throw new Exception("Корневой комментарий не найден");
             }
