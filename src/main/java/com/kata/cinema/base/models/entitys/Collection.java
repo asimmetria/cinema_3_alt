@@ -13,7 +13,6 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.Hibernate;
 
 import java.util.Objects;
 
@@ -44,15 +43,6 @@ public class Collection {
 
     @Column(name = "collection_url")
     private String collectionUrl;
-
-    //TODO
-//    @ManyToMany
-//    @JoinTable(
-//            name = "collection_movie",
-//            joinColumns = @JoinColumn(name = "collection_id"),
-//            inverseJoinColumns = @JoinColumn(name = "movie_id"))
-//    @ToString.Exclude
-//    private Set<Movie> movies;
 
     public Collection() {
     }

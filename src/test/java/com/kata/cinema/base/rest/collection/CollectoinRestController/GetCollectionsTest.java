@@ -34,12 +34,12 @@ public class GetCollectionsTest extends SpringContextTest {
                 .andExpect(jsonPath("[0].id", Is.is(1)))
                 .andExpect(jsonPath("[0].name", Is.is("Movies for dinner")))
                 .andExpect(jsonPath("[0].collectionUrl", Is.is("/collection/1")))
-                .andExpect(jsonPath("[0].countMovies", Is.is(2)))
+                .andExpect(jsonPath("[0].countMovies", Is.is(1)))
 
                 .andExpect(jsonPath("[1].id", Is.is(2)))
                 .andExpect(jsonPath("[1].name", Is.is("Movies for children")))
                 .andExpect(jsonPath("[1].collectionUrl", Is.is("/collection/2")))
-                .andExpect(jsonPath("[1].countMovies", Is.is(2)));
+                .andExpect(jsonPath("[1].countMovies", Is.is(1)));
     }
 
     /*
@@ -57,7 +57,7 @@ public class GetCollectionsTest extends SpringContextTest {
                 .andExpect(jsonPath("[0].id", Is.is(2)))
                 .andExpect(jsonPath("[0].name", Is.is("Movies for children")))
                 .andExpect(jsonPath("[0].collectionUrl", Is.is("/collection/2")))
-                .andExpect(jsonPath("[0].countMovies", Is.is(2)));
+                .andExpect(jsonPath("[0].countMovies", Is.is(1)));
 
     }
 

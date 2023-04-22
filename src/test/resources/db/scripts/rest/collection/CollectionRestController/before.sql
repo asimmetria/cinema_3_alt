@@ -1,4 +1,3 @@
-
 INSERT INTO collection_category(id, name)
 VALUES (22, 'category'),
        (37, 'category');
@@ -21,9 +20,13 @@ INSERT INTO folders(id, privacy, name, description, user_id, type_folder, type)
 VALUES (100, 'PUBLIC', 'Новая папка1', 'описание', 91, 'folders_movies', 'CUSTOM'),
        (101, 'PUBLIC', 'Новая папка2', 'описание', 44, 'folders_movies', 'VIEWED_MOVIES');
 
-
 INSERT INTO folders_movies_positional(id, positional, folder, movie)
 VALUES (1, 1, 100, 15),
        (2, 2, 101, 10),
        (3, 3, 101, 12);
+
+INSERT INTO collection_movie_folder(id, collection_id, movie_id)
+VALUES (1, 1, 10),
+       (2, 2, 12),
+       (3, 2, 15);
 
