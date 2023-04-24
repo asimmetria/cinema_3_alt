@@ -10,10 +10,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @ComponentScan({"com.kata.cinema.base"})
-@EntityScan("com.kata.cinema.base.models")
+@EntityScan(basePackages = {"com.kata.cinema.base.models", "com.kata.cinema.base.security.token"})
 @EnableCaching
 @EnableTransactionManagement
-@EnableJpaRepositories({"com.kata.cinema.base"})
+@EnableJpaRepositories(basePackages = {"com.kata.cinema.base"})
 public class CinemaBaseApplication {
 
     public static void main(String[] args) {

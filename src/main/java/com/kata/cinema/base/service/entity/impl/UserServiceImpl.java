@@ -8,6 +8,7 @@ import com.kata.cinema.base.repository.RoleRepository;
 import com.kata.cinema.base.repository.UserRepository;
 import com.kata.cinema.base.service.entity.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -64,6 +65,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User with email: %s not found", email)));
     }
 }

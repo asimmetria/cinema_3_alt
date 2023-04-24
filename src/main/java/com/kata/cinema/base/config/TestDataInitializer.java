@@ -17,15 +17,13 @@ import com.kata.cinema.base.models.enums.FolderMovieType;
 import com.kata.cinema.base.service.entity.FolderService;
 import com.kata.cinema.base.service.entity.RoleService;
 import com.kata.cinema.base.service.entity.UserService;
-import jakarta.annotation.PostConstruct;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -38,6 +36,7 @@ public class TestDataInitializer {
     private final UserService userService;
     private final RoleService roleService;
     private final FolderService folderService;
+    private final PasswordEncoder passwordEncoder;
 
     @EventListener(ApplicationReadyEvent.class)
     @Order(1)
@@ -58,7 +57,7 @@ public class TestDataInitializer {
             String email = "user" + userNum + "@mail.ru";
             String firstName = "Имя" + userNum;
             String lastName = "Фамилия" + userNum;
-            String password = "password";
+            String password = passwordEncoder.encode("password");
             LocalDate birthday = LocalDate.of(random.nextInt(41) + 1970, Month.JANUARY, 1)
                     .plusDays(random.nextInt(365))
                     .plusYears(random.nextInt(41));
@@ -71,6 +70,7 @@ public class TestDataInitializer {
             newUser.setPassword(password);
             newUser.setBirthday(birthday);
             newUser.setRoles(roles);
+            newUser.setEnable(true);
             userService.save(newUser);
 
             initFolders(newUser.getEmail());
@@ -82,7 +82,7 @@ public class TestDataInitializer {
         String email = "admin@gmail.com";
         String firstName = "admin";
         String lastName = "admin";
-        String password = "admin";
+        String password = passwordEncoder.encode("admin");
         LocalDate birthday = LocalDate.of(random.nextInt(41) + 1970, Month.JANUARY, 1)
                 .plusDays(random.nextInt(365))
                 .plusYears(random.nextInt(41));
@@ -96,6 +96,7 @@ public class TestDataInitializer {
         newAdmin.setPassword(password);
         newAdmin.setBirthday(birthday);
         newAdmin.setRoles(adminRoles);
+        newAdmin.setEnable(true);
         userService.save(newAdmin);
 
         initFolders(newAdmin.getEmail());
@@ -104,7 +105,7 @@ public class TestDataInitializer {
         email = "publicist@gmail.com";
         firstName = "publicist";
         lastName = "publicist";
-        password = "publicist";
+        password = passwordEncoder.encode("publicist");
         birthday = LocalDate.of(random.nextInt(41) + 1970, Month.JANUARY, 1)
                 .plusDays(random.nextInt(365))
                 .plusYears(random.nextInt(41));
@@ -118,6 +119,7 @@ public class TestDataInitializer {
         newPublicist.setPassword(password);
         newPublicist.setBirthday(birthday);
         newPublicist.setRoles(publicistRoles);
+        newPublicist.setEnable(true);
         userService.save(newPublicist);
 
         initFolders(newPublicist.getEmail());
