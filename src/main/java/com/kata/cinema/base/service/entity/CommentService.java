@@ -8,4 +8,5 @@ public interface CommentService {
     Comment getCommentById(long id);
 
     void delete(Comment comment);
+
 }

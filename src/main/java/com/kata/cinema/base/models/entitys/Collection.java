@@ -13,7 +13,6 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.Hibernate;
 
 import java.util.Objects;
 
@@ -42,14 +41,8 @@ public class Collection {
     @JoinColumn(name = "category_id")
     private CollectionCategories category;
 
-    //TODO
-//    @ManyToMany
-//    @JoinTable(
-//            name = "collection_movie",
-//            joinColumns = @JoinColumn(name = "collection_id"),
-//            inverseJoinColumns = @JoinColumn(name = "movie_id"))
-//    @ToString.Exclude
-//    private Set<Movie> movies;
+    @Column(name = "collection_url")
+    private String collectionUrl;
 
     public Collection() {
     }
@@ -57,9 +50,9 @@ public class Collection {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Collection that = (Collection) o;
-        return id != null && Objects.equals(id, that.id);
+        return enable == that.enable && Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(category, that.category) && Objects.equals(collectionUrl, that.collectionUrl);
     }
 
     @Override
