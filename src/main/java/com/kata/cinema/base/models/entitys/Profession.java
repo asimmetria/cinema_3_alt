@@ -1,7 +1,5 @@
 package com.kata.cinema.base.models.entitys;
 
-
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,4 +38,3 @@ public class Profession {
         return getClass().hashCode();
     }
 }
-

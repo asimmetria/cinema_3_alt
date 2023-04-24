@@ -10,5 +10,4 @@ public interface MediaCommentValidation {
     void checkMediaIdAndCommentIdHaveSameId(long id, long commentId) throws Exception;
 
     void commentHasParentComment(CommentRequestDto commentRequestDto) throws Exception;
-
 }

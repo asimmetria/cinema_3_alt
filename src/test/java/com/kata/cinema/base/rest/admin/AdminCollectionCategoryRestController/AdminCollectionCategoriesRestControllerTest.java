@@ -1,6 +1,5 @@
 package com.kata.cinema.base.rest.admin.AdminCollectionCategoryRestController;
 
-
 import com.kata.cinema.base.SpringContextTest;
 import com.kata.cinema.base.models.dto.request.CollectionCategoriesRequestDto;
 import org.hamcrest.core.Is;
@@ -105,5 +104,4 @@ public class AdminCollectionCategoriesRestControllerTest extends SpringContextTe
                 .andExpect(jsonPath("$.length()", Is.is(1)))
                 .andExpect(jsonPath("$[0].name", Is.is("New Category")));
     }
-
 }

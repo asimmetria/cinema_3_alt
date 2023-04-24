@@ -1,6 +1,5 @@
 package com.kata.cinema.base.models.entitys;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -37,5 +36,4 @@ public class Cast {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "character_id")
     private Character character;
-
 }

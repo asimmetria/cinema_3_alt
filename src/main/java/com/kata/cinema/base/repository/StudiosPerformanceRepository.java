@@ -11,7 +11,8 @@ import java.util.List;
 
 public interface StudiosPerformanceRepository extends JpaRepository<StudiosPerformance, Long> {
 
-    List<PerformanceResponseDto> getPerformance();
+    @Query("SELECT p FROM StudiosPerformance p ")
+    List<PerformanceResponseDto> getAll();
 
     @Query("SELECT COUNT(p.id) > 0 FROM StudiosPerformance p JOIN p.movies m WHERE m.id=: movieId")
     boolean existsStudiosPerformanceByZero(@Param("movieId") Long id);

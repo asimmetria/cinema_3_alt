@@ -25,10 +25,9 @@ public class ProductionStudiosMovie {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    //TODO
-//    @ManyToOne
-//    @JoinColumn(name = "movie_id", nullable = false)
-//    public Movies movies;
+    @ManyToOne
+    @JoinColumn(name = "movie_id", nullable = false)
+    public Movie movie;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "performance_id", nullable = false)
