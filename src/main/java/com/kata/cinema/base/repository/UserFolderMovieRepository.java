@@ -5,11 +5,9 @@ import com.kata.cinema.base.models.entitys.FolderMovie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface UserFolderMovieRepository extends JpaRepository<FolderMovie, Long> {
 
     @Query("SELECT new com.kata.cinema.base.models.dto.response.FolderMovieResponseDto(" +

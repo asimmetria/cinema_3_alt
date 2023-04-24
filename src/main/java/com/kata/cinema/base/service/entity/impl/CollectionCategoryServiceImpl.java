@@ -36,30 +36,13 @@ public class CollectionCategoryServiceImpl implements CollectionCategoryService 
     }
 
     @Override
-    public CollectionCategories updateCollectionCategories(Long id, String name) {
-        CollectionCategories collectionCategories = getCollectionCategoriesById(id);
-        if (!collectionCategoryRepository.existsById(id)) {
-            throw new EntityNotFoundException("Category with id " + id + " not found");
-        }
-        collectionCategories.setName(name);
-        return collectionCategoryRepository.save(collectionCategories);
-    }
-
-    @Override
     public void createCollectionCategories(CollectionCategories collectionCategories) {
         collectionCategoryRepository.save(collectionCategories);
     }
 
-    @Override
-    public boolean isCollectionCategoriesExistsById(Long id) {
-        return collectionCategoryRepository.existsById(id);
-    }
 
     @Override
     public void updateCollectionCategories(CollectionCategories collectionCategories) {
-        if (!collectionCategoryRepository.existsById(collectionCategories.getId())) {
-            throw new EntityNotFoundException("Category with id " + collectionCategories.getId() + " not found");
-        }
         collectionCategoryRepository.save(collectionCategories);
     }
 }

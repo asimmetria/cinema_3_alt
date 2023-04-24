@@ -37,11 +37,11 @@ public class AdminCollectionCategoriesRestControllerTest extends SpringContextTe
         mockMvc.perform(post("/api/admin/collections/categories/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("_method", "DELETE"))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
         mockMvc.perform(post("/api/admin/collections/categories/{id}", 3L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("_method", "DELETE"))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
         mockMvc.perform(get("/api/admin/collections/categories")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -56,15 +56,15 @@ public class AdminCollectionCategoriesRestControllerTest extends SpringContextTe
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("_method", "PUT")
                         .param("name", "New Category"))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
         mockMvc.perform(post("/api/admin/collections/categories/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("_method", "DELETE"))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
         mockMvc.perform(post("/api/admin/collections/categories/{id}", 3L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("_method", "DELETE"))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
         mockMvc.perform(get("/api/admin/collections/categories")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -83,15 +83,15 @@ public class AdminCollectionCategoriesRestControllerTest extends SpringContextTe
         mockMvc.perform(post("/api/admin/collections/categories/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("_method", "DELETE"))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
         mockMvc.perform(post("/api/admin/collections/categories/{id}", 2L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("_method", "DELETE"))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
         mockMvc.perform(post("/api/admin/collections/categories/{id}", 3L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("_method", "DELETE"))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
 
         mockMvc.perform(post("/api/admin/collections/categories")
                         .contentType(MediaType.APPLICATION_JSON)

@@ -23,7 +23,7 @@ public class GetCountriesMovieByMovieIdTest extends SpringContextTest {
     @Test
     void givenListCountriesOnMovieId_successTest() throws Exception {
 
-        mockMvc.perform(get("/api/countries/{id}", 21)
+        mockMvc.perform(get("/api/admin/countries/{id}", 21)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()", Is.is(2)))
@@ -40,7 +40,7 @@ public class GetCountriesMovieByMovieIdTest extends SpringContextTest {
      */
     @Test
     void givenListCountriesOnMovieId_failedTest() throws Exception {
-        mockMvc.perform(get("/api/countries/{id}", 90)
+        mockMvc.perform(get("/api/admin/countries/{id}", 90)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }

@@ -9,10 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     @Query("SELECT new com.kata.cinema.base.models.dto.response.UserCommentResponseDto(c.id, c.parentComment.id, c.level, c.message) " +
             "FROM Comment c WHERE c.media.id = :mediaId")
     List<UserCommentResponseDto> listUserCommentResponseDto(@Param("mediaId") Long mediaId);
-
 }

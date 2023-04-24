@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
 public interface MediaRepository extends JpaRepository<Media, Long> {
     Optional<Media> findByIdAndStatusEquals(Long id, MediaStatus status);
 }
