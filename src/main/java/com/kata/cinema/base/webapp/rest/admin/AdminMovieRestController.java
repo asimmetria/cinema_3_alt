@@ -1,7 +1,7 @@
 package com.kata.cinema.base.webapp.rest.admin;
 
 import com.kata.cinema.base.models.dto.request.MovieRequestDto;
-import com.kata.cinema.base.webapp.facade.movie.MovieServiceFacade;
+import com.kata.cinema.base.webapp.facade.admin.MovieServiceFacade;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;

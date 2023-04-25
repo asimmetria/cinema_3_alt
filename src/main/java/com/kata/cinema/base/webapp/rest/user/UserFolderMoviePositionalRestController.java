@@ -1,7 +1,7 @@
 package com.kata.cinema.base.webapp.rest.user;
 
 import com.kata.cinema.base.models.entitys.FolderMoviePositional;
-import com.kata.cinema.base.webapp.facade.movie.UserFolderMoviePositionalServiceFacade;
+import com.kata.cinema.base.webapp.facade.user.UserFolderMoviePositionalServiceFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

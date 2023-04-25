@@ -1,7 +1,7 @@
 package com.kata.cinema.base.webapp.rest.admin;
 
 import com.kata.cinema.base.models.dto.response.PerformanceResponseDto;
-import com.kata.cinema.base.webapp.facade.performance.StudiosPerformanceServiceFacade;
+import com.kata.cinema.base.webapp.facade.admin.StudiosPerformanceServiceFacade;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,26 +18,26 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/admin")
+@RequestMapping("/api/admin/performance")
 public class AdminStudiosPerformanceRestController {
 
     private final StudiosPerformanceServiceFacade performanceServiceFacade;
 
-    @PostMapping("/performance/")
+    @PostMapping
     public ResponseEntity<Void> createPerformance(@RequestParam String name) {
 
         performanceServiceFacade.save(name);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/performance/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePerformance(@PathVariable("id") Long id) {
 
         performanceServiceFacade.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/performance/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Void> updatePerformance(@PathVariable("id") Long id,
                                                   @RequestParam("name") String name) {
         performanceServiceFacade.update(id, name);

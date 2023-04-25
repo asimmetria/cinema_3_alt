@@ -1,7 +1,7 @@
 package com.kata.cinema.base.webapp.rest.publicist;
 
 import com.kata.cinema.base.models.dto.request.MediaRequestDto;
-import com.kata.cinema.base.webapp.facade.movie.MediaServiceFacade;
+import com.kata.cinema.base.webapp.facade.publicist.MediaServiceFacade;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

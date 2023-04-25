@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
-@RequestMapping("api/admin/studios")
+@RequestMapping("/api/admin/studios")
 @AllArgsConstructor
 //TODO переписать на фасад
+//TODO написать тесты и подправить логику
 public class AdminProductionStudiosRestController {
 
 

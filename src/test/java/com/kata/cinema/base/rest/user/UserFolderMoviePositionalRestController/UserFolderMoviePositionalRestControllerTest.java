@@ -2,7 +2,7 @@ package com.kata.cinema.base.rest.user.UserFolderMoviePositionalRestController;
 
 import com.kata.cinema.base.SpringContextTest;
 import com.kata.cinema.base.models.entitys.FolderMoviePositional;
-import com.kata.cinema.base.webapp.facade.movie.UserFolderMoviePositionalServiceFacade;
+import com.kata.cinema.base.webapp.facade.user.UserFolderMoviePositionalServiceFacade;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

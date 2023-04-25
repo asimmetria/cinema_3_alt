@@ -5,8 +5,8 @@ import lombok.Data;
 
 @Data
 public class CollectionCategoriesResponseDto {
-    Long id;
-    String name;
+    private Long id;
+    private String name;
 
     public CollectionCategoriesResponseDto() {
     }

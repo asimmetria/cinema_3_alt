@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-
 public interface StudiosPerformanceRepository extends JpaRepository<StudiosPerformance, Long> {
 
     @Query("SELECT p FROM StudiosPerformance p ")

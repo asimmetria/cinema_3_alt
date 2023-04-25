@@ -18,15 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/admin/countries")
 @RequiredArgsConstructor
 public class AdminCountryRestController {
 
     private final CountryDtoService countryDtoService;
-
     private final CountryService countryService;
 
-    @PostMapping("/admin/countries")
+    @PostMapping
     public ResponseEntity<String> createCountryByName(@RequestParam String name) {
         if (countryService.isExistCountryByName(name)) {
             return ResponseEntity.badRequest().build();
@@ -35,8 +34,9 @@ public class AdminCountryRestController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("admin/countries/{id}")
-    public ResponseEntity<String> putCountryById(@PathVariable Long id, @RequestParam String name) {
+    @PutMapping("/{id}")
+    public ResponseEntity<String> putCountryById(@PathVariable Long id,
+                                                 @RequestParam String name) {
         if (!countryService.isExistCountryById(id)) {
             return ResponseEntity.notFound().build();
         }
@@ -44,7 +44,7 @@ public class AdminCountryRestController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("admin/countries/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCountryById(@PathVariable Long id) {
         if (!countryService.isExistCountryById(id)) {
             return ResponseEntity.notFound().build();
@@ -53,7 +53,8 @@ public class AdminCountryRestController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/countries/{id}")
+    //TODO вынести метод в отдельный класс CountryRestController в пакет unauthorized c url /api/countries/{id} - подправить и перенести тест
+    @GetMapping("/{id}")
     public ResponseEntity<List<CountryResponseDto>> getAllCountriesByMovieId(@PathVariable Long id) {
         if (!countryService.existsCountryByMovieId(id)) {
             return ResponseEntity.notFound().build();

@@ -1,10 +1,9 @@
 package com.kata.cinema.base.webapp.rest.user;
 
 import com.kata.cinema.base.exception.NotFoundEntityException;
-import com.kata.cinema.base.models.dto.ErrorResponse;
 import com.kata.cinema.base.models.dto.response.FolderPersonResponseDto;
 import com.kata.cinema.base.models.dto.request.FolderRequestDto;
-import com.kata.cinema.base.webapp.facade.folder.UserFolderPersonServiceFacade;
+import com.kata.cinema.base.webapp.facade.user.UserFolderPersonServiceFacade;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

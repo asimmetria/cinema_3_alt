@@ -12,14 +12,7 @@ public interface CollectionCategoryService {
 
     void deleteCollectionCategories(CollectionCategories collectionCategories);
 
-
-    CollectionCategories updateCollectionCategories(Long id, String name);
-
-
-
     void createCollectionCategories(CollectionCategories collectionCategories);
-
-    boolean isCollectionCategoriesExistsById(Long id);
 
     void updateCollectionCategories(CollectionCategories collectionCategories);
 }

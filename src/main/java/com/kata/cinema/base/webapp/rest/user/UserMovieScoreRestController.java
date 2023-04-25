@@ -1,6 +1,6 @@
 package com.kata.cinema.base.webapp.rest.user;
 
-import com.kata.cinema.base.webapp.facade.score.ScoreServiceFacade;
+import com.kata.cinema.base.webapp.facade.user.ScoreServiceFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
