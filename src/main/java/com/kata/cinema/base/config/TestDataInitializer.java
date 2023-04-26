@@ -20,13 +20,14 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Component
 @ConditionalOnExpression("${run.init:true}")
 @RequiredArgsConstructor
 public class TestDataInitializer {
+    private final RoleNameEnum[] roles = RoleNameEnum.values();
     private final FolderMovieType[] folderTypes = FolderMovieType.values();
 
     private final UserService userService;
@@ -34,8 +35,19 @@ public class TestDataInitializer {
     private final FolderService folderService;
     private final PasswordEncoder passwordEncoder;
 
-
+    @EventListener(ApplicationReadyEvent.class)
     @Order(1)
+    public void initRoles() {
+        for (RoleNameEnum role : roles) {
+            if (roleService.findByName(role) == null) {
+                Role newRole = new Role();
+                newRole.setName(role);
+                roleService.save(newRole);
+            }
+        }
+    }
+
+    @Order(2)
     @EventListener(ApplicationReadyEvent.class)
     public void initUsers() {
         Random random = new Random();
@@ -57,7 +69,6 @@ public class TestDataInitializer {
             newUser.setPassword(passwordEncoder.encode(password));
             newUser.setBirthday(birthday);
             newUser.setRoles(roles);
-            newUser.setEnable(true);
             userService.save(newUser);
 
             initFolders(newUser.getEmail());
@@ -80,10 +91,9 @@ public class TestDataInitializer {
         newAdmin.setEmail(email);
         newAdmin.setName(firstName);
         newAdmin.setLastName(lastName);
-        newAdmin.setPassword(passwordEncoder.encode(password));
+        newAdmin.setPassword(password);
         newAdmin.setBirthday(birthday);
         newAdmin.setRoles(adminRoles);
-        newAdmin.setEnable(true);
         userService.update(newAdmin);
 
         initFolders(newAdmin.getEmail());
@@ -106,7 +116,6 @@ public class TestDataInitializer {
         newPublicist.setPassword(passwordEncoder.encode(password));
         newPublicist.setBirthday(birthday);
         newPublicist.setRoles(publicistRoles);
-        newPublicist.setEnable(true);
         userService.update(newPublicist);
 
         initFolders(newPublicist.getEmail());
