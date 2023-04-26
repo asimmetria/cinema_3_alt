@@ -30,18 +30,17 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        var user = User.builder()
-                .name(request.getFirstName())
-                .lastName(request.getLastName())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .birthday(request.getBirthday())
-                .roles(request.getRoles())
-                .enable(true)
-                .build();
-        var savedUser = userRepository.save(user);
+            var user = User.builder()
+                    .name(request.getFirstName())
+                    .lastName(request.getLastName())
+                    .email(request.getEmail())
+                    .password(passwordEncoder.encode(request.getPassword()))
+                    .birthday(request.getBirthday())
+                    .roles(request.getRoles())
+                    .enable(true)
+                    .build();
+            var savedUser = userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
-        var refreshToken = jwtService.generateRefreshToken(user);
         saveUserToken(savedUser, jwtToken);
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)

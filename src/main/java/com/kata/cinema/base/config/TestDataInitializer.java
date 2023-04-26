@@ -2,9 +2,7 @@ package com.kata.cinema.base.config;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -22,7 +20,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +27,6 @@ import org.springframework.stereotype.Component;
 @ConditionalOnExpression("${run.init:true}")
 @RequiredArgsConstructor
 public class TestDataInitializer {
-    private final RoleNameEnum[] roles = RoleNameEnum.values();
     private final FolderMovieType[] folderTypes = FolderMovieType.values();
 
     private final UserService userService;
@@ -38,17 +34,8 @@ public class TestDataInitializer {
     private final FolderService folderService;
     private final PasswordEncoder passwordEncoder;
 
-    @EventListener(ApplicationReadyEvent.class)
-    @Order(1)
-    public void initRoles() {
-        for (RoleNameEnum role : roles) {
-            Role newRole = new Role();
-            newRole.setName(role);
-            roleService.save(newRole);
-        }
-    }
 
-    @Order(2)
+    @Order(1)
     @EventListener(ApplicationReadyEvent.class)
     public void initUsers() {
         Random random = new Random();
@@ -57,7 +44,7 @@ public class TestDataInitializer {
             String email = "user" + userNum + "@mail.ru";
             String firstName = "Имя" + userNum;
             String lastName = "Фамилия" + userNum;
-            String password = passwordEncoder.encode("password");
+            String password = "password";
             LocalDate birthday = LocalDate.of(random.nextInt(41) + 1970, Month.JANUARY, 1)
                     .plusDays(random.nextInt(365))
                     .plusYears(random.nextInt(41));
@@ -67,7 +54,7 @@ public class TestDataInitializer {
             newUser.setEmail(email);
             newUser.setName(firstName);
             newUser.setLastName(lastName);
-            newUser.setPassword(password);
+            newUser.setPassword(passwordEncoder.encode(password));
             newUser.setBirthday(birthday);
             newUser.setRoles(roles);
             newUser.setEnable(true);
@@ -82,7 +69,7 @@ public class TestDataInitializer {
         String email = "admin@gmail.com";
         String firstName = "admin";
         String lastName = "admin";
-        String password = passwordEncoder.encode("admin");
+        String password = "admin";
         LocalDate birthday = LocalDate.of(random.nextInt(41) + 1970, Month.JANUARY, 1)
                 .plusDays(random.nextInt(365))
                 .plusYears(random.nextInt(41));
@@ -93,11 +80,11 @@ public class TestDataInitializer {
         newAdmin.setEmail(email);
         newAdmin.setName(firstName);
         newAdmin.setLastName(lastName);
-        newAdmin.setPassword(password);
+        newAdmin.setPassword(passwordEncoder.encode(password));
         newAdmin.setBirthday(birthday);
         newAdmin.setRoles(adminRoles);
         newAdmin.setEnable(true);
-        userService.save(newAdmin);
+        userService.update(newAdmin);
 
         initFolders(newAdmin.getEmail());
 
@@ -105,7 +92,7 @@ public class TestDataInitializer {
         email = "publicist@gmail.com";
         firstName = "publicist";
         lastName = "publicist";
-        password = passwordEncoder.encode("publicist");
+        password = "publicist";
         birthday = LocalDate.of(random.nextInt(41) + 1970, Month.JANUARY, 1)
                 .plusDays(random.nextInt(365))
                 .plusYears(random.nextInt(41));
@@ -116,11 +103,11 @@ public class TestDataInitializer {
         newPublicist.setEmail(email);
         newPublicist.setName(firstName);
         newPublicist.setLastName(lastName);
-        newPublicist.setPassword(password);
+        newPublicist.setPassword(passwordEncoder.encode(password));
         newPublicist.setBirthday(birthday);
         newPublicist.setRoles(publicistRoles);
         newPublicist.setEnable(true);
-        userService.save(newPublicist);
+        userService.update(newPublicist);
 
         initFolders(newPublicist.getEmail());
     }

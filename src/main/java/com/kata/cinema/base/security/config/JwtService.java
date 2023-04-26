@@ -1,6 +1,5 @@
 package com.kata.cinema.base.security.config;
 
-import com.kata.cinema.base.models.entitys.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
