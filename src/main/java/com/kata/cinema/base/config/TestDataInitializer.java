@@ -91,7 +91,7 @@ public class TestDataInitializer {
         newAdmin.setEmail(email);
         newAdmin.setName(firstName);
         newAdmin.setLastName(lastName);
-        newAdmin.setPassword(password);
+        newAdmin.setPassword(passwordEncoder.encode(password));
         newAdmin.setBirthday(birthday);
         newAdmin.setRoles(adminRoles);
         userService.update(newAdmin);
