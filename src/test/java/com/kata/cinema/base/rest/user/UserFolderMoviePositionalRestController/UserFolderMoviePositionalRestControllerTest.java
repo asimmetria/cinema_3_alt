@@ -2,9 +2,12 @@ package com.kata.cinema.base.rest.user.UserFolderMoviePositionalRestController;
 
 import com.kata.cinema.base.SpringContextTest;
 import com.kata.cinema.base.models.entitys.FolderMoviePositional;
+import com.kata.cinema.base.util.JwtUtil;
 import com.kata.cinema.base.webapp.facade.user.UserFolderMoviePositionalServiceFacade;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -27,6 +30,17 @@ public class UserFolderMoviePositionalRestControllerTest extends SpringContextTe
     @Autowired
     private UserFolderMoviePositionalServiceFacade userFolderMoviePositionalServiceFacade;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    private String token;
+
+    @BeforeEach
+    public void init() {
+        token = jwtUtil.generateToken();
+    }
+
+
     /**
      * ТЕСТ-КЕЙС
      * Успешное добавление фильма в фолдер
@@ -37,8 +51,10 @@ public class UserFolderMoviePositionalRestControllerTest extends SpringContextTe
         Long id = 100L;
         Long movieId = 105L;
 
+
         // When
         mockMvc.perform(post("/api/user/folders/{id}/movies/{movieId}", id, movieId)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -67,6 +83,7 @@ public class UserFolderMoviePositionalRestControllerTest extends SpringContextTe
         // Позиция фильма изменяется с 1 на 3
         mockMvc.perform(put("/api/user/folders/{id}/movies/{movieId}", id, movieId)
                         .param("position", String.valueOf(position))
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -104,6 +121,7 @@ public class UserFolderMoviePositionalRestControllerTest extends SpringContextTe
         // Позиция фильма изменяется с 4 на 2
         mockMvc.perform(put("/api/user/folders/{id}/movies/{movieId}", id, movieId)
                         .param("position", String.valueOf(position))
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -139,6 +157,7 @@ public class UserFolderMoviePositionalRestControllerTest extends SpringContextTe
 
         // When
         mockMvc.perform(delete("/api/user/folders/{id}/movies/{movieId}", id, movieId)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -175,6 +194,7 @@ public class UserFolderMoviePositionalRestControllerTest extends SpringContextTe
         try {
             mockMvc.perform(put("/api/user/folders/{id}/movies/{movieId}", id, movieId)
                             .param("position", String.valueOf(position))
+                            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                             .contentType(MediaType.APPLICATION_JSON))
                     .andDo(print())
                     .andExpect(status().isNotFound());
@@ -198,6 +218,7 @@ public class UserFolderMoviePositionalRestControllerTest extends SpringContextTe
         // When
         try {
             mockMvc.perform(post("/api/user/folders/{id}/movies/{movieId}", id, movieId)
+                            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                             .contentType(MediaType.APPLICATION_JSON))
                     .andDo(print())
                     .andExpect(status().isNotFound());
@@ -206,5 +227,4 @@ public class UserFolderMoviePositionalRestControllerTest extends SpringContextTe
             assertEquals("Папка с таким id = 999 не существует", e.getCause().getMessage());
         }
     }
-
 }

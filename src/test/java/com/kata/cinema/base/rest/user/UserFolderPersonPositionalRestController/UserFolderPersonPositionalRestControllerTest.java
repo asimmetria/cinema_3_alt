@@ -2,9 +2,12 @@ package com.kata.cinema.base.rest.user.UserFolderPersonPositionalRestController;
 
 import com.kata.cinema.base.SpringContextTest;
 import com.kata.cinema.base.models.entitys.FolderPersonPositional;
+import com.kata.cinema.base.util.JwtUtil;
 import com.kata.cinema.base.webapp.facade.user.UserFolderPersonPositionalServiceFacade;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -28,6 +31,16 @@ public class UserFolderPersonPositionalRestControllerTest extends SpringContextT
     private UserFolderPersonPositionalServiceFacade userFolderPersonPositionalServiceFacade;
 
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    private String token;
+
+    @BeforeEach
+    public void init() {
+        token = jwtUtil.generateToken();
+    }
+
     /**
      * ТЕСТ-КЕЙС
      * Успешное добавление персоны в фолдер
@@ -40,6 +53,7 @@ public class UserFolderPersonPositionalRestControllerTest extends SpringContextT
 
         // When
         mockMvc.perform(post("/api/user/folders/{id}/persons/{personId}", id, personId)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -68,6 +82,7 @@ public class UserFolderPersonPositionalRestControllerTest extends SpringContextT
         // Позиция персоны изменяется с 1 на 3
         mockMvc.perform(put("/api/user/folders/{id}/persons/{personId}", id, personId)
                         .param("position", String.valueOf(position))
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -106,6 +121,7 @@ public class UserFolderPersonPositionalRestControllerTest extends SpringContextT
         // Позиция персоны изменяется с 4 на 2
         mockMvc.perform(put("/api/user/folders/{id}/persons/{personId}", id, personId)
                         .param("position", String.valueOf(position))
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -141,6 +157,7 @@ public class UserFolderPersonPositionalRestControllerTest extends SpringContextT
 
         // When
         mockMvc.perform(delete("/api/user/folders/{id}/persons/{personId}", id, personId)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -176,6 +193,7 @@ public class UserFolderPersonPositionalRestControllerTest extends SpringContextT
         // When
         try {
             mockMvc.perform(put("/api/user/folders/{id}/persons/{personId}", id, personId)
+                            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                             .param("position", String.valueOf(position))
                             .contentType(MediaType.APPLICATION_JSON))
                     .andDo(print())
@@ -200,6 +218,7 @@ public class UserFolderPersonPositionalRestControllerTest extends SpringContextT
         // When
         try {
             mockMvc.perform(post("/api/user/folders/{id}/persons/{movieId}", id, personId)
+                            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                             .contentType(MediaType.APPLICATION_JSON))
                     .andDo(print())
                     .andExpect(status().isNotFound());

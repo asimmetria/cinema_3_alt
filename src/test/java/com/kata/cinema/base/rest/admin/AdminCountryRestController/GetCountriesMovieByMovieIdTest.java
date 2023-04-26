@@ -1,8 +1,12 @@
 package com.kata.cinema.base.rest.admin.AdminCountryRestController;
 
 import com.kata.cinema.base.SpringContextTest;
+import com.kata.cinema.base.util.JwtUtil;
 import org.hamcrest.core.Is;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -16,14 +20,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class GetCountriesMovieByMovieIdTest extends SpringContextTest {
 
 
+    @Autowired
+    JwtUtil jwtUtil;
+
+    private String token;
+
+    @BeforeEach
+    public void init() {
+        token = jwtUtil.generateToken();
+    }
+
     /**
      * ТЕСТ-КЕЙС
-     * Успешное получение списка списка стран по id фильма
+     * Успешное получение списка стран по id фильма
      */
     @Test
     void givenListCountriesOnMovieId_successTest() throws Exception {
 
         mockMvc.perform(get("/api/admin/countries/{id}", 21)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()", Is.is(2)))
@@ -41,6 +56,7 @@ public class GetCountriesMovieByMovieIdTest extends SpringContextTest {
     @Test
     void givenListCountriesOnMovieId_failedTest() throws Exception {
         mockMvc.perform(get("/api/admin/countries/{id}", 90)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }

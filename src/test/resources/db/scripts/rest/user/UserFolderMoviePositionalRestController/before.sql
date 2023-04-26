@@ -11,13 +11,13 @@ VALUES (100, 'PUBLIC', 'Новая папка1', 'описание', 100, 'folde
        (103, 'PUBLIC', 'Новая папка4', 'описание', 100, 'folders_movies', 'FAVOURITES');
 
 -- Добавление тестовых данных в таблицу movies
-INSERT INTO movies (id, name, date_release, rars, mpaa, time, description, type)
-VALUES (100, 'Тест 1', '2022-01-01', 'SIXTEEN_PLUS', 'PARENTS_STRONGLY_CAUTIONED', 120, 'Описание 1', 'MOVIE'),
-       (101, 'Тест 2', '2022-02-02', 'TWELVE_PLUS', 'PARENTAL_GUIDANCE_SUGGESTED', 90, 'Описание 2', 'SERIAL'),
-       (102, 'Тест 3', '2022-03-03', 'SIX_PLUS', 'GENERAL_AUDIENCES', 150, 'Описание 3', 'CARTOON'),
-       (103, 'Тест 4', '2022-04-04', 'TWELVE_PLUS', 'GENERAL_AUDIENCES', 160, 'Описание 4', 'MOVIE'),
-       (104, 'Тест 5', '2022-05-05', 'SIXTEEN_PLUS', 'PARENTAL_GUIDANCE_SUGGESTED', 130, 'Описание 5', 'SERIAL'),
-       (105, 'Тест 6', '2022-05-05', 'SIXTEEN_PLUS', 'GENERAL_AUDIENCES', 130, 'Описание 6', 'CARTOON');
+INSERT INTO movies (id, name, original_name, date_release, rars, mpaa, time, description, type)
+VALUES (100, 'Тест 1', 'Original name 1', '2022-01-01', 'SIXTEEN_PLUS', 'PARENTS_STRONGLY_CAUTIONED', 120, 'Описание 1', 'MOVIE'),
+       (101, 'Тест 2', 'Original name 2', '2022-02-02', 'TWELVE_PLUS', 'PARENTAL_GUIDANCE_SUGGESTED', 90, 'Описание 2', 'SERIAL'),
+       (102, 'Тест 3', 'Original name 3', '2022-03-03', 'SIX_PLUS', 'GENERAL_AUDIENCES', 150, 'Описание 3', 'CARTOON'),
+       (103, 'Тест 4', 'Original name 4', '2022-04-04', 'TWELVE_PLUS', 'GENERAL_AUDIENCES', 160, 'Описание 4', 'MOVIE'),
+       (104, 'Тест 5', 'Original name 5', '2022-05-05', 'SIXTEEN_PLUS', 'PARENTAL_GUIDANCE_SUGGESTED', 130, 'Описание 5', 'SERIAL'),
+       (105, 'Тест 6', 'Original name 6', '2022-05-05', 'SIXTEEN_PLUS', 'GENERAL_AUDIENCES', 130, 'Описание 6', 'CARTOON');
 
 -- Добавление тестовых данных в таблицу folders_movies_positional
 -- Добавление записи 1

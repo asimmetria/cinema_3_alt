@@ -3,8 +3,11 @@ package com.kata.cinema.base.rest.user.UserMovieScoreRestController;
 import com.kata.cinema.base.SpringContextTest;
 import com.kata.cinema.base.models.entitys.Score;
 import com.kata.cinema.base.repository.ScoreRepository;
+import com.kata.cinema.base.util.JwtUtil;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.jdbc.Sql;
@@ -31,6 +34,16 @@ public class UserMovieScoreRestControllerTest extends SpringContextTest {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    private String token;
+
+    @BeforeEach
+    public void init() {
+        token = jwtUtil.generateToken();
+    }
+
 
     /**
      * ТЕСТ-КЕЙС
@@ -45,6 +58,7 @@ public class UserMovieScoreRestControllerTest extends SpringContextTest {
 
         // When
         mockMvc.perform(post("/api/user/movies/{id}/score", movieId)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .param("score", String.valueOf(score))
                         .param("userId", String.valueOf(userId))
                         .contentType(MediaType.APPLICATION_JSON))
@@ -73,6 +87,7 @@ public class UserMovieScoreRestControllerTest extends SpringContextTest {
 
         // When
         mockMvc.perform(patch("/api/user/movies/{id}/score/{scoreId}", movieId, scoreId)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .param("score", String.valueOf(newScore))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -97,6 +112,7 @@ public class UserMovieScoreRestControllerTest extends SpringContextTest {
 
         // When
         mockMvc.perform(delete("/api/user/movies/{id}/score/{scoreId}", movieId, deletedScoreId)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());

@@ -1,9 +1,9 @@
 -- Добавление тестовых данных в таблицу movies
-INSERT INTO movies (id, name, countries, date_release, rars, mpaa, time, description, type)
-VALUES (100, 'Фильм 1', 'Страна 1, Страна 2', '2022-01-01', 'SIXTEEN_PLUS', 'PARENTS_STRONGLY_CAUTIONED', 120, 'Описание фильма 1', 'MOVIE'),
-       (101, 'Фильм 2', 'Страна 3, Страна 4', '2022-02-02', 'TWELVE_PLUS', 'PARENTAL_GUIDANCE_SUGGESTED', 150, 'Описание фильма 2', 'SERIAL'),
-       (102, 'Фильм 3', 'Страна 5, Страна 6', '2022-03-03', 'ZERO_PLUS', 'GENERAL_AUDIENCES', 180, 'Описание фильма 3', 'CARTOON'),
-       (103, 'Фильм 4', 'Страна 7, Страна 8', '2022-04-04', 'EIGHTEEN_PLUS', 'NO_ONE_SEVENTEEN_AND_UNDER_ADMITTED', 160, 'Описание фильма 4', 'MOVIE');
+INSERT INTO movies (id, original_name, name, date_release, rars, mpaa, time, description, type)
+VALUES (100, 'Original name 1', 'Фильм 1', '2022-01-01', 'SIXTEEN_PLUS', 'PARENTS_STRONGLY_CAUTIONED', 120, 'Описание фильма 1', 'MOVIE'),
+       (101, 'Original name 1', 'Фильм 2', '2022-02-02', 'TWELVE_PLUS', 'PARENTAL_GUIDANCE_SUGGESTED', 150, 'Описание фильма 2', 'SERIAL'),
+       (102, 'Original name 1', 'Фильм 3', '2022-03-03', 'ZERO_PLUS', 'GENERAL_AUDIENCES', 180, 'Описание фильма 3', 'CARTOON'),
+       (103, 'Original name 1', 'Фильм 4', '2022-04-04', 'EIGHTEEN_PLUS', 'NO_ONE_SEVENTEEN_AND_UNDER_ADMITTED', 160, 'Описание фильма 4', 'MOVIE');
 
 -- Добавление тестовых данных в таблицу users
 INSERT INTO users (id, email, first_name, last_name, password, birthday, enable)

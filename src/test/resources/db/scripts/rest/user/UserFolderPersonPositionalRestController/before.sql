@@ -11,13 +11,13 @@ VALUES (100, 'PUBLIC', 'Новая папка1', 'описание', 100, 'folde
        (103, 'PUBLIC', 'Новая папка4', 'описание', 100, 'folders_persons', 'FAVOURITES');
 
 -- Добавление тестовых данных в таблицу persons
-INSERT INTO persons (id, first_name, last_name, height, date_birth, place_of_birth)
-VALUES (100, 'John', 'Doe', 175.5, '1990-05-15', 'New York'),
-       (101, 'Jane', 'Smith', 160.0, '1995-02-28', 'Los Angeles'),
-       (102, 'Michael', 'Johnson', 185.2, '1988-11-10', 'Chicago'),
-       (103, 'Sarah', 'Brown', 170.8, '1993-07-20', 'Houston'),
-       (104, 'Ashley', 'McNiel', 158.8, '2000-09-12', 'Washington'),
-       (105, 'Peter', 'Taylor', 188.0, '2002-01-05', 'Austin');
+INSERT INTO persons (id, original_first_name, first_name, last_name, height, date_birth, place_of_birth)
+VALUES (100, 'Firstname1', 'John', 'Doe', 175.5, '1990-05-15', 'New York'),
+       (101, 'Firstname2', 'Jane', 'Smith', 160.0, '1995-02-28', 'Los Angeles'),
+       (102, 'Firstname3', 'Michael', 'Johnson', 185.2, '1988-11-10', 'Chicago'),
+       (103, 'Firstname4', 'Sarah', 'Brown', 170.8, '1993-07-20', 'Houston'),
+       (104, 'Firstname5', 'Ashley', 'McNiel', 158.8, '2000-09-12', 'Washington'),
+       (105, 'Firstname6', 'Peter', 'Taylor', 188.0, '2002-01-05', 'Austin');
 
 
 -- Добавление тестовых данных в таблицу folders_movies_positional
