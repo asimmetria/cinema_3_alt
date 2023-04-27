@@ -2,9 +2,9 @@ package com.kata.cinema.base.rest.user.UserFolderMoviePositionalRestController;
 
 import com.kata.cinema.base.SpringContextTest;
 import com.kata.cinema.base.models.entitys.FolderMoviePositional;
-import com.kata.cinema.base.util.JwtUtil;
+import com.kata.cinema.base.rest.util.IntegrationTestingAccessTokenUtil;
 import com.kata.cinema.base.webapp.facade.user.UserFolderMoviePositionalServiceFacade;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -30,16 +30,7 @@ public class UserFolderMoviePositionalRestControllerTest extends SpringContextTe
     @Autowired
     private UserFolderMoviePositionalServiceFacade userFolderMoviePositionalServiceFacade;
 
-    @Autowired
-    private JwtUtil jwtUtil;
-
     private String token;
-
-    @BeforeEach
-    public void init() {
-        token = jwtUtil.generateToken();
-    }
-
 
     /**
      * ТЕСТ-КЕЙС
@@ -52,6 +43,7 @@ public class UserFolderMoviePositionalRestControllerTest extends SpringContextTe
         Long movieId = 105L;
 
 
+        token = IntegrationTestingAccessTokenUtil.obtainNewAccessToken("email1@mail.ru", "password", mockMvc);
         // When
         mockMvc.perform(post("/api/user/folders/{id}/movies/{movieId}", id, movieId)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
