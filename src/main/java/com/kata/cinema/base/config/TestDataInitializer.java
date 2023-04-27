@@ -2,9 +2,7 @@ package com.kata.cinema.base.config;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -17,16 +15,13 @@ import com.kata.cinema.base.models.enums.FolderMovieType;
 import com.kata.cinema.base.service.entity.FolderService;
 import com.kata.cinema.base.service.entity.RoleService;
 import com.kata.cinema.base.service.entity.UserService;
-import jakarta.annotation.PostConstruct;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Component
 @ConditionalOnExpression("${run.init:true}")
@@ -38,14 +33,17 @@ public class TestDataInitializer {
     private final UserService userService;
     private final RoleService roleService;
     private final FolderService folderService;
+    private final PasswordEncoder passwordEncoder;
 
     @EventListener(ApplicationReadyEvent.class)
     @Order(1)
     public void initRoles() {
         for (RoleNameEnum role : roles) {
-            Role newRole = new Role();
-            newRole.setName(role);
-            roleService.save(newRole);
+            if (roleService.findByName(role) == null) {
+                Role newRole = new Role();
+                newRole.setName(role);
+                roleService.save(newRole);
+            }
         }
     }
 
@@ -68,7 +66,7 @@ public class TestDataInitializer {
             newUser.setEmail(email);
             newUser.setName(firstName);
             newUser.setLastName(lastName);
-            newUser.setPassword(password);
+            newUser.setPassword(passwordEncoder.encode(password));
             newUser.setBirthday(birthday);
             newUser.setRoles(roles);
             userService.save(newUser);
@@ -93,10 +91,10 @@ public class TestDataInitializer {
         newAdmin.setEmail(email);
         newAdmin.setName(firstName);
         newAdmin.setLastName(lastName);
-        newAdmin.setPassword(password);
+        newAdmin.setPassword(passwordEncoder.encode(password));
         newAdmin.setBirthday(birthday);
         newAdmin.setRoles(adminRoles);
-        userService.save(newAdmin);
+        userService.update(newAdmin);
 
         initFolders(newAdmin.getEmail());
 
@@ -115,10 +113,10 @@ public class TestDataInitializer {
         newPublicist.setEmail(email);
         newPublicist.setName(firstName);
         newPublicist.setLastName(lastName);
-        newPublicist.setPassword(password);
+        newPublicist.setPassword(passwordEncoder.encode(password));
         newPublicist.setBirthday(birthday);
         newPublicist.setRoles(publicistRoles);
-        userService.save(newPublicist);
+        userService.update(newPublicist);
 
         initFolders(newPublicist.getEmail());
     }

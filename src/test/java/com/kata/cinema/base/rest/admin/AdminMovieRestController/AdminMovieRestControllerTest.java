@@ -5,8 +5,12 @@ import com.kata.cinema.base.SpringContextTest;
 import com.kata.cinema.base.models.dto.request.MovieRequestDto;
 import com.kata.cinema.base.models.enums.MPAA;
 import com.kata.cinema.base.models.enums.RARS;
+import com.kata.cinema.base.util.JwtUtil;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.jdbc.Sql;
@@ -21,6 +25,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, value = "/db/scripts/rest/movie/AdminMovieRestController/before.sql")
 @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, value = "/db/scripts/rest/movie/AdminMovieRestController/after.sql")
 public class AdminMovieRestControllerTest extends SpringContextTest {
+
+    @Autowired
+    JwtUtil jwtUtil;
+
+    private String token;
+
+    @BeforeEach
+    public void init() {
+        token = jwtUtil.generateToken();
+    }
 
     /**
      * ТЕСТ-КЕЙС
@@ -43,6 +57,7 @@ public class AdminMovieRestControllerTest extends SpringContextTest {
         movieDto.setCountryIds(countryIds);
 
         MvcResult mvcResult = mockMvc.perform(post("/api/admin/movies")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(movieDto)))
                 .andReturn();
@@ -73,6 +88,7 @@ public class AdminMovieRestControllerTest extends SpringContextTest {
         movieDto.setCountryIds(countryIds);
 
         MvcResult mvcResult = mockMvc.perform(put("/api/admin/movies/1")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(movieDto)))
                 .andReturn();

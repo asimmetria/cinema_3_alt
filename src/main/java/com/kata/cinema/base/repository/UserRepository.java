@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
@@ -25,5 +26,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT new com.kata.cinema.base.models.dto.response.UserNameResponseDto(c.user.id) FROM Comment c WHERE c.id IN :commentIds")
     List<UserNameResponseDto> getUsersByCommentIds(@Param("commentIds") List<Long> commentIds);
 
-    User findByEmail(String email);
+    Optional<User> findByEmail(String email);
 }
