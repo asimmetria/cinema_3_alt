@@ -4,6 +4,7 @@ package com.kata.cinema.base.models.entitys;
 import com.kata.cinema.base.models.enums.MPAA;
 import com.kata.cinema.base.models.enums.RARS;
 import com.kata.cinema.base.models.enums.TypeMedia;
+import com.kata.cinema.base.my.Rating;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,6 +27,7 @@ import lombok.Setter;
 import org.hibernate.Hibernate;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -120,8 +122,35 @@ public class Movie {
     private List<Cast> cast;
 
     private String originName;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private List<Rating> ratings;
+
+    private String title;
+
+    private Integer year;
+
+    private String genres;
     public Movie() {
     }
+
+    public Movie(String title, Integer year, String genre) {
+        this.title = title;
+        this.year = year;
+        this.genres = genre;
+        this.ratings = new ArrayList<>();
+    }
+
+
+    public void addRating(Rating rating) {
+        ratings.add(rating);
+        rating.setMovie(this);
+    }
+
+    public Integer getNumRatings() {
+        return ratings.size();
+    }
+
 
     @Override
     public boolean equals(Object o) {
