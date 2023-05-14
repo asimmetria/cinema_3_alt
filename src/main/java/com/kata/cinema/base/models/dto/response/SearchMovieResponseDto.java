@@ -13,7 +13,7 @@ public class SearchMovieResponseDto {
     private String originalName;
     private LocalDate dateRelease;
     private String previewUrl;
-    private List<String> genre;
+    private List<Genre> genre;
 
     public SearchMovieResponseDto(Long id, String name, String originalName,
                                   LocalDate dateRelease, String previewUrl, List<Genre> genres) {
@@ -59,11 +59,11 @@ public class SearchMovieResponseDto {
         this.id = id;
     }
 
-    public List<String> getGenres() {
+    public List<Genre> getGenres() {
         return genre;
     }
 
-    public void setGenres(List<String> genres) {
+    public void setGenres(List<Genre> genres) {
         this.genre = genres;
     }
 

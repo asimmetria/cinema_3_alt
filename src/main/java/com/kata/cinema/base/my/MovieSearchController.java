@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/search/movies")
 public class MovieSearchController {
 
     private final MovieSearchServiceImpl movieSearchService;
@@ -21,10 +20,10 @@ public class MovieSearchController {
         this.movieSearchService = movieSearchService;
     }
 
-    @GetMapping("/page/{pageNumber}")
+    @GetMapping("/api/search/movies/page/{pageNumber}")
     public Page<SearchMovieResponseDto> searchMovies(
             @PathVariable Integer pageNumber,
-            @RequestParam Integer itemsOnPage,
+            @RequestParam(defaultValue = "10") Integer itemsOnPage,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) LocalDate startDate,
             @RequestParam(required = false) LocalDate endDate,
@@ -36,6 +35,7 @@ public class MovieSearchController {
         return movieSearchService.searchMovies(pageNumber, itemsOnPage, name, startDate, endDate, genres, rars, mpaa, sortType);
     }
 }
+
 
 
 
