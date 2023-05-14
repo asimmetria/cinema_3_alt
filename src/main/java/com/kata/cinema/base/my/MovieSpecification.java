@@ -11,21 +11,21 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-final class MovieSpecification {
+public class MovieSpecification {
 
-    private EntityManager entityManager;
+    private static EntityManager entityManager;
 
-    @GetMapping("/api/search/movies/page/{pageNumber}")
-    public Page<SearchMovieResponseDto> searchMovies(
+
+    public static Page<SearchMovieResponseDto> searchMovies(
             @PathVariable Integer pageNumber,
             @RequestParam Integer itemsOnPage,
             @RequestParam(required = false) String name,
@@ -88,23 +88,13 @@ final class MovieSpecification {
         }
 
         // Execute the query
-        List<Movie> movies = entityManager.createQuery(cq)
+        /*List<Movie> movies = entityManager.createQuery(cq)
                 .setFirstResult((pageNumber - 1) * itemsOnPage)
                 .setMaxResults(itemsOnPage)
                 .getResultList();
 
-        // Convert the results to DTOs
-        List<SearchMovieResponseDto> dtos = movies.stream()
-                .map(movie -> {
-                    SearchMovieResponseDto dto = new SearchMovieResponseDto();
-                    dto.setId(movie.getId());
-                    dto.setName(movie.getName());
-                    dto.setOriginalName(movie.getOriginalName());
-                    dto.setDateRelease(movie.getDateRelease());
-                    dto.setPreviewUrl(movie.getPreviewUrl());
-                    dto.setGenres(movie.getGenres());
-
-
-                }
-    };
+                }*/
+        return searchMovies();
+    }
 }
+
