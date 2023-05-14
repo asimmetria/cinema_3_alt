@@ -50,7 +50,7 @@ public class TopMovieService {
         topMovieRepository.deleteAll();
         topMovieRepository.saveAll(topMovieList);
     }
-
+//one of the ways
 
     private double calculateRating(Movie movie) {
         List<Rating> ratings = movie.getRatings();

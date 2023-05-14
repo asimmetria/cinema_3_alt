@@ -23,7 +23,7 @@ public class Rating {
         this.score = score;
     }
 
-    // getters and setters
+
 
 
     public void setScore(Integer score) {

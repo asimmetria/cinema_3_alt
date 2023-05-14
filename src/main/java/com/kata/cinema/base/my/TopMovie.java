@@ -22,7 +22,7 @@ public class TopMovie {
 
     public TopMovie() {}
 
-    // getters and setters
+    //getters and setters
 
     public Long getId() {
         return id;
