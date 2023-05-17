@@ -11,9 +11,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReviewRequestDto {
-    TypeReview typeReview;
-    String title;
-    String description;
-    Long userId;
-    LocalDate date;
+    private TypeReview typeReview;
+    private String title;
+    private String description;
+    private Long userId;
+    private LocalDate date;
 }

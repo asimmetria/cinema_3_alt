@@ -12,12 +12,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReviewResponseDto {
-    Long id;
-    TypeReview typeReview;
-    String title;
-    String description;
-    String fullName;
+    private Long id;
+    private TypeReview typeReview;
+    private String title;
+    private String description;
+    private String fullName;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
-    LocalDate date;
+    private LocalDate date;
 
 }

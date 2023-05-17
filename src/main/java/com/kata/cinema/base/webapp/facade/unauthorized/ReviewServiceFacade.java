@@ -9,7 +9,9 @@ import org.springframework.data.domain.Page;
 import java.util.Optional;
 
 public interface ReviewServiceFacade {
-    Page<ReviewResponseDto> getMovieReview(Long movieId, int pageNumber, int size, ReviewSortType sortType, Optional<TypeReview> typeReview);
+
+    Page<ReviewResponseDto> getPageReviewByMovie(Long movieId, int pageNumber, int size,
+                                                 ReviewSortType sortType, Optional<TypeReview> typeReview);
 
     void createReview(Long id, ReviewRequestDto reviewRequestDto);
 
