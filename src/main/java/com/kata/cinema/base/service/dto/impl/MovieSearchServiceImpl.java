@@ -6,6 +6,7 @@ import com.kata.cinema.base.models.enums.MPAA;
 import com.kata.cinema.base.models.enums.MovieSortType;
 import com.kata.cinema.base.models.enums.RARS;
 import com.kata.cinema.base.repository.MovieRepository;
+import com.kata.cinema.base.service.dto.MovieSearchService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +17,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class MovieSearchServiceImpl {
+public class MovieSearchServiceImpl implements MovieSearchService {
 
     private final MovieRepository movieRepository;
 
