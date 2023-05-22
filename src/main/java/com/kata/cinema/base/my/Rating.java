@@ -3,7 +3,10 @@ package com.kata.cinema.base.my;
 import com.kata.cinema.base.models.entitys.Movie;
 import com.kata.cinema.base.models.entitys.User;
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
+@Table(name = "ratings")
 @Entity
 public class Rating {
 
@@ -21,32 +24,5 @@ public class Rating {
 
     public Rating(Integer score) {
         this.score = score;
-    }
-
-
-
-
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-
-    public Movie getMovie() {
-        return movie;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
-    }
-
-    public Integer getScore() {
-        return score;
     }
 }

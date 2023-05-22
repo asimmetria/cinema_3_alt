@@ -5,9 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
+import lombok.Data;
 
 
-
+@Data
 @Entity
 public class TopMovie {
 
@@ -22,30 +23,5 @@ public class TopMovie {
 
     public TopMovie() {}
 
-    //getters and setters
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Movie getMovie() {
-        return movie;
-    }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
-    }
-
-    public Integer getPositionRating() {
-        return positionRating;
-    }
-
-    public void setPositionRating(Integer positionRating) {
-        this.positionRating = positionRating;
-    }
 }
 

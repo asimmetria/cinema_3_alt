@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface TopMovieRepository extends JpaRepository<TopMovie, Long> {
 
-    //need a column
+
     @Query("SELECT tm FROM TopMovie tm WHERE tm.movie.numRatings > 5000 ORDER BY tm.positionRating ASC")
     List<TopMovie> findTop250Movies();
 }

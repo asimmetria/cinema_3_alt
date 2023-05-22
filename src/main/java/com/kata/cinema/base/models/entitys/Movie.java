@@ -141,7 +141,7 @@ public class Movie {
         this.ratings = new ArrayList<>();
     }
 
-//add rating
+
     public void addRating(Rating rating) {
         ratings.add(rating);
         rating.setMovie(this);
