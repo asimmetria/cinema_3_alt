@@ -37,7 +37,7 @@ public class Collection {
     private String name;
 
     @Column(name = "enable", nullable = false)
-    private Boolean enable;
+    private Boolean enable = true;
 
     @Lob
     @Column(name = "description")

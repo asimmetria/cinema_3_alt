@@ -13,5 +13,4 @@ public class CollectionRequestDto {
 
     private String description;
 
-    private Boolean enable;
 }
