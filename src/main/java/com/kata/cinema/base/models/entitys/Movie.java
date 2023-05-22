@@ -111,7 +111,7 @@ public class Movie {
     @JoinTable(name = "movie_genre",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
-    private List<Genre> genre;
+    private Set<Genre> genre;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private Set<Score> scores;
