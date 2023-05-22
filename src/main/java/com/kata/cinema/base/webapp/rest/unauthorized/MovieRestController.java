@@ -59,7 +59,7 @@ public class MovieRestController {
                                              @RequestParam(value = "itemsOnPage", required = false) int size,
                                              @RequestParam(value = "reviewSortType", defaultValue = "DATE_ASC") ReviewSortType sortType,
                                              @RequestParam(value = "typeReview", required = false) Optional<TypeReview> typeReview) {
-        return reviewServiceFacade.getMovieReview(id, pageNumber, size, sortType, typeReview);
+        return reviewServiceFacade.getPageReviewByMovie(id, pageNumber, size, sortType, typeReview);
 
     }
 }
