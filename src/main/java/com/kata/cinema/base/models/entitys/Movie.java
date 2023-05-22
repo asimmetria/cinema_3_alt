@@ -119,6 +119,7 @@ public class Movie {
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<Cast> cast;
 
+    private String originName;
     public Movie() {
     }
 
