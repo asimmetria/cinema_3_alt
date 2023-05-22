@@ -1,5 +1,7 @@
 package com.kata.cinema.base.service.entity.impl;
 
+import com.kata.cinema.base.converter.collectionCategories.CollectionCategoriesMapper;
+import com.kata.cinema.base.models.dto.response.CollectionCategoriesResponseDto;
 import com.kata.cinema.base.models.entitys.CollectionCategories;
 import com.kata.cinema.base.repository.CollectionCategoryRepository;
 import com.kata.cinema.base.service.entity.CollectionCategoryService;
@@ -28,11 +30,11 @@ public class CollectionCategoryServiceImpl implements CollectionCategoryService 
     }
 
     @Override
-    public void deleteCollectionCategories(CollectionCategories collectionCategories) {
-        if (!collectionCategoryRepository.existsById(collectionCategories.getId())) {
-            throw new EntityNotFoundException("Category with id " + collectionCategories.getId() + " not found");
+    public void deleteCollectionCategoriesById(Long id) {
+        if (!collectionCategoryRepository.existsById(id)) {
+            throw new EntityNotFoundException("Category with id " + id + " not found");
         }
-        collectionCategoryRepository.delete(collectionCategories);
+        collectionCategoryRepository.deleteById(id);
     }
 
     @Override
@@ -42,7 +44,10 @@ public class CollectionCategoryServiceImpl implements CollectionCategoryService 
 
 
     @Override
-    public void updateCollectionCategories(CollectionCategories collectionCategories) {
+    public void updateCollectionCategoriesNameById(Long id, String name) {
+        CollectionCategories collectionCategories = collectionCategoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Category with id " + id + " not found"));
+        collectionCategories.setName(name);
         collectionCategoryRepository.save(collectionCategories);
     }
 }

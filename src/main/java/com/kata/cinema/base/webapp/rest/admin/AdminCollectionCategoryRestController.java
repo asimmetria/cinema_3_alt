@@ -1,10 +1,10 @@
 package com.kata.cinema.base.webapp.rest.admin;
 
+import com.kata.cinema.base.converter.collectionCategories.CollectionCategoriesMapper;
 import com.kata.cinema.base.models.dto.request.CollectionCategoriesRequestDto;
 import com.kata.cinema.base.models.dto.response.CollectionCategoriesResponseDto;
-import com.kata.cinema.base.models.dto.validator.CollectionCategoriesRequestDtoValidator;
 import com.kata.cinema.base.models.entitys.CollectionCategories;
-import com.kata.cinema.base.webapp.facade.admin.impl.CollectionCategoryFacade;
+import com.kata.cinema.base.webapp.facade.admin.impl.CollectionCategoryFacadeImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -28,32 +28,25 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AdminCollectionCategoryRestController {
 
-    private final CollectionCategoryFacade collectionCategoryFacade;
+    private final CollectionCategoryFacadeImpl collectionCategoryFacade;
+    private final CollectionCategoriesMapper collectionCategoriesMapper;
 
     @GetMapping
     public ResponseEntity<List<CollectionCategoriesResponseDto>> getCollectionCategories() {
         List<CollectionCategories> collectionCategories = collectionCategoryFacade.getAllCollectionCategories();
-
-        //TODO использовать конвертер вместо этого кода, вызывать его в фасаде
-        List<CollectionCategoriesResponseDto> collectionCategoriesResponseDto = collectionCategories.stream()
-                .map(CollectionCategoriesResponseDto::new)
-                .collect(Collectors.toList());
+        List<CollectionCategoriesResponseDto> collectionCategoriesResponseDto = collectionCategoriesMapper.toDto(collectionCategories);
         return ResponseEntity.ok(collectionCategoriesResponseDto);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCollectionCategories(@PathVariable Long id) {
-        //TODO сделать удаление сразу по id, без доставания сущности
-        collectionCategoryFacade.deleteCollectionCategories(collectionCategoryFacade.getCollectionCategoriesById(id));
+        collectionCategoryFacade.deleteCollectionCategoriesById(id);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateCollectionCategories(@PathVariable Long id, @RequestParam String name) {
-        //TODO делать всю вот эту логику в сервисе
-        CollectionCategories collectionCategories = collectionCategoryFacade.getCollectionCategoriesById(id);
-        collectionCategories.setName(name);
-        collectionCategoryFacade.updateCollectionCategories(collectionCategories);
+        collectionCategoryFacade.updateCollectionCategoriesNameById(id, name);
         return ResponseEntity.ok().build();
     }
 

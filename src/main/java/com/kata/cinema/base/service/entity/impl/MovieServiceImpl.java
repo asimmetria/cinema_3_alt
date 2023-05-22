@@ -13,6 +13,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -39,7 +40,7 @@ public class MovieServiceImpl implements MovieService {
         Set<Genre> genres = genreService.getGenresByIds(movieDto.getGenreIds());
         Set<Country> countries = countryService.getCountriesByIds(movieDto.getCountryIds());
         Movie movie = movieMapper.toEntity(movieDto);
-        movie.setGenre(genres);
+        movie.setGenre((List<Genre>) genres);
         movie.setCountry(countries);
 
         if (isExist(id)) movie.setId(id);
