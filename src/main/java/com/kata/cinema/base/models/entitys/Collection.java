@@ -37,7 +37,7 @@ public class Collection {
     private String name;
 
     @Column(name = "enable", nullable = false)
-    private byte enable;
+    private Boolean enable;
 
     @Lob
     @Column(name = "description")
@@ -50,20 +50,7 @@ public class Collection {
     @Column(name = "collection_url")
     private String collectionUrl;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-        name = "collection_movie_folder",
-        joinColumns = @JoinColumn(name = "collection_id"),
-        inverseJoinColumns = @JoinColumn(name = "movie_id")
-    )
-    private Set<Movie> movies = new HashSet<>();
-
     public Collection() {
-    }
-
-    public Set<Movie> getMovies() {
-        Hibernate.initialize(this.movies);
-        return this.movies;
     }
 
     @Override

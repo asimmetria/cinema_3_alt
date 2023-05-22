@@ -40,10 +40,10 @@ public interface CollectionRepository extends JpaRepository<Collection, Long> {
 
     @Modifying
     @Query("UPDATE Collection c SET c.enable = :value WHERE c.id = :id")
-    void deactivateById(@Param("id") Long id, @Param("value") Byte value);
+    void deactivateById(@Param("id") Long id, @Param("value") boolean value);
 
     @Modifying
     @Query("UPDATE Collection c SET c.enable = :value WHERE c.id = :id")
-    void activateById(@Param("id") Long id, @Param("value") Byte value);
+    void activateById(@Param("id") Long id, @Param("value") boolean value);
 
 }

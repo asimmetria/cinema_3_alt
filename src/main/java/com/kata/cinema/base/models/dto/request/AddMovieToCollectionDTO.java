@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AddMovieToCollectionDTO {
 
-    public List<Long> ids;
+    private List<Long> ids;
 
 }
