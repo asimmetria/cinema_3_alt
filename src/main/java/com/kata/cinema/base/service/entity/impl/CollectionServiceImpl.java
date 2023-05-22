@@ -2,7 +2,9 @@ package com.kata.cinema.base.service.entity.impl;
 
 import com.kata.cinema.base.exception.MovieNotFoundException;
 import com.kata.cinema.base.models.entitys.Collection;
+import com.kata.cinema.base.models.entitys.CollectionMovie;
 import com.kata.cinema.base.models.entitys.Movie;
+import com.kata.cinema.base.repository.CollectionMovieRepository;
 import com.kata.cinema.base.repository.CollectionRepository;
 import com.kata.cinema.base.service.entity.CollectionService;
 import jakarta.persistence.Access;
@@ -22,6 +24,8 @@ public class CollectionServiceImpl implements CollectionService {
 
     private final MovieServiceImpl movieService;
 
+    private final CollectionMovieRepository collectionMovieRepository;
+
     @Override
     public void save(Collection collection) {
         collectionRepository.save(collection);
@@ -40,47 +44,46 @@ public class CollectionServiceImpl implements CollectionService {
     @Transactional
     @Override
     public void deactivateCollection(Long id) {
-        collectionRepository.deactivateById(id, Byte.valueOf("0"));
+        collectionRepository.deactivateById(id, false);
     }
 
     @Transactional
     @Override
     public void activateCollection(Long id) {
-        collectionRepository.activateById(id, Byte.valueOf("1"));
+        collectionRepository.activateById(id, true);
     }
 
     @Transactional
     @Override
-    @Access(value = AccessType.FIELD)
     public void addMovieToCollection(Collection collection, List<Long> movieIds) throws MovieNotFoundException {
 
-
-        List<Movie> movies = new ArrayList<>();
         if (movieIds != null && !movieIds.isEmpty()) {
-            movies = movieService.getMoviesByIds(movieIds);
+            List<Movie> movies = movieService.getMoviesByIds(movieIds);
             if (movies.size() != movieIds.size()) {
                 throw new MovieNotFoundException("Some movies were not found");
             }
+            List<CollectionMovie> collectionMovies = new ArrayList<>();
+            for (Movie movie : movies) {
+                CollectionMovie collectionMovie = new CollectionMovie();
+                collectionMovie.setCollection(collection);
+                collectionMovie.setMovie(movie);
+                collectionMovies.add(collectionMovie);
+            }
+            collectionMovieRepository.saveAll(collectionMovies);
         }
-
-        collection.getMovies().addAll(movies);
-        collectionRepository.save(collection);
     }
 
     @Transactional
     @Override
-    @Access(value = AccessType.FIELD)
     public void deleteMovieFromCollection(Collection collection, List<Long> movieIds) throws MovieNotFoundException {
 
-        List<Movie> movies = new ArrayList<>();
         if (movieIds != null && !movieIds.isEmpty()) {
-            movies = movieService.getMoviesByIds(movieIds);
+            List<Movie> movies = movieService.getMoviesByIds(movieIds);
             if (movies.size() != movieIds.size()) {
                 throw new MovieNotFoundException("Some movies were not found");
             }
+            List<CollectionMovie> collectionMovies = collectionMovieRepository.findByCollectionAndMovieIn(collection, movies);
+            collectionMovieRepository.deleteAll(collectionMovies);
         }
-
-        movies.forEach(collection.getMovies()::remove);
-        collectionRepository.save(collection);
     }
 }
