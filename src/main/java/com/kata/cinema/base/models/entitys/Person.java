@@ -23,6 +23,9 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @Column(name = "preview_url")
+    private String previewUrl;
+
     @Column(name = "first_name", nullable = false)
     private String firstName;
 

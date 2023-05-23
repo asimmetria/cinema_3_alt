@@ -2,6 +2,8 @@ package com.kata.cinema.base.webapp.rest.unauthorized;
 
 import com.kata.cinema.base.models.dto.request.ExcertionRequestDto;
 import com.kata.cinema.base.models.dto.response.ExcertionResponseDto;
+import com.kata.cinema.base.models.dto.response.PersonViewResponseDto;
+import com.kata.cinema.base.repository.PersonRepository;
 import com.kata.cinema.base.webapp.facade.unauthorized.ExcertionServiceFacade;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,6 +21,16 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class PersonRestController {
     private final ExcertionServiceFacade excertionServiceFacade;
+    private final PersonRepository personRepository;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PersonViewResponseDto> getPerson(@PathVariable Long id) {
+        PersonViewResponseDto personDto = personRepository.getPersonViewById(id);
+        if (personDto == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(personDto);
+    }
 
     @GetMapping("/{id}/excertions/page/{pageNumber}")
     public Page<ExcertionResponseDto> getExcertion(@PathVariable Long id,
