@@ -1,16 +1,15 @@
 package com.kata.cinema.base.models.dto.request;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class CollectionRequestDto {
+@AllArgsConstructor
+public class DeleteMovieFromCollectionDTO {
 
-    private String name;
-
-    private String description;
+    private List<Long> ids;
 
 }

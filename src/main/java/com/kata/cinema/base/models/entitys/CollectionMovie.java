@@ -1,6 +1,7 @@
 package com.kata.cinema.base.models.entitys;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
@@ -17,7 +18,8 @@ import lombok.Setter;
 @Setter
 public class CollectionMovie {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "collection_movie_folder_id_seq")
+    @SequenceGenerator(name = "collection_movie_folder_id_seq", sequenceName = "collection_movie_folder_id_seq", allocationSize = 1)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

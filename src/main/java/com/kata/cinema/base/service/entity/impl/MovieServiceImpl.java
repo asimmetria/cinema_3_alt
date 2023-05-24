@@ -9,6 +9,7 @@ import com.kata.cinema.base.repository.MovieRepository;
 import com.kata.cinema.base.service.entity.CountryService;
 import com.kata.cinema.base.service.entity.GenreService;
 import com.kata.cinema.base.service.entity.MovieService;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,11 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public Movie getMovie(Long id) {
         return movieRepository.getMovieById(id);
+    }
+
+    @Override
+    public List<Movie> getMoviesByIds(List<Long> ids) {
+        return movieRepository.findAllById(ids);
     }
 
     @Override
