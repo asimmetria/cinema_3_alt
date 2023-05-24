@@ -1,0 +1,3 @@
+TRUNCATE TABLE production_studios CASCADE;
+
+TRUNCATE TABLE users CASCADE;
