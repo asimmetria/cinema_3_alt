@@ -2,15 +2,16 @@ package com.kata.cinema.base.my;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
-public class TopMovieUpdateService {
+@Component
+public class TopMovieUpdate {
 
     private final TopMovieService topMovieService;
 
     @Autowired
-    public TopMovieUpdateService(TopMovieService topMovieService) {
+    public TopMovieUpdate(TopMovieService topMovieService) {
         this.topMovieService = topMovieService;
     }
 
