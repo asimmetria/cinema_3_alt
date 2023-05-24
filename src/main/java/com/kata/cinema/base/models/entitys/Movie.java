@@ -123,9 +123,6 @@ public class Movie {
 
     private String originName;
 
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    private List<Rating> ratings;
-
     private String title;
 
     private Integer year;
@@ -138,18 +135,8 @@ public class Movie {
         this.title = title;
         this.year = year;
         this.genres = genre;
-        this.ratings = new ArrayList<>();
     }
 
-
-    public void addRating(Rating rating) {
-        ratings.add(rating);
-        rating.setMovie(this);
-    }
-
-    public Integer getNumRatings() {
-        return ratings.size();
-    }
 
 
     @Override

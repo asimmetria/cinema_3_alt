@@ -1,12 +1,13 @@
 package com.kata.cinema.base.my;
 
 import com.kata.cinema.base.models.entitys.Movie;
-import com.kata.cinema.base.models.entitys.User;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@Table(name = "ratings")
+@Getter
+@Setter
+@Table(name = "scores")
 @Entity
 public class Rating {
 
