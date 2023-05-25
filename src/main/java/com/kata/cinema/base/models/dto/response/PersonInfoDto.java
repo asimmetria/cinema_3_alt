@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Data
-public class PersonViewResponseDto {
+public class PersonInfoDto {
     public Long id;
     public String previewUrl;
     public String fullName;
@@ -14,14 +14,11 @@ public class PersonViewResponseDto {
     public Double height;
     public LocalDate birthday;
     public String placeOfBirth;
-    public Long countMove;
-    public List<GenreResponseDto> genres;
-    public List<ProfessionResponseDto> professions;
 
-    public PersonViewResponseDto () {
+    public PersonInfoDto () {
     }
 
-    public PersonViewResponseDto (Long id, String previewUrl, String fullName, String originalFullName, Double height, LocalDate birthday, String placeOfBirth, Long countMove,List<GenreResponseDto> genres,List<ProfessionResponseDto> professions) {
+    public PersonInfoDto (Long id, String previewUrl, String fullName, String originalFullName, Double height, LocalDate birthday, String placeOfBirth) {
         this.id = id;
         this.previewUrl = previewUrl;
         this.fullName = fullName;
@@ -29,8 +26,6 @@ public class PersonViewResponseDto {
         this.height = height;
         this.birthday = birthday;
         this.placeOfBirth = placeOfBirth;
-        this.countMove = countMove;
-        this.genres = genres;
-        this.professions = professions;
     }
+
 }
