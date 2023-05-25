@@ -15,8 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -25,21 +23,10 @@ public class ReviewPaginationServiceImpl implements ReviewPaginationService {
     private final ReviewService reviewService;
 
     @Override
-    public Page<ReviewResponseDto> getMovieReview(Long movieId, int pageNumber, int size, ReviewSortType sortType, Optional<TypeReview> typeReview) {
+    public Page<ReviewResponseDto> getMovieReview(Long movieId, int pageNumber, int size, ReviewSortType sortType, TypeReview typeReview) {
 
         Pageable pageable = PageRequest.of(pageNumber, size, sortType.getSortType());
-
-        List<Review> reviewList = null;
-
-        if (typeReview.isPresent()) {
-            reviewList = reviewService.getReviewsByMovieId(movieId, pageable)
-                    .stream()
-                    .filter(r -> r.getTypeReview() == typeReview.get())
-                    .collect(Collectors.toList());
-        } else {
-            reviewList = reviewService.getReviewsByMovieId(movieId, pageable);
-        }
-
+        List<Review> reviewList = reviewService.getReviewsByMovieId(movieId, typeReview, pageable);
         Page<Review> entityPage = new PageImpl<>(reviewList, pageable, reviewList.size());
 
         return entityPage.map(reviewMapper::toDto);
