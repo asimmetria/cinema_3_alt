@@ -120,8 +120,22 @@ public class Movie {
     private List<Cast> cast;
 
     private String originName;
+
+    private String title;
+
+    private Integer year;
+
+    private String genres;
     public Movie() {
     }
+
+    public Movie(String title, Integer year, String genre) {
+        this.title = title;
+        this.year = year;
+        this.genres = genre;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {
