@@ -1,12 +1,10 @@
-package com.kata.cinema.base.my;
+package com.kata.cinema.base.models.entitys;
 
-import com.kata.cinema.base.models.entitys.Movie;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

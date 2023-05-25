@@ -2,8 +2,10 @@ package com.kata.cinema.base.my;
 
 import com.kata.cinema.base.models.entitys.Movie;
 import com.kata.cinema.base.models.entitys.Score;
+import com.kata.cinema.base.models.entitys.TopMovie;
 import com.kata.cinema.base.repository.MovieRepository;
 import com.kata.cinema.base.repository.ScoreRepository;
+import com.kata.cinema.base.repository.TopMovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,7 @@ public class TopMovieService {
     @Autowired
     private ScoreRepository scoreRepository;
 
-    //@Scheduled(cron = "0 0 0 * * ?")
+
     public void updateTopMovies() {
         List<TopMovie> topMovieList = new ArrayList<>();
 

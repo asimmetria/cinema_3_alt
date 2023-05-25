@@ -1,9 +1,7 @@
-package com.kata.cinema.base.my;
+package com.kata.cinema.base.repository;
 
+import com.kata.cinema.base.models.entitys.TopMovie;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-
-import java.util.List;
 
 public interface TopMovieRepository extends JpaRepository<TopMovie, Long> {
 
