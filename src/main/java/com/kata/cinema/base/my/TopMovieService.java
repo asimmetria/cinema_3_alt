@@ -1,9 +1,10 @@
 package com.kata.cinema.base.my;
 
 import com.kata.cinema.base.models.entitys.Movie;
+import com.kata.cinema.base.models.entitys.Score;
 import com.kata.cinema.base.repository.MovieRepository;
+import com.kata.cinema.base.repository.ScoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class TopMovieService {
     private MovieRepository movieRepository;
 
     @Autowired
-    private RatingRepository ratingRepository;
+    private ScoreRepository scoreRepository;
 
     //@Scheduled(cron = "0 0 0 * * ?")
     public void updateTopMovies() {
@@ -40,25 +41,25 @@ public class TopMovieService {
     }
 
     private double calculateRating(Movie movie) {
-        List<Rating> ratings = ratingRepository.findByMovie(movie);
+        List<Score> scores = scoreRepository.findByMovie(movie);
 
-        if (ratings.isEmpty()) {
+        if (scores.isEmpty()) {
             return 0.0;
         }
 
         double sum = 0.0;
-        for (Rating rating : ratings) {
-            sum += rating.getScore();
+        for (Score score : scores) {
+            sum += score.getScore();
         }
 
-        double avgRating = sum / ratings.size();
-        double numRatings = (double) ratings.size();
+        double avgRating = sum / scores.size();
+        double numRatings = (double) scores.size();
         double bayesianRating = (numRatings / (numRatings + 50.0)) * avgRating + (50.0 / (numRatings + 50.0)) * 3.0;
         return bayesianRating;
     }
 
     private int getNumRatings(Movie movie) {
-        return ratingRepository.countByMovie(movie);
+        return scoreRepository.countByMovie(movie);
     }
 }
 

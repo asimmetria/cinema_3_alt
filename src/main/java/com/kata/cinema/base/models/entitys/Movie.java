@@ -4,7 +4,6 @@ package com.kata.cinema.base.models.entitys;
 import com.kata.cinema.base.models.enums.MPAA;
 import com.kata.cinema.base.models.enums.RARS;
 import com.kata.cinema.base.models.enums.TypeMedia;
-import com.kata.cinema.base.my.Rating;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,7 +26,6 @@ import lombok.Setter;
 import org.hibernate.Hibernate;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
