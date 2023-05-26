@@ -4,8 +4,10 @@ import com.kata.cinema.base.converter.collection.CollectionMapper;
 import com.kata.cinema.base.exception.CollectionNotFoundException;
 import com.kata.cinema.base.exception.MovieNotFoundException;
 import com.kata.cinema.base.models.dto.request.CollectionRequestDto;
+import com.kata.cinema.base.models.dto.response.CollectionMoviesResponseDto;
 import com.kata.cinema.base.models.dto.response.CollectionResponseDto;
 import com.kata.cinema.base.models.entitys.Collection;
+import com.kata.cinema.base.models.enums.CollectionSortType;
 import com.kata.cinema.base.service.dto.CollectionDtoService;
 import com.kata.cinema.base.service.entity.CollectionService;
 import com.kata.cinema.base.validation.UserValidation;
@@ -16,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Component
@@ -98,5 +101,10 @@ public class CollectionServiceFacadeImpl implements CollectionServiceFacade {
             throw new CollectionNotFoundException("Collection not found");
         }
         collectionService.deleteMovieFromCollection(collection, movieIds);
+    }
+
+    @Override
+    public CollectionMoviesResponseDto getCollectionMovie(Long id, Long countryId, Long genreId, LocalDate date, CollectionSortType collectionSortType) {
+        return collectionService.getCollectionMovie(id, countryId, genreId, date, collectionSortType);
     }
 }

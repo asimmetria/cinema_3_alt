@@ -5,7 +5,9 @@ import com.kata.cinema.base.exception.MovieNotFoundException;
 import com.kata.cinema.base.models.dto.request.AddMovieToCollectionDTO;
 import com.kata.cinema.base.models.dto.request.CollectionRequestDto;
 import com.kata.cinema.base.models.dto.request.DeleteMovieFromCollectionDTO;
+import com.kata.cinema.base.models.dto.response.CollectionMoviesResponseDto;
 import com.kata.cinema.base.models.dto.response.CollectionResponseDto;
+import com.kata.cinema.base.models.enums.CollectionSortType;
 import com.kata.cinema.base.webapp.facade.unauthorized.CollectionServiceFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -38,7 +41,7 @@ public class CollectionRestController {
         }
         return ResponseEntity.ok(collectionServiceFacade.getCollectionsByCategoryId(categoryId, userId));
         //TODO
-        //Реализовать получение юзера, после добавления секьюрности
+        // Реализовать получение юзера, после добавления секьюрности
     }
 
     @PostMapping
@@ -49,7 +52,7 @@ public class CollectionRestController {
 
     @PutMapping("/{id}")
     ResponseEntity<Void> updateCollection(@RequestBody CollectionRequestDto requestDto,
-                                       @PathVariable Long id) {
+                                          @PathVariable Long id) {
         collectionServiceFacade.update(requestDto, id);
         return ResponseEntity.ok().build();
     }
@@ -92,6 +95,16 @@ public class CollectionRestController {
         } catch (CollectionNotFoundException | MovieNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("{id}/movies")
+    public ResponseEntity<CollectionMoviesResponseDto> getCollectionMovies(@PathVariable Long id,
+                                                                           @RequestParam(value = "countryId", required = false) Long countryId,
+                                                                           @RequestParam(value = "genre", required = false) Long genreId,
+                                                                           @RequestParam(value = "date", required = false) LocalDate date,
+                                                                           @RequestParam(value = "collectionSortType", defaultValue = "ORDER") CollectionSortType collectionSortType) {
+        return ResponseEntity.ok(collectionServiceFacade.getCollectionMovie(id, countryId, genreId, date, collectionSortType));
+
     }
 
 }
