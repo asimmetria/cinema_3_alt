@@ -28,7 +28,7 @@ public class PersonDtoServiceImpl implements PersonDtoService {
                 personInfo.getFullName(),
                 personInfo.getOriginalFullName(),
                 personInfo.getHeight(),
-                personInfo.getBirthday(),
+                personInfo.getDateBirth(),
                 personInfo.getPlaceOfBirth(),
                 movieCount,
                 topGenres,

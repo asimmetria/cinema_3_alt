@@ -8,6 +8,7 @@ import com.kata.cinema.base.webapp.facade.unauthorized.ExcertionServiceFacade;
 import com.kata.cinema.base.webapp.facade.unauthorized.PersonServiceFacade;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,9 +29,9 @@ public class PersonRestController {
     public ResponseEntity<PersonViewResponseDto> getPerson(@PathVariable Long id) {
         PersonViewResponseDto personDto = personServiceFacade.getPersonViewById(id);
         if (personDto == null) {
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return ResponseEntity.ok(personDto);
+        return new ResponseEntity<>(personDto, HttpStatus.OK);
     }
 
     @GetMapping("/{id}/excertions/page/{pageNumber}")

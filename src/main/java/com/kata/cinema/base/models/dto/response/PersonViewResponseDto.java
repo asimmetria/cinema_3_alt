@@ -12,7 +12,7 @@ public class PersonViewResponseDto {
     public String fullName;
     public String originalFullName;
     public Double height;
-    public LocalDate birthday;
+    public LocalDate dateBirth;
     public String placeOfBirth;
     public Long countMove;
     public List<GenreResponseDto> genres;
@@ -21,13 +21,13 @@ public class PersonViewResponseDto {
     public PersonViewResponseDto () {
     }
 
-    public PersonViewResponseDto (Long id, String previewUrl, String fullName, String originalFullName, Double height, LocalDate birthday, String placeOfBirth, Long countMove,List<GenreResponseDto> genres,List<ProfessionResponseDto> professions) {
+    public PersonViewResponseDto (Long id, String previewUrl, String fullName, String originalFullName, Double height, LocalDate dateBirth, String placeOfBirth, Long countMove,List<GenreResponseDto> genres,List<ProfessionResponseDto> professions) {
         this.id = id;
         this.previewUrl = previewUrl;
         this.fullName = fullName;
         this.originalFullName = originalFullName;
         this.height = height;
-        this.birthday = birthday;
+        this.dateBirth = dateBirth;
         this.placeOfBirth = placeOfBirth;
         this.countMove = countMove;
         this.genres = genres;
