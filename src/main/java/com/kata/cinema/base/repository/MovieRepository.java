@@ -20,13 +20,13 @@ public interface MovieRepository extends JpaRepository<Movie, Long>, JpaSpecific
 
     boolean existsMovieById(Long id);
 
-    Page<Movie> searchMovies (
-            String name,
-            LocalDate startDate,
-            LocalDate endDate,
-            List<String> genres,
-            RARS rars,
-            MPAA mpaa,
-            Pageable pageable
-    );
+//    Page<Movie> searchMovies (
+//            String name,
+//            LocalDate startDate,
+//            LocalDate endDate,
+//            List<String> genres,
+//            RARS rars,
+//            MPAA mpaa,
+//            Pageable pageable
+//    );
 }

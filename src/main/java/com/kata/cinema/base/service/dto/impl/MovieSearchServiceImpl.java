@@ -40,8 +40,8 @@ public class MovieSearchServiceImpl implements MovieSearchService {
             MovieSortType sortType
     ) {
         Pageable pageable = PageRequest.of(pageNumber, itemsOnPage, getSort(sortType));
-        Page<Movie> moviesPage = movieRepository.searchMovies(name, startDate, endDate, genres, rars, mpaa, pageable);
-        return moviesPage.map(this::toSearchMovieResponseDto);
+        //Page<Movie> moviesPage = movieRepository.searchMovies(name, startDate, endDate, genres, rars, mpaa, pageable);
+        return null;
     }
 
     private Sort getSort(MovieSortType sortType) {
