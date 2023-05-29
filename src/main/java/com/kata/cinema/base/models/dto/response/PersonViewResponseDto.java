@@ -7,16 +7,16 @@ import java.util.List;
 
 @Data
 public class PersonViewResponseDto {
-    public Long id;
-    public String previewUrl;
-    public String fullName;
-    public String originalFullName;
-    public Double height;
-    public LocalDate dateBirth;
-    public String placeOfBirth;
-    public Long countMove;
-    public List<GenreResponseDto> genres;
-    public List<ProfessionResponseDto> professions;
+    private Long id;
+    private String previewUrl;
+    private String fullName;
+    private String originalFullName;
+    private Double height;
+    private LocalDate dateBirth;
+    private String placeOfBirth;
+    private Long countMove;
+    private List<GenreResponseDto> genres;
+    private List<ProfessionResponseDto> professions;
 
     public PersonViewResponseDto () {
     }

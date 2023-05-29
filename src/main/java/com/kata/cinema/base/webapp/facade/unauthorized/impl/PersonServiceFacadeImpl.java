@@ -15,7 +15,8 @@ class PersonServiceFacadeImpl implements PersonServiceFacade {
     private final PersonDtoService personDtoService;
 
     @Override
-    public PersonViewResponseDto getPersonViewById(Long id) { return personDtoService.getPersonViewById(id);
+    public PersonViewResponseDto getPersonViewById(Long id) {
+        return personDtoService.getPersonViewById(id);
     }
 
 }

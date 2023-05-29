@@ -6,13 +6,13 @@ import java.time.LocalDate;
 
 @Data
 public class PersonInfoDto {
-    public Long id;
-    public String previewUrl;
-    public String fullName;
-    public String originalFullName;
-    public Double height;
-    public LocalDate dateBirth;
-    public String placeOfBirth;
+    private Long id;
+    private String previewUrl;
+    private String fullName;
+    private String originalFullName;
+    private Double height;
+    private LocalDate dateBirth;
+    private String placeOfBirth;
 
     public PersonInfoDto () {
     }
