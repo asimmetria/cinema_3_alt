@@ -1,6 +1,7 @@
 package com.kata.cinema.base.service.dto.impl;
 
 import com.kata.cinema.base.models.dto.response.SearchMovieResponseDto;
+import com.kata.cinema.base.models.entitys.Genre;
 import com.kata.cinema.base.models.entitys.Movie;
 import com.kata.cinema.base.models.enums.MPAA;
 import com.kata.cinema.base.models.enums.MovieSortType;
@@ -14,6 +15,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -66,7 +69,7 @@ public class MovieSearchServiceImpl implements MovieSearchService {
                 movie.getOriginName(),
                 movie.getDateRelease(),
                 movie.getPreviewUrl(),
-                movie.getGenre()
+                new ArrayList<>(movie.getGenre())
         );
     }
 }
