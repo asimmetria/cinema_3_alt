@@ -12,4 +12,5 @@ public class CollectionRequestDto {
     private String name;
 
     private String description;
+
 }

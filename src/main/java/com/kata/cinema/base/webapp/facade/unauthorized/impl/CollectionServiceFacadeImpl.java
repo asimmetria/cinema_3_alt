@@ -1,6 +1,8 @@
 package com.kata.cinema.base.webapp.facade.unauthorized.impl;
 
 import com.kata.cinema.base.converter.collection.CollectionMapper;
+import com.kata.cinema.base.exception.CollectionNotFoundException;
+import com.kata.cinema.base.exception.MovieNotFoundException;
 import com.kata.cinema.base.models.dto.request.CollectionRequestDto;
 import com.kata.cinema.base.models.dto.response.CollectionResponseDto;
 import com.kata.cinema.base.models.entitys.Collection;
@@ -66,5 +68,35 @@ public class CollectionServiceFacadeImpl implements CollectionServiceFacade {
     public List<CollectionResponseDto> getCollectionsByCategoryId(Long categoryId, Long userId) {
         userValidation.isExistUserById(userId);
         return dtoService.getCollectionsByCategoryId(categoryId, userId);
+    }
+
+    @Override
+    public void deactivateById(Long id) {
+        collectionService.deactivateCollection(id);
+    }
+
+    @Override
+    public void activateById(Long id) {
+        collectionService.activateCollection(id);
+    }
+
+    @Override
+    @Transactional
+    public void addMoviesToCollection(Long collectionId, List<Long> movieIds) throws CollectionNotFoundException, MovieNotFoundException {
+        Collection collection = collectionService.getById(collectionId);
+        if (collection == null) {
+            throw new CollectionNotFoundException("Collection not found");
+        }
+        collectionService.addMovieToCollection(collection, movieIds);
+    }
+
+    @Override
+    @Transactional
+    public void deleteMoviesFromCollection(Long collectionId, List<Long> movieIds) throws CollectionNotFoundException, MovieNotFoundException {
+        Collection collection = collectionService.getById(collectionId);
+        if (collection == null) {
+            throw new CollectionNotFoundException("Collection not found");
+        }
+        collectionService.deleteMovieFromCollection(collection, movieIds);
     }
 }

@@ -1,8 +1,11 @@
 package com.kata.cinema.base.models.entitys;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,11 +13,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 import jakarta.persistence.Table;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Objects;
+import org.hibernate.Hibernate;
 
 @Entity
 @Table(name = "collections")
@@ -31,7 +37,7 @@ public class Collection {
     private String name;
 
     @Column(name = "enable", nullable = false)
-    private byte enable;
+    private Boolean enable = true;
 
     @Lob
     @Column(name = "description")

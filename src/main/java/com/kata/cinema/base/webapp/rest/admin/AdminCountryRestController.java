@@ -53,12 +53,5 @@ public class AdminCountryRestController {
         return ResponseEntity.ok().build();
     }
 
-    //TODO вынести метод в отдельный класс CountryRestController в пакет unauthorized c url /api/countries/{id} - подправить и перенести тест
-    @GetMapping("/{id}")
-    public ResponseEntity<List<CountryResponseDto>> getAllCountriesByMovieId(@PathVariable Long id) {
-        if (!countryService.existsCountryByMovieId(id)) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(countryDtoService.getCountriesByMovieId(id));
-    }
+
 }

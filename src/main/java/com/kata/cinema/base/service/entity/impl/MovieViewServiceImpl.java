@@ -16,13 +16,16 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class MovieViewServiceImpl implements MovieViewService {
     private final MovieService movieService;
     private final MovieMapper movieMapper;
     private final MoviePersonMapper moviePersonMapper;
+
     private final CastMapper castMapper;
+
     @Override
     public MovieViewResponseDto getMovieViewResponseDto(Long id) {
 
