@@ -41,20 +41,14 @@ import java.util.Set;
                         @NamedAttributeNode(value = "country"),
                         @NamedAttributeNode(value = "genre"),
                         @NamedAttributeNode(value = "scores"),
-                        @NamedAttributeNode(value = "cast", subgraph = "movieCastGraph")
+                        @NamedAttributeNode(value = "casts", subgraph = "movieCastGraph")
                 },
                 subgraphs = {
                         @NamedSubgraph(
                                 name = "movieCastGraph",
                                 attributeNodes = {
                                         @NamedAttributeNode(value = "profession"),
-                                        @NamedAttributeNode(value = "person", subgraph = "personCastGraph")
-                                }
-                        ),
-                        @NamedSubgraph(
-                                name = "personCastGraph",
-                                attributeNodes = {
-                                        @NamedAttributeNode(value = "casts")
+                                        @NamedAttributeNode(value = "person")
                                 }
                         )
                 }
@@ -117,7 +111,7 @@ public class Movie {
     private Set<Score> scores;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    private List<Cast> cast;
+    private List<Cast> casts;
 
     private String originName;
 
