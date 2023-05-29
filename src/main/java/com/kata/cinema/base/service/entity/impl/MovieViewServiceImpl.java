@@ -31,8 +31,8 @@ public class MovieViewServiceImpl implements MovieViewService {
 
         Movie movie = movieService.getMovie(id);
         MovieViewResponseDto movieDto = movieMapper.toDto(movie);
-        List<CastResponseDto> castsDto = movie.getCast().stream().map(castMapper::toDto).distinct().toList();
-        List<Person> persons = movie.getCast().stream().map(Cast::getPerson).toList();
+        List<CastResponseDto> castsDto = movie.getCasts().stream().map(castMapper::toDto).distinct().toList();
+        List<Person> persons = movie.getCasts().stream().map(Cast::getPerson).toList();
         List<MoviePersonResponseDto> personsDto = new ArrayList<>();
 
         for (Person person : persons) {
