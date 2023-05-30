@@ -27,13 +27,13 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 
     @Query("SELECT COUNT(m) " +
             "FROM Movie m " +
-            "JOIN m.cast c " +
+            "JOIN m.casts c " +
             "WHERE c.person.id = :personId")
     long getMovieCountForPerson(@Param("personId") Long personId);
 
     @Query("SELECT NEW com.kata.cinema.base.models.dto.response.GenreResponseDto(g.id, g.name) " +
             "FROM Movie m " +
-            "JOIN m.cast c " +
+            "JOIN m.casts c " +
             "JOIN m.genre g " +
             "WHERE c.person.id = :personId " +
             "GROUP BY g.id, g.name " +
