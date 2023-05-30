@@ -1,5 +1,8 @@
 package com.kata.cinema.base.config;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
@@ -148,15 +151,18 @@ public class TestDataInitializer {
             String originalName = "Name" + personNum;
             String originalLastName = "LastName" + personNum;
             double height = 1.70 + random.nextDouble()*(2.20-1.70);
-            LocalDate dateBirth = LocalDate.of(random.nextInt(70) + 2010, Month.JANUARY, 1)
+            BigDecimal bd = new BigDecimal(height);
+            bd = bd.setScale(2, RoundingMode.HALF_UP);
+            double roundedHeight = bd.doubleValue();
+            LocalDate dateBirth = LocalDate.of(random.nextInt(20) + 1970, Month.JANUARY, 1)
                     .plusDays(random.nextInt(365))
-                    .plusYears(random.nextInt(70));
+                    .plusYears(random.nextInt(20));
             Person newPerson = new Person();
             newPerson.setFirstName(firstName);
             newPerson.setLastName(lastName);
             newPerson.setOriginalFirstName(originalName);
             newPerson.setOriginalLastName(originalLastName);
-            newPerson.setHeight(height);
+            newPerson.setHeight(roundedHeight);
             newPerson.setDateBirth(dateBirth);
             personService.save(newPerson);
             personNum++;
