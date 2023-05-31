@@ -16,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PersonDtoServiceImpl implements PersonDtoService {
     private final PersonRepository personRepository;
+
     @Override
     public PersonViewResponseDto getPersonViewById(Long personId) {
         PersonInfoDto personInfo = personRepository.getPersonInfo(personId);

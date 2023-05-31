@@ -2,6 +2,7 @@ package com.kata.cinema.base.repository;
 
 import com.kata.cinema.base.models.dto.response.CollectionResponseDto;
 import com.kata.cinema.base.models.entitys.Collection;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -45,5 +46,8 @@ public interface CollectionRepository extends JpaRepository<Collection, Long> {
     @Modifying
     @Query("UPDATE Collection c SET c.enable = :value WHERE c.id = :id")
     void activateById(@Param("id") Long id, @Param("value") boolean value);
+
+    @EntityGraph(attributePaths = {"movies"})
+    List<Collection> findByNameContaining(String name);
 
 }

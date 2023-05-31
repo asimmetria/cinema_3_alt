@@ -69,7 +69,7 @@ public class MovieSearchServiceImpl implements MovieSearchService {
                 movie.getOriginName(),
                 movie.getDateRelease(),
                 movie.getPreviewUrl(),
-                new ArrayList<>(movie.getGenre())
+                movie.getGenre()
         );
     }
 }

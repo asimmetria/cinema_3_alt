@@ -46,4 +46,7 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     List<ProfessionResponseDto> getProfessionsForPerson(@Param("personId") Long personId);
 
     Person getPersonById(Long id);
+
+    @Query("SELECT p FROM Person p WHERE CONCAT(p.firstName, ' ', p.lastName) LIKE %:name%")
+    List<Person> findByFullNameContaining(@Param("name") String name);
 }

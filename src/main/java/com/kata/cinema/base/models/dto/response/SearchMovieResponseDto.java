@@ -4,6 +4,7 @@ import com.kata.cinema.base.models.entitys.Genre;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 public class SearchMovieResponseDto {
 
@@ -13,10 +14,11 @@ public class SearchMovieResponseDto {
     private String originalName;
     private LocalDate dateRelease;
     private String previewUrl;
-    private List<Genre> genre;
+
+    private Set<Genre> genre;
 
     public SearchMovieResponseDto(Long id, String name, String originalName,
-                                  LocalDate dateRelease, String previewUrl, List<Genre> genres) {
+                                  LocalDate dateRelease, String previewUrl, Set<Genre> genres) {
         this.id = id;
         this.name = name;
         this.originalName = originalName;
@@ -59,11 +61,11 @@ public class SearchMovieResponseDto {
         this.id = id;
     }
 
-    public List<Genre> getGenres() {
+    public Set<Genre> getGenres() {
         return genre;
     }
 
-    public void setGenres(List<Genre> genres) {
+    public void setGenres(Set<Genre> genres) {
         this.genre = genres;
     }
 

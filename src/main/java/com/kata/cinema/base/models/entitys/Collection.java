@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
@@ -50,7 +51,15 @@ public class Collection {
     @Column(name = "collection_url")
     private String collectionUrl;
 
+    @OneToMany(mappedBy = "collection")
+    private Set<Movie> movies;
+
+
     public Collection() {
+    }
+
+    public int getCountMovies() {
+        return movies.size();
     }
 
     @Override

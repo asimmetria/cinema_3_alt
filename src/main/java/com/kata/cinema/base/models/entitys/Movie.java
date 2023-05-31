@@ -9,12 +9,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedAttributeNode;
 import jakarta.persistence.NamedEntityGraph;
 import jakarta.persistence.NamedEntityGraphs;
@@ -120,7 +122,21 @@ public class Movie {
     private Integer year;
 
     private String genres;
+
+    @ManyToOne
+    @JoinColumn(name = "collection_id")
+    private Collection collection;
+
+
     public Movie() {
+    }
+
+    public int getAvgScore() {
+        Hibernate.initialize(scores);
+        return (int) Math.round(scores.stream()
+            .mapToInt(Score::getScore)
+            .average()
+            .orElse(0));
     }
 
     public Movie(String title, Integer year, String genre) {
@@ -128,7 +144,6 @@ public class Movie {
         this.year = year;
         this.genres = genre;
     }
-
 
 
     @Override
