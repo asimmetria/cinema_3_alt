@@ -8,6 +8,7 @@ import com.kata.cinema.base.models.enums.MovieSortType;
 import com.kata.cinema.base.models.enums.RARS;
 import com.kata.cinema.base.repository.MovieRepository;
 import com.kata.cinema.base.service.dto.MovieSearchService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class MovieSearchServiceImpl implements MovieSearchService {
+
+
+
 
     private final MovieRepository movieRepository;
 
