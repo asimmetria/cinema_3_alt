@@ -1,20 +1,17 @@
 package com.kata.cinema.base.config;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
-import com.kata.cinema.base.models.entitys.FolderMovie;
-import com.kata.cinema.base.models.entitys.Role;
-import com.kata.cinema.base.models.entitys.User;
+import com.kata.cinema.base.models.entitys.*;
 import com.kata.cinema.base.models.enums.Privacy;
 import com.kata.cinema.base.models.enums.RoleNameEnum;
 import com.kata.cinema.base.models.enums.FolderMovieType;
-import com.kata.cinema.base.service.entity.FolderService;
-import com.kata.cinema.base.service.entity.RoleService;
-import com.kata.cinema.base.service.entity.UserService;
+import com.kata.cinema.base.service.entity.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -34,6 +31,8 @@ public class TestDataInitializer {
     private final RoleService roleService;
     private final FolderService folderService;
     private final PasswordEncoder passwordEncoder;
+    private final PersonService personService;
+    private final ProfessionService professionService;
 
     @EventListener(ApplicationReadyEvent.class)
     @Order(1)
@@ -138,6 +137,57 @@ public class TestDataInitializer {
 
                 folderService.save(folder);
             }
+        }
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    @Order(3)
+    private void InitPerson() {
+        Random random = new Random();
+        int personNum = 1;
+        for (int i = 0 ; i < 50 ; i++ ) {
+            String firstName = "Персона" + personNum;
+            String lastName = "Фамилия" + personNum;
+            String originalName = "Name" + personNum;
+            String originalLastName = "LastName" + personNum;
+            double height = 1.70 + random.nextDouble()*(2.20-1.70);
+            BigDecimal bd = new BigDecimal(height);
+            bd = bd.setScale(2, RoundingMode.HALF_UP);
+            double roundedHeight = bd.doubleValue();
+            LocalDate dateBirth = LocalDate.of(random.nextInt(20) + 1970, Month.JANUARY, 1)
+                    .plusDays(random.nextInt(365))
+                    .plusYears(random.nextInt(20));
+            Person newPerson = new Person();
+            newPerson.setFirstName(firstName);
+            newPerson.setLastName(lastName);
+            newPerson.setOriginalFirstName(originalName);
+            newPerson.setOriginalLastName(originalLastName);
+            newPerson.setHeight(roundedHeight);
+            newPerson.setDateBirth(dateBirth);
+            personService.save(newPerson);
+            personNum++;
+        }
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    @Order(4)
+    private void InitProfession() {
+        List<String> prof = Arrays.asList(
+                "Актер",
+                "Режиссер",
+                "Сценарист",
+                "Продюсер",
+                "Оператор",
+                "Композитор",
+                "Художник",
+                "Монтаж",
+                "Звукорежиссер",
+                "Каскадер"
+        );
+        for (String profession : prof) {
+            Profession newProfession = new Profession();
+            newProfession.setName(profession);
+            professionService.save(newProfession);
         }
     }
 }
