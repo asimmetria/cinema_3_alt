@@ -10,6 +10,8 @@ import com.kata.cinema.base.repository.PersonRepository;
 import com.kata.cinema.base.service.dto.SearchService;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,41 +30,11 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public SearchResponseDto search(String filterPattern) {
+        Pageable pageable = PageRequest.of(0, 3);
 
-        List<SearchMovieDto> movies = movieRepository.findByNameContaining(filterPattern)
-            .stream()
-            .map(movie -> new SearchMovieDto(
-                movie.getId(),
-                movie.getName(),
-                movie.getOriginalName(),
-                movie.getPreviewUrl(),
-                movie.getDateRelease(),
-                movie.getAvgScore()))
-            .limit(3)
-            .collect(Collectors.toList());
-
-
-        List<SearchCollectionDto> collections = collectionRepository.findByNameContaining(filterPattern)
-            .stream()
-            .map(collection -> new SearchCollectionDto(
-                collection.getName(),
-                collection.getCollectionUrl(),
-                collection.getCountMovies()))
-            .limit(3)
-            .collect(Collectors.toList());
-
-
-        List<SearchPersonDto> persons = personRepository.findByFullNameContaining(filterPattern)
-            .stream()
-            .map(person -> new SearchPersonDto(
-                person.getId(),
-                person.getPhotoUrl(),
-                person.getFullName(),
-                person.getOriginalFullName(),
-                person.getDateBirth()))
-            .limit(3)
-            .collect(Collectors.toList());
-
+        List<SearchMovieDto> movies = movieRepository.findByNameContaining(filterPattern, pageable);
+        List<SearchCollectionDto> collections = collectionRepository.findByNameContaining(filterPattern, pageable);
+        List<SearchPersonDto> persons = personRepository.findByFullNameContaining(filterPattern, pageable);
 
         return new SearchResponseDto(movies, collections, persons);
     }

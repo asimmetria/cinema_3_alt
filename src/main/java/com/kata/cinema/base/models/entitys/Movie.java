@@ -123,16 +123,12 @@ public class Movie {
 
     private String genres;
 
-    @ManyToOne
-    @JoinColumn(name = "collection_id")
-    private Collection collection;
-
 
     public Movie() {
     }
 
+
     public int getAvgScore() {
-        Hibernate.initialize(scores);
         return (int) Math.round(scores.stream()
             .mapToInt(Score::getScore)
             .average()

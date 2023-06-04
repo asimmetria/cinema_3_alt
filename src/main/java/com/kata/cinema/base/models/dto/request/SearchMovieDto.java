@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SearchMovieDto {
 
-    Long id;
-    String name;
-    String originalName;
-    String previewUrl;
-    LocalDate date;
-    Integer avgScore;
+   private Long id;
+   private String name;
+   private String originalName;
+   private String previewUrl;
+   private LocalDate date;
+   private Integer avgScore;
 
 }

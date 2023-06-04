@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SearchCollectionDto {
 
-    String name;
-    String url;
-    Integer countMovies;
+   private String name;
+   private String url;
+   private Integer countMovies;
 
 
 }

@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SearchPersonDto {
 
-    Long id;
-    String photoUrl;
-    String fullName;
-    String originalFullName;
-    LocalDate birthday;
+    private Long id;
+    private String photoUrl;
+    private String fullName;
+    private String originalFullName;
+    private LocalDate birthday;
 
 
 }

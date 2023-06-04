@@ -52,15 +52,16 @@ public class Collection {
     private String collectionUrl;
 
     @OneToMany(mappedBy = "collection")
-    private Set<Movie> movies;
+    private Set<CollectionMovie> collectionMovies;
 
 
     public Collection() {
     }
 
     public int getCountMovies() {
-        return movies.size();
+        return collectionMovies.size();
     }
+
 
     @Override
     public boolean equals(Object o) {
