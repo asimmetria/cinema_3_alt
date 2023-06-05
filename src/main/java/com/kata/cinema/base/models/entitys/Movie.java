@@ -127,14 +127,6 @@ public class Movie {
     public Movie() {
     }
 
-
-    public int getAvgScore() {
-        return (int) Math.round(scores.stream()
-            .mapToInt(Score::getScore)
-            .average()
-            .orElse(0));
-    }
-
     public Movie(String title, Integer year, String genre) {
         this.title = title;
         this.year = year;
