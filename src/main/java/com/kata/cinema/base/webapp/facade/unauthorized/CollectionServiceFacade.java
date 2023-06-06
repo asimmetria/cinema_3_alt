@@ -35,5 +35,5 @@ public interface CollectionServiceFacade {
     void deleteMoviesFromCollection(Long collectionId, List<Long> movieIds)
             throws CollectionNotFoundException, MovieNotFoundException;
 
-    CollectionMoviesResponseDto getCollectionMovie(Long id, Long countryId, Long genreId, LocalDate date, CollectionSortType collectionSortType);
+    CollectionMoviesResponseDto getCollectionMovie(Long id, Long countryId, Long genreId, LocalDate date, CollectionSortType collectionSortType, int pageNumber, Long size);
 }

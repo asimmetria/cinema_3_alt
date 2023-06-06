@@ -14,4 +14,14 @@ public class CollectionMoviesResponseDto {
     private String description;
     private String collectionUrl;
     private Page<MovieResponseDto> movies;
+
+    public CollectionMoviesResponseDto(Long id,
+                                       String collectionName,
+                                       String description,
+                                       String collectionUrl) {
+        this.id = id;
+        this.collectionName = collectionName;
+        this.description = description;
+        this.collectionUrl = collectionUrl;
+    }
 }

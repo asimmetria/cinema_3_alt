@@ -97,13 +97,15 @@ public class CollectionRestController {
         }
     }
 
-    @GetMapping("{id}/movies")
+    @GetMapping("{id}/movies/page/{pageNumber}")
     public ResponseEntity<CollectionMoviesResponseDto> getCollectionMovies(@PathVariable Long id,
+                                                                           @PathVariable int pageNumber,
+                                                                           @RequestParam(value = "itemsOnPage", required = false, defaultValue = "10") Long size,
                                                                            @RequestParam(value = "countryId", required = false) Long countryId,
-                                                                           @RequestParam(value = "genre", required = false) Long genreId,
+                                                                           @RequestParam(value = "genreId", required = false) Long genreId,
                                                                            @RequestParam(value = "date", required = false) LocalDate date,
                                                                            @RequestParam(value = "collectionSortType", defaultValue = "ORDER") CollectionSortType collectionSortType) {
-        return ResponseEntity.ok(collectionServiceFacade.getCollectionMovie(id, countryId, genreId, date, collectionSortType));
+        return ResponseEntity.ok(collectionServiceFacade.getCollectionMovie(id, countryId, genreId, date, collectionSortType, pageNumber, size));
 
     }
 

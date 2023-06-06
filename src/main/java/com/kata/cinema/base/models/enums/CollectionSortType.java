@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 
+
 @Getter
 @RequiredArgsConstructor
 public enum CollectionSortType {
@@ -15,5 +16,4 @@ public enum CollectionSortType {
     NAME(Sort.by(Sort.Direction.ASC, "name"));
 
     private final Sort sortType;
-
 }

@@ -22,11 +22,11 @@ public interface CollectionService {
     void activateCollection(Long id);
 
     void addMovieToCollection(Collection collection, List<Long> movieIds)
-        throws CollectionNotFoundException, MovieNotFoundException;
+            throws CollectionNotFoundException, MovieNotFoundException;
 
     void deleteMovieFromCollection(Collection collection, List<Long> movieIds)
-        throws CollectionNotFoundException, MovieNotFoundException;
+            throws CollectionNotFoundException, MovieNotFoundException;
 
-
-    CollectionMoviesResponseDto getCollectionMovie(Long id, Long countryId, Long genreId, LocalDate date, CollectionSortType collectionSortType);
+    CollectionMoviesResponseDto getCollectionMovie(Long id, Long countryId, Long genreId, LocalDate date,
+                                                   CollectionSortType collectionSortType, int pageNumber, Long size);
 }
