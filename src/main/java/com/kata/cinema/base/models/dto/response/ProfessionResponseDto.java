@@ -1,6 +1,7 @@
 package com.kata.cinema.base.models.dto.response;
 
 import lombok.Data;
+
 @Data
 public class ProfessionResponseDto {
     public Long id;

@@ -7,6 +7,7 @@ import com.kata.cinema.base.models.enums.RoleNameEnum;
 import com.kata.cinema.base.repository.RoleRepository;
 import com.kata.cinema.base.repository.UserRepository;
 import com.kata.cinema.base.service.entity.UserService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -67,5 +68,10 @@ public class UserServiceImpl implements UserService {
     public User findByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("User with email: %s not found", email)));
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 }

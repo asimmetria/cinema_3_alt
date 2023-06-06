@@ -1,6 +1,7 @@
 package com.kata.cinema.base.service.entity;
 
 import com.kata.cinema.base.models.entitys.User;
+import java.util.List;
 
 public interface UserService {
 
@@ -19,4 +20,6 @@ public interface UserService {
     void offEnable(long id);
 
     User findByEmail(String email);
+
+    List<User> findAll();
 }

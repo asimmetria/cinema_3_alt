@@ -1,6 +1,5 @@
 package com.kata.cinema.base.repository;
 
-import com.kata.cinema.base.models.dto.FullNamePersonDto;
 import com.kata.cinema.base.models.dto.request.SearchPersonDto;
 import com.kata.cinema.base.models.dto.response.PersonInfoDto;
 import com.kata.cinema.base.models.dto.response.GenreResponseDto;
