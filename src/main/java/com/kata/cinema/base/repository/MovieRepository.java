@@ -38,7 +38,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long>, JpaSpecific
             Pageable pageable
     );
 
-    @EntityGraph(value = "movieSearchGraph")
     @Query("select distinct new com.kata.cinema.base.models.dto.response.MovieResponseDto(" +
 
             "m.id, " +
