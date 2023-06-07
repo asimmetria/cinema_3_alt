@@ -27,6 +27,8 @@ public interface CollectionService {
     void deleteMovieFromCollection(Collection collection, List<Long> movieIds)
             throws CollectionNotFoundException, MovieNotFoundException;
 
+
     CollectionMoviesResponseDto getCollectionMovie(Long id, Long countryId, Long genreId, LocalDate date,
                                                    CollectionSortType collectionSortType, int pageNumber, Long size);
+
 }

@@ -7,7 +7,10 @@ import com.kata.cinema.base.repository.MovieCountryRepository;
 import com.kata.cinema.base.repository.MovieRepository;
 import com.kata.cinema.base.service.entity.MoviePaginationService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -26,15 +29,15 @@ public class MoviePaginationServiceImpl implements MoviePaginationService {
 
 
     @Override
-    public Page<MovieResponseDto> getPageMovieResponse(Long id, LocalDate date, Long countryId, Long genreId,  int page, Long size, CollectionSortType collectionSortType) {
+    public Page<MovieResponseDto> getPageMovieResponse(Long id, LocalDate date, Long countryId, Long genreId, int page, Long size, CollectionSortType collectionSortType) {
         Pageable pageable = PageRequest.of(page, Math.toIntExact(size), collectionSortType.getSortType());
         List<MovieResponseDto> movies = movieRepository.getMoviesResponseByCollection(id, date, countryId, genreId);
 
-        List<List<String>> genres = movies.stream().map(m -> m.getId()).map( idMovie -> genreRepository.getGenreByMovieId(idMovie)).toList();
-        List<List<String>> countries =  movies.stream().map(m -> m.getId()).map( idMovie -> countryRepository.getCountriesNameByMovieId(idMovie)).toList();
+        List<List<String>> genres = movies.stream().map(m -> m.getId()).map(idMovie -> genreRepository.getGenreByMovieId(idMovie)).toList();
+        List<List<String>> countries = movies.stream().map(m -> m.getId()).map(idMovie -> countryRepository.getCountriesNameByMovieId(idMovie)).toList();
 
         int i = 0;
-        for (MovieResponseDto dto: movies) {
+        for (MovieResponseDto dto : movies) {
             dto.setGenres(genres.get(i));
             dto.setCountries(countries.get(i));
             i++;

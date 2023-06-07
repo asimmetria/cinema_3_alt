@@ -103,6 +103,7 @@ public class CollectionServiceFacadeImpl implements CollectionServiceFacade {
         collectionService.deleteMovieFromCollection(collection, movieIds);
     }
 
+
     @Override
     public CollectionMoviesResponseDto getCollectionMovie(Long id, Long countryId, Long genreId, LocalDate date, CollectionSortType collectionSortType, int pageNumber, Long size) {
         return collectionService.getCollectionMovie(id, countryId, genreId, date, collectionSortType, pageNumber, size);

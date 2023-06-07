@@ -9,19 +9,20 @@ import lombok.Setter;
 @Getter
 @Setter
 @NamedEntityGraphs({
-        @NamedEntityGraph( name = "collectionMovieGraph",
+        @NamedEntityGraph(name = "collectionMovieGraph",
                 attributeNodes = {@NamedAttributeNode(value = "movie", subgraph = "ColGenreCountryGraph")
-        },
-        subgraphs = {
-                @NamedSubgraph(
-                        name = "ColGenreCountryGraph",
-                        attributeNodes = {
-                                @NamedAttributeNode(value = "genre"),
-                                @NamedAttributeNode(value = "country"),
-                                @NamedAttributeNode(value = "dateRelease")
-                        }
-                )
-        })
+                },
+                subgraphs = {
+                        @NamedSubgraph(
+                                name = "ColGenreCountryGraph",
+                                attributeNodes = {
+                                        @NamedAttributeNode(value = "genre"),
+                                        @NamedAttributeNode(value = "country"),
+                                        @NamedAttributeNode(value = "scores"),
+                                        @NamedAttributeNode(value = "dateRelease")
+                                }
+                        )
+                })
 })
 public class CollectionMovie {
     @Id

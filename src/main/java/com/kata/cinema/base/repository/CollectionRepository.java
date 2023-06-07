@@ -2,7 +2,6 @@ package com.kata.cinema.base.repository;
 
 import com.kata.cinema.base.models.dto.response.CollectionMoviesResponseDto;
 import com.kata.cinema.base.models.dto.response.CollectionResponseDto;
-import com.kata.cinema.base.models.dto.response.SearchCollectionDto;
 import com.kata.cinema.base.models.entitys.Collection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -14,8 +13,6 @@ import java.util.List;
 
 @Repository
 public interface CollectionRepository extends JpaRepository<Collection, Long> {
-
-
 
 
     @Query("SELECT  new com.kata.cinema.base.models.dto.response.CollectionResponseDto(" +
@@ -42,6 +39,13 @@ public interface CollectionRepository extends JpaRepository<Collection, Long> {
 
     Collection getCollectionById(Long id);
 
+    @Modifying
+    @Query("UPDATE Collection c SET c.enable = :value WHERE c.id = :id")
+    void deactivateById(@Param("id") Long id, @Param("value") boolean value);
+
+    @Modifying
+    @Query("UPDATE Collection c SET c.enable = :value WHERE c.id = :id")
+    void activateById(@Param("id") Long id, @Param("value") boolean value);
 
     @Query("select new com.kata.cinema.base.models.dto.response.CollectionMoviesResponseDto(" +
             "c.id," +
@@ -51,12 +55,5 @@ public interface CollectionRepository extends JpaRepository<Collection, Long> {
             "from Collection c where c.id = :id")
     CollectionMoviesResponseDto getCollectionDtoById(@Param("id") Long id);
 
-    @Modifying
-    @Query("UPDATE Collection c SET c.enable = :value WHERE c.id = :id")
-    void deactivateById(@Param("id") Long id, @Param("value") boolean value);
-
-    @Modifying
-    @Query("UPDATE Collection c SET c.enable = :value WHERE c.id = :id")
-    void activateById(@Param("id") Long id, @Param("value") boolean value);
 
 }

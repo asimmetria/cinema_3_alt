@@ -1,6 +1,8 @@
 package com.kata.cinema.base.models.dto.response;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,7 +20,6 @@ public class MovieResponseDto {
     private String previewUrl;
     private List<String> countries;
     private List<String> genres;
-    //  @Formula("select avg(s.score) from Score s where s.movie.id = id")
     private Double avgScore;
     private Long countScore;
 

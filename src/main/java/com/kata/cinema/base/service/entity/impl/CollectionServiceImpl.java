@@ -3,32 +3,33 @@ package com.kata.cinema.base.service.entity.impl;
 import com.kata.cinema.base.exception.MovieNotFoundException;
 import com.kata.cinema.base.models.dto.response.CollectionMoviesResponseDto;
 import com.kata.cinema.base.models.dto.response.MovieResponseDto;
-import com.kata.cinema.base.models.entitys.*;
+import com.kata.cinema.base.models.entitys.Collection;
+import com.kata.cinema.base.models.entitys.CollectionMovie;
+import com.kata.cinema.base.models.entitys.Movie;
 import com.kata.cinema.base.models.enums.CollectionSortType;
 import com.kata.cinema.base.repository.CollectionMovieRepository;
 import com.kata.cinema.base.repository.CollectionRepository;
-import com.kata.cinema.base.service.entity.*;
+import com.kata.cinema.base.service.entity.CollectionService;
+import com.kata.cinema.base.service.entity.MoviePaginationService;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Component;
 
-
-@Component
-@AllArgsConstructor
+@Service
+@RequiredArgsConstructor
 public class CollectionServiceImpl implements CollectionService {
 
     private final MovieServiceImpl movieService;
     private final MoviePaginationService moviePaginationService;
 
-    private final CollectionRepository collectionRepository;
     private final CollectionMovieRepository collectionMovieRepository;
-
+    private final CollectionRepository collectionRepository;
 
     @Override
     public void save(Collection collection) {
@@ -90,6 +91,7 @@ public class CollectionServiceImpl implements CollectionService {
             collectionMovieRepository.deleteAll(collectionMovies);
         }
     }
+
 
     @Transactional
     @Override
