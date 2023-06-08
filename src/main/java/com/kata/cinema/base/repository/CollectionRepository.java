@@ -1,6 +1,7 @@
 package com.kata.cinema.base.repository;
 
 import com.kata.cinema.base.models.dto.request.SearchCollectionDto;
+import com.kata.cinema.base.models.dto.response.CollectionMoviesResponseDto;
 import com.kata.cinema.base.models.dto.response.CollectionResponseDto;
 import com.kata.cinema.base.models.entitys.Collection;
 import org.springframework.data.domain.Pageable;

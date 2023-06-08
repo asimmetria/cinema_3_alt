@@ -79,7 +79,9 @@ public class MovieSearchServiceImpl implements MovieSearchService {
             movie.getOriginalName(),
             movie.getDateRelease(),
             movie.getPreviewUrl(),
-            Collections.singletonList(movie.getGenres())
+            new ArrayList<>()
+                //todo заглушка
+//            Collections.singletonList(movie.getGenre())
         );
     }
 }
