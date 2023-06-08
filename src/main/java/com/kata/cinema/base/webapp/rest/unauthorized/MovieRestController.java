@@ -21,8 +21,6 @@ import com.kata.cinema.base.webapp.facade.admin.MovieServiceFacade;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/api/movies")
 @AllArgsConstructor
@@ -56,9 +54,9 @@ public class MovieRestController {
     @GetMapping("/{id}/reviews/page/{pageNumber}")
     public Page<ReviewResponseDto> getReview(@PathVariable Long id,
                                              @PathVariable int pageNumber,
-                                             @RequestParam(value = "itemsOnPage", required = false) int size,
+                                             @RequestParam(value = "itemsOnPage", required = false, defaultValue = "10") int size,
                                              @RequestParam(value = "reviewSortType", defaultValue = "DATE_ASC") ReviewSortType sortType,
-                                             @RequestParam(value = "typeReview", required = false) Optional<TypeReview> typeReview) {
+                                             @RequestParam(value = "typeReview", required = false) TypeReview typeReview) {
         return reviewServiceFacade.getPageReviewByMovie(id, pageNumber, size, sortType, typeReview);
 
     }

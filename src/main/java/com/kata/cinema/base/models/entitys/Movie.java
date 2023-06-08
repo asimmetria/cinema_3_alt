@@ -9,12 +9,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedAttributeNode;
 import jakarta.persistence.NamedEntityGraph;
 import jakarta.persistence.NamedEntityGraphs;
@@ -41,20 +43,14 @@ import java.util.Set;
                         @NamedAttributeNode(value = "country"),
                         @NamedAttributeNode(value = "genre"),
                         @NamedAttributeNode(value = "scores"),
-                        @NamedAttributeNode(value = "cast", subgraph = "movieCastGraph")
+                        @NamedAttributeNode(value = "casts", subgraph = "movieCastGraph")
                 },
                 subgraphs = {
                         @NamedSubgraph(
                                 name = "movieCastGraph",
                                 attributeNodes = {
                                         @NamedAttributeNode(value = "profession"),
-                                        @NamedAttributeNode(value = "person", subgraph = "personCastGraph")
-                                }
-                        ),
-                        @NamedSubgraph(
-                                name = "personCastGraph",
-                                attributeNodes = {
-                                        @NamedAttributeNode(value = "casts")
+                                        @NamedAttributeNode(value = "person")
                                 }
                         )
                 }
@@ -117,11 +113,26 @@ public class Movie {
     private Set<Score> scores;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    private List<Cast> cast;
+    private List<Cast> casts;
 
     private String originName;
+
+    private String title;
+
+    private Integer year;
+
+    private String genres;
+
+
     public Movie() {
     }
+
+    public Movie(String title, Integer year, String genre) {
+        this.title = title;
+        this.year = year;
+        this.genres = genre;
+    }
+
 
     @Override
     public boolean equals(Object o) {

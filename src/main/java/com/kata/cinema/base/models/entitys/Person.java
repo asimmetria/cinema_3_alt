@@ -23,6 +23,9 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @Column(name = "preview_url")
+    private String previewUrl;
+
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
@@ -46,6 +49,9 @@ public class Person {
 
     @OneToMany(mappedBy = "person")
     private Set<Cast> casts;
+
+    @Column(name = "photo_url")
+    private String photoUrl;
 
     public String getFullName() {
         return firstName + " " + lastName;

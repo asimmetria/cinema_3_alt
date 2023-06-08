@@ -14,4 +14,6 @@ public interface MovieService {
     boolean isExist(Long id);
 
     List<Movie> getMoviesByIds(List<Long> ids);
+
+    List<Movie> findAll();
 }

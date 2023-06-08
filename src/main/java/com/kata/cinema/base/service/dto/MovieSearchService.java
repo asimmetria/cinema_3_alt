@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface MovieSearchService {
-    public Page<SearchMovieResponseDto> searchMovies(
+    Page<SearchMovieResponseDto> searchMovies(
             Integer pageNumber,
             Integer itemsOnPage,
             String name,
