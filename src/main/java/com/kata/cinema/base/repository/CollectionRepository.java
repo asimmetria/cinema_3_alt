@@ -1,7 +1,10 @@
 package com.kata.cinema.base.repository;
 
+import com.kata.cinema.base.models.dto.request.SearchCollectionDto;
 import com.kata.cinema.base.models.dto.response.CollectionResponseDto;
 import com.kata.cinema.base.models.entitys.Collection;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -45,5 +48,12 @@ public interface CollectionRepository extends JpaRepository<Collection, Long> {
     @Modifying
     @Query("UPDATE Collection c SET c.enable = :value WHERE c.id = :id")
     void activateById(@Param("id") Long id, @Param("value") boolean value);
+
+    @EntityGraph(attributePaths = {"collectionMovies"})
+    @Query("SELECT new com.kata.cinema.base.models.dto.request.SearchCollectionDto(c.name, c.collectionUrl, CAST(COUNT(cm) AS Integer)) "
+        + "FROM Collection c LEFT JOIN c.collectionMovies cm "
+        + "WHERE c.name LIKE %:name% "
+        + "GROUP BY c.id, c.name, c.collectionUrl")
+    List<SearchCollectionDto> findByNameContaining(@Param("name") String name, Pageable pageable);
 
 }

@@ -1,10 +1,9 @@
 package com.kata.cinema.base.models.dto.response;
 
-import com.kata.cinema.base.models.entitys.Genre;
+
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 public class SearchMovieResponseDto {
 
@@ -17,7 +16,7 @@ public class SearchMovieResponseDto {
     private List<String> genre;
 
     public SearchMovieResponseDto(Long id, String name, String originalName,
-                                  LocalDate dateRelease, String previewUrl, List<String> genre) {
+        LocalDate dateRelease, String previewUrl, List<String> genre) {
         this.id = id;
         this.name = name;
         this.originalName = originalName;
@@ -25,7 +24,6 @@ public class SearchMovieResponseDto {
         this.previewUrl = previewUrl;
         this.genre = genre;
     }
-
 
 
     public String getPreviewUrl() {
@@ -76,3 +74,4 @@ public class SearchMovieResponseDto {
         this.dateRelease = dateRelease;
     }
 }
+

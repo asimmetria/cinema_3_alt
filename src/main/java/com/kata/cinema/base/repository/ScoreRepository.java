@@ -17,6 +17,8 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
             + "JOIN FETCH s.user u "
             + "WHERE s.id = :id ")
     Score getScoreById(@Param("id") Long id);
+
     List<Score> findByMovie(Movie movie);
+
     int countByMovie(Movie movie);
 }

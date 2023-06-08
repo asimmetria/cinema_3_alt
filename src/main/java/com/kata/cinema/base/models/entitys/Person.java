@@ -50,6 +50,9 @@ public class Person {
     @OneToMany(mappedBy = "person")
     private Set<Cast> casts;
 
+    @Column(name = "photo_url")
+    private String photoUrl;
+
     public String getFullName() {
         return firstName + " " + lastName;
     }

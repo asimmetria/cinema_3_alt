@@ -22,9 +22,6 @@ import java.util.stream.Collectors;
 @Service
 public class MovieSearchServiceImpl implements MovieSearchService {
 
-
-
-
     private final MovieRepository movieRepository;
 
     public MovieSearchServiceImpl(MovieRepository movieRepository) {
@@ -32,23 +29,23 @@ public class MovieSearchServiceImpl implements MovieSearchService {
     }
 
     public Page<SearchMovieResponseDto> searchMovies(
-            Integer pageNumber,
-            Integer itemsOnPage,
-            String name,
-            LocalDate startDate,
-            LocalDate endDate,
-            List<String> genres,
-            RARS rars,
-            MPAA mpaa,
-            MovieSortType sortType
+        Integer pageNumber,
+        Integer itemsOnPage,
+        String name,
+        LocalDate startDate,
+        LocalDate endDate,
+        List<String> genres,
+        RARS rars,
+        MPAA mpaa,
+        MovieSortType sortType
     ) {
         Pageable pageable = PageRequest.of(pageNumber - 1, itemsOnPage, getSort(sortType));
         Page<Movie> moviesPage = movieRepository.searchMovies(name, startDate, endDate, genres, rars, mpaa, pageable);
         List<SearchMovieResponseDto> dtos = moviesPage
-                .getContent()
-                .stream()
-                .map(this::toSearchMovieResponseDto)
-                .collect(Collectors.toList());
+            .getContent()
+            .stream()
+            .map(this::toSearchMovieResponseDto)
+            .collect(Collectors.toList());
         return new PageImpl<>(dtos, pageable, moviesPage.getTotalElements());
     }
 
@@ -72,12 +69,12 @@ public class MovieSearchServiceImpl implements MovieSearchService {
 
     private SearchMovieResponseDto toSearchMovieResponseDto(Movie movie) {
         return new SearchMovieResponseDto(
-                movie.getId(),
-                movie.getName(),
-                movie.getOriginalName(),
-                movie.getDateRelease(),
-                movie.getPreviewUrl(),
-                Collections.singletonList(movie.getGenres())
+            movie.getId(),
+            movie.getName(),
+            movie.getOriginalName(),
+            movie.getDateRelease(),
+            movie.getPreviewUrl(),
+            Collections.singletonList(movie.getGenres())
         );
     }
 }
