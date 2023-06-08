@@ -121,16 +121,13 @@ public class Movie {
 
     private Integer year;
 
-    private String genres;
-
 
     public Movie() {
     }
 
-    public Movie(String title, Integer year, String genre) {
+    public Movie(String title, Integer year) {
         this.title = title;
         this.year = year;
-        this.genres = genre;
     }
 
 

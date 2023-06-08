@@ -5,7 +5,6 @@ import com.kata.cinema.base.models.entitys.Country;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Set;
@@ -17,6 +16,9 @@ public interface MovieCountryRepository extends JpaRepository<Country, Long> {
 
     @Query("FROM Country c WHERE c.id IN :ids")
     Set<Country> getAllCountriesByIds(@Param("ids") List<Long> ids);
+
+    @Query("select c.name from Movie m join m.country c where m.id = :id")
+    List<String> getCountriesNameByMovieId(@Param("id") Long id);
 
     Country getCountryById(Long id);
 

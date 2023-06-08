@@ -1,6 +1,7 @@
 package com.kata.cinema.base.repository;
 
 import com.kata.cinema.base.models.dto.request.SearchCollectionDto;
+import com.kata.cinema.base.models.dto.response.CollectionMoviesResponseDto;
 import com.kata.cinema.base.models.dto.response.CollectionResponseDto;
 import com.kata.cinema.base.models.entitys.Collection;
 import org.springframework.data.domain.Pageable;
@@ -55,5 +56,14 @@ public interface CollectionRepository extends JpaRepository<Collection, Long> {
         + "WHERE c.name LIKE %:name% "
         + "GROUP BY c.id, c.name, c.collectionUrl")
     List<SearchCollectionDto> findByNameContaining(@Param("name") String name, Pageable pageable);
+
+    @Query("select new com.kata.cinema.base.models.dto.response.CollectionMoviesResponseDto(" +
+            "c.id," +
+            "c.name," +
+            "c.description," +
+            "c.collectionUrl)" +
+            "from Collection c where c.id = :id")
+    CollectionMoviesResponseDto getCollectionDtoById(@Param("id") Long id);
+
 
 }
