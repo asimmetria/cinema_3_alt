@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 class ProfessionServiceImpl implements ProfessionService {
     private final ProfessionRepository professionRepository;
+
     @Override
     public void save(Profession profession) {
         professionRepository.save(profession);

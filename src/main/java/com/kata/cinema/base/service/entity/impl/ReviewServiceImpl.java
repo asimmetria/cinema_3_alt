@@ -45,9 +45,9 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public void save(Long movieId, Long userId, ReviewRequestDto reviewRequestDto) {
         Review review = reviewMapper.toEntity(reviewRequestDto);
-        LocalDate localDate = LocalDate.now();
+        LocalDate date = reviewRequestDto.getDate() != null ? reviewRequestDto.getDate() : LocalDate.now();
 
-        review.setDate(localDate);
+        review.setDate(date);
         review.setUser(userService.getById(userId));
         review.setMovie(movieService.getMovie(movieId));
 

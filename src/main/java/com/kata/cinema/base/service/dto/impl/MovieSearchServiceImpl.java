@@ -9,7 +9,12 @@ import com.kata.cinema.base.models.enums.RARS;
 import com.kata.cinema.base.repository.MovieRepository;
 import com.kata.cinema.base.service.dto.MovieSearchService;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.domain.*;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
