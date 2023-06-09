@@ -25,15 +25,14 @@ public class ProfessionController {
         this.professionService = professionService;
     }
 
-
     @PostMapping
-    public ResponseEntity<?> createProfession(@RequestParam String name) {
-        ProfessionResponseDto response = professionService.createProfession(name);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    public ResponseEntity<Void> createProfession(@RequestParam String name) {
+        professionService.createProfession(name);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProfession(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteProfession(@PathVariable Long id) {
         try {
             professionService.deleteById(id);
             return ResponseEntity.noContent().build();
@@ -43,17 +42,13 @@ public class ProfessionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateProfession(@PathVariable Long id, @RequestParam String name) {
-        try {
-            ProfessionResponseDto response = professionService.updateProfession(id, name);
-            return ResponseEntity.ok(response);
-        } catch (ResponseStatusException e) {
-            throw e;
-        }
+    public ResponseEntity<Void> updateProfession(@PathVariable Long id, @RequestParam String name) {
+        professionService.updateProfession(id, name);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllProfessions() {
+    public ResponseEntity<List<ProfessionResponseDto>> getAllProfessions() {
         List<ProfessionResponseDto> response = professionService.getAllProfessions();
         return ResponseEntity.ok(response);
     }

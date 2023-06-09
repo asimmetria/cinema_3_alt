@@ -34,18 +34,14 @@ class ProfessionServiceImpl implements ProfessionService {
     }
 
     @Override
-    public ProfessionResponseDto createProfession(String name) {
+    public void createProfession(String name) {
         Profession profession = new Profession();
         profession.setName(name);
         professionRepository.save(profession);
-        ProfessionResponseDto response = new ProfessionResponseDto();
-        response.setId(profession.getId());
-        response.setName(name);
-        return response;
     }
 
     @Override
-    public ProfessionResponseDto updateProfession(Long id, String name) {
+    public void updateProfession(Long id, String name) {
         Optional<Profession> professionOpt = professionRepository.findById(id);
         if (professionOpt.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Profession not found");
@@ -53,10 +49,6 @@ class ProfessionServiceImpl implements ProfessionService {
         Profession profession = professionOpt.get();
         profession.setName(name);
         professionRepository.save(profession);
-        ProfessionResponseDto response = new ProfessionResponseDto();
-        response.setId(profession.getId());
-        response.setName(profession.getName());
-        return response;
     }
 
     @Override
