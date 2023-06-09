@@ -41,14 +41,24 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public void save(Long id, MovieRequestDto movieDto) {
+    public void save(MovieRequestDto movieDto) {
         Set<Genre> genres = genreService.getGenresByIds(movieDto.getGenreIds());
         Set<Country> countries = countryService.getCountriesByIds(movieDto.getCountryIds());
         Movie movie = movieMapper.toEntity(movieDto);
         movie.setGenre(genres);
         movie.setCountry(countries);
 
-        if (isExist(id)) movie.setId(id);
+        movieRepository.save(movie);
+    }
+
+    @Override
+    public void update(Long id, MovieRequestDto movieDto) {
+        Set<Genre> genres = genreService.getGenresByIds(movieDto.getGenreIds());
+        Set<Country> countries = countryService.getCountriesByIds(movieDto.getCountryIds());
+        Movie movie = movieMapper.toEntity(movieDto);
+        movie.setGenre(genres);
+        movie.setCountry(countries);
+        movie.setId(id);
 
         movieRepository.save(movie);
     }

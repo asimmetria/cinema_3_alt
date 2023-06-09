@@ -8,13 +8,13 @@ import java.time.LocalDate;
 @Data
 public class UserRequestDto {
     @NotBlank
-    public String email;
+    private String email;
     @NotBlank
-    public String firstName;
-    public String lastName;
+    private String firstName;
+    private String lastName;
     @NotBlank
-    public String password;
-    public LocalDate birthday;
+    private String password;
+    private LocalDate birthday;
 
     public UserRequestDto() {
     }

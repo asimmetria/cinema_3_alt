@@ -5,10 +5,10 @@ import lombok.Data;
 
 @Data
 public abstract class FolderResponseDto {
-    public Long id;
-    public Privacy privacy;
-    public String name;
-    public String description;
+    private Long id;
+    private Privacy privacy;
+    private String name;
+    private String description;
 
     public FolderResponseDto() {
     }

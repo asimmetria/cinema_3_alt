@@ -11,6 +11,7 @@ import com.kata.cinema.base.repository.CollectionMovieRepository;
 import com.kata.cinema.base.repository.CollectionRepository;
 import com.kata.cinema.base.service.entity.CollectionService;
 import com.kata.cinema.base.service.entity.MoviePaginationService;
+import com.kata.cinema.base.service.entity.MovieService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,7 +26,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CollectionServiceImpl implements CollectionService {
 
-    private final MovieServiceImpl movieService;
+    private final MovieService movieService;
     private final MoviePaginationService moviePaginationService;
 
     private final CollectionMovieRepository collectionMovieRepository;

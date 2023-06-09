@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class ExcertionResponseDto {
-    public Long id;
-    public String description;
+    private Long id;
+    private String description;
 
     public ExcertionResponseDto() {
     }

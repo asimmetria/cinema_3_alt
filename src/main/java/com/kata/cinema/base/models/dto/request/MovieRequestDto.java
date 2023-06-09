@@ -15,28 +15,28 @@ import java.util.List;
 public class MovieRequestDto {
 
     @NotBlank
-    public String name;
+    private String name;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
-    public LocalDate dateRelease;
+    private LocalDate dateRelease;
 
     @NotBlank
-    public RARS rars;
+    private RARS rars;
 
     @NotBlank
-    public MPAA mpaa;
+    private MPAA mpaa;
 
     @NotBlank
-    public int time;
+    private int time;
 
-    public String description;
+    private String description;
 
     @NotBlank
-    public String originalName;
+    private String originalName;
 
-    List<Long> genreIds;
+    private List<Long> genreIds;
 
-    List<Long> countryIds;
+    private List<Long> countryIds;
 
     public MovieRequestDto() {
     }

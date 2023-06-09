@@ -24,13 +24,13 @@ public class MovieServiceFacadeImpl implements MovieServiceFacade {
 
     @Override
     public void createMovie(MovieRequestDto movieDto) {
-        movieService.save(null, movieDto);
+        movieService.save(movieDto);
     }
 
     @Override
     public void updateMovie(Long id, MovieRequestDto movieDto) {
         movieValidation.isExistMovieById(id);
-        movieService.save(id, movieDto);
+        movieService.update(id, movieDto);
     }
 
     @Override

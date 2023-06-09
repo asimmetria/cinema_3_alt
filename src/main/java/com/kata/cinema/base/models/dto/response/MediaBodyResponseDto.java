@@ -6,13 +6,13 @@ import java.time.LocalDateTime;
 
 @Data
 public class MediaBodyResponseDto {
-    public Long id;
-    public String title;
-    public String previewUrl;
-    public String htmlBody;
-    public LocalDateTime date;
-    public Long countComment;
-    public String author;
+    private Long id;
+    private String title;
+    private String previewUrl;
+    private String htmlBody;
+    private LocalDateTime date;
+    private Long countComment;
+    private String author;
 
     public MediaBodyResponseDto() {
     }

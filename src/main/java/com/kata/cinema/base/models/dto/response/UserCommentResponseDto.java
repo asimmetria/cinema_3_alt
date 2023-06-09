@@ -4,11 +4,11 @@ import lombok.Data;
 
 @Data
 public class UserCommentResponseDto {
-    public Long id;
-    public Long parentId;
-    public Integer level;
-    public String message;
-    public UserNameResponseDto user;
+    private Long id;
+    private Long parentId;
+    private Integer level;
+    private String message;
+    private UserNameResponseDto user;
 
     public UserCommentResponseDto() {
     }

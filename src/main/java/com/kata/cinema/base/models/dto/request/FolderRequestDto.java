@@ -6,9 +6,9 @@ import lombok.Data;
 
 @Data
 public class FolderRequestDto {
-    public Privacy privacy;
-    public String name;
-    public String description;
+    private Privacy privacy;
+    private String name;
+    private String description;
 
     public FolderRequestDto() {
     }

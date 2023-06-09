@@ -8,8 +8,8 @@ public class PerformanceResponseDto {
 
     private StudiosPerformance studiosPerformance;
 
-    public Long id;
-    public String name;
+    private Long id;
+    private String name;
 
     public PerformanceResponseDto() {
     }
