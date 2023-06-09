@@ -66,7 +66,7 @@ public class MediaCommentValidationImpl implements MediaCommentValidation {
     public void commentHasParentComment(CommentRequestDto commentRequestDto) throws Exception {
         log.debug("Checking that the comment has a parent comment");
         Comment comment;
-        if (commentRequestDto.parentId != null) {
+        if (commentRequestDto.getParentId() != null) {
             comment = commentMapper.toEntity(commentRequestDto);
             if (comment.getParentComment() == null) {
                 log.error("The comment doesn't have a parent comment");

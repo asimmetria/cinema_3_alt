@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class CommentRequestDto {
-    public String message;
-    public Long parentId;
-    public Integer level;
+    private String message;
+    private Long parentId;
+    private Integer level;
 
     public CommentRequestDto() {
     }

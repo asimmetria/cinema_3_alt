@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class GenreResponseDto {
-    public Long id;
-    public String name;
+    private Long id;
+    private String name;
 
     public GenreResponseDto() {
     }

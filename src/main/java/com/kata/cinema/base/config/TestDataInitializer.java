@@ -234,7 +234,7 @@ public class TestDataInitializer {
             movieDto.setMpaa(MPAA.PARENTAL_GUIDANCE_SUGGESTED);
             movieDto.setTime(120 + i);
             movieDto.setDescription("Description for Movie " + i);
-            movieService.save(null, movieDto);
+            movieService.save(movieDto);
         }
         System.out.println("Movie initialization completed");
     }

@@ -3,13 +3,13 @@ VALUES (22, 'category'),
        (37, 'category');
 
 INSERT INTO collections(id, description, name, category_id, collection_url, enable)
-VALUES (1, 123174, 'Movies for dinner', 22, '/collection/1', 10),
-       (2, 123636, 'Movies for children', 37, '/collection/2', 15);
+    VALUES (1, 123174, 'Movies for dinner', 22, '/collection/1', true),
+           (2, 123636, 'Movies for children', 37, '/collection/2', true);
 
-INSERT INTO users(id, first_name, email, password)
-VALUES (91, 'Oleg', 'email1@gmail.com', 'password'),
-       (44, 'Stas', 'email2@gmail.com', 'password'),
-       (75, 'Denis', 'email3@gmail.com', 'password');
+    INSERT INTO users(id, first_name, email, password)
+    VALUES (91, 'Oleg', 'email1@gmail.com', 'password'),
+           (44, 'Stas', 'email2@gmail.com', 'password'),
+           (75, 'Denis', 'email3@gmail.com', 'password');
 
 INSERT INTO movies(id, type, name, time)
 VALUES (10, 'MOVIE', 'movie', 100),

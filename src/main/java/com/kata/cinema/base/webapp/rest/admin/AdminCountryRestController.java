@@ -1,6 +1,5 @@
 package com.kata.cinema.base.webapp.rest.admin;
 
-import com.kata.cinema.base.models.dto.response.CountryResponseDto;
 import com.kata.cinema.base.service.dto.CountryDtoService;
 import com.kata.cinema.base.service.entity.CountryService;
 import lombok.RequiredArgsConstructor;
@@ -8,21 +7,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin/countries")
 @RequiredArgsConstructor
 public class AdminCountryRestController {
 
-    private final CountryDtoService countryDtoService;
     private final CountryService countryService;
 
     @PostMapping

@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class ExcertionRequestDto {
-    public String description;
+    private String description;
 
     public ExcertionRequestDto() {
     }

@@ -5,11 +5,11 @@ import lombok.Data;
 
 @Data
 public class UserNameResponseDto {
-    public Long id;
-    public String fullName;
-    public String avatarUrl;
+    private Long id;
+    private String fullName;
+    private String avatarUrl;
     @JsonIgnore
-    public Long commentId;
+    private Long commentId;
 
 
     public UserNameResponseDto(Long commentId) {

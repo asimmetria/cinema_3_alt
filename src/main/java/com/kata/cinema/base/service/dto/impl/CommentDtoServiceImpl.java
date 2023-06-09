@@ -35,7 +35,7 @@ public class CommentDtoServiceImpl implements CommentDtoService {
 
     private UserNameResponseDto getUserNameResponseDto(List<UserNameResponseDto> users, long commentId) {
         UserNameResponseDto userNameResponseDto = new UserNameResponseDto(commentId);
-        Optional<UserNameResponseDto> optional = users.stream().filter(user -> user.commentId.equals(commentId)).findFirst();
+        Optional<UserNameResponseDto> optional = users.stream().filter(user -> user.getCommentId().equals(commentId)).findFirst();
         if (optional.isPresent()) {
             userNameResponseDto = optional.get();
         }

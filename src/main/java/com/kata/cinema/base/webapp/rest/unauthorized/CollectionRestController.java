@@ -7,10 +7,12 @@ import com.kata.cinema.base.models.dto.request.CollectionRequestDto;
 import com.kata.cinema.base.models.dto.request.DeleteMovieFromCollectionDTO;
 import com.kata.cinema.base.models.dto.response.CollectionMoviesResponseDto;
 import com.kata.cinema.base.models.dto.response.CollectionResponseDto;
+import com.kata.cinema.base.models.entitys.User;
 import com.kata.cinema.base.models.enums.CollectionSortType;
 import com.kata.cinema.base.webapp.facade.unauthorized.CollectionServiceFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -24,43 +26,42 @@ public class CollectionRestController {
     private final CollectionServiceFacade collectionServiceFacade;
 
     @GetMapping
-    ResponseEntity<List<CollectionResponseDto>> getCollections(@RequestParam(required = false) Long categoryId,
-                                                               @RequestParam Long userId) {
+    public ResponseEntity<List<CollectionResponseDto>> getCollections(@RequestParam(required = false) Long categoryId) {
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (categoryId == null) {
-            return ResponseEntity.ok(collectionServiceFacade.getAllCollections(userId));
+            return ResponseEntity.ok(collectionServiceFacade.getAllCollections(user.getId()));
         }
-        return ResponseEntity.ok(collectionServiceFacade.getCollectionsByCategoryId(categoryId, userId));
-        //TODO
-        //Реализовать получение юзера, после добавления секьюрности
+        return ResponseEntity.ok(collectionServiceFacade.getCollectionsByCategoryId(categoryId, user.getId()));
     }
 
     @PostMapping
-    ResponseEntity<Void> createNewCollection(@RequestBody CollectionRequestDto requestDto) {
+    public ResponseEntity<Void> createNewCollection(@RequestBody CollectionRequestDto requestDto) {
         collectionServiceFacade.save(requestDto);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<Void> updateCollection(@RequestBody CollectionRequestDto requestDto,
+    public ResponseEntity<Void> updateCollection(@RequestBody CollectionRequestDto requestDto,
                                           @PathVariable Long id) {
         collectionServiceFacade.update(requestDto, id);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> deleteCollection(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteCollection(@PathVariable Long id) {
         collectionServiceFacade.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/{id}/deactivate")
-    ResponseEntity<Void> deactivateCollection(@PathVariable Long id) {
+    public ResponseEntity<Void> deactivateCollection(@PathVariable Long id) {
         collectionServiceFacade.deactivateById(id);
         return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/{id}/activate")
-    ResponseEntity<Void> activateCollection(@PathVariable Long id) {
+    public ResponseEntity<Void> activateCollection(@PathVariable Long id) {
         collectionServiceFacade.activateById(id);
         return ResponseEntity.ok().build();
     }
