@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kata.cinema.base.SpringContextTest;
 import com.kata.cinema.base.models.dto.request.FolderRequestDto;
 import com.kata.cinema.base.models.enums.Privacy;
-import com.kata.cinema.base.util.JwtUtil;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,15 +23,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, value = "/db/scripts/rest/user/UserFolderPersonRestController/after.sql")
 public class UserFolderPersonRestControllerTest extends SpringContextTest {
 
-    @Autowired
-    private JwtUtil jwtUtil;
-
     private String token;
 
-    @BeforeEach
-    public void init() {
-        token = jwtUtil.generateToken();
-    }
 
     /**
      * ТЕСТ-КЕЙС
@@ -42,7 +34,7 @@ public class UserFolderPersonRestControllerTest extends SpringContextTest {
     void givenUserId_whenGetFolders_thenReturnFolderByUserId_successTest() throws Exception {
 
         mockMvc.perform(get("/api/user/folders/persons")
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+//                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("userId", String.valueOf(100L)))
                 .andExpect(status().isOk())
@@ -62,7 +54,7 @@ public class UserFolderPersonRestControllerTest extends SpringContextTest {
     void givenUserId_whenGetFolders_thenReturnFolderByUserId_failedTest() throws Exception {
         try {
             mockMvc.perform(get("/api/user/folders/persons")
-                            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+//                            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                             .contentType(MediaType.APPLICATION_JSON)
                             .param("userId", String.valueOf(999L)))
                     .andExpect(status().isBadRequest())
@@ -84,7 +76,7 @@ public class UserFolderPersonRestControllerTest extends SpringContextTest {
         folderRequestDto.setName("Test Name");
 
         mockMvc.perform(post("/api/user/folders/persons")
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+ //                       .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("userId", String.valueOf(101L))
                         .content(new ObjectMapper().writeValueAsString(folderRequestDto)))
@@ -106,7 +98,7 @@ public class UserFolderPersonRestControllerTest extends SpringContextTest {
     @Test
     void deleteFoldersById_successTest() throws Exception {
         mockMvc.perform(post("/api/user/folders/movies/{id}", 101L)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+//                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("_method", "DELETE"))
                 .andExpect(status().isOk());
@@ -127,7 +119,7 @@ public class UserFolderPersonRestControllerTest extends SpringContextTest {
     @Test
     void deleteFolderPersonById_failedTest() throws Exception {
         mockMvc.perform(post("/api/user/folders/persons/{id}", 999L)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+//                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                 .param("_method", "DELETE"))
                 .andExpect(status().isNotFound())

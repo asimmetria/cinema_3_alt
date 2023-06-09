@@ -1,4 +1,4 @@
-package com.kata.cinema.base.webapp.auth;
+package com.kata.cinema.base.models.dto.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

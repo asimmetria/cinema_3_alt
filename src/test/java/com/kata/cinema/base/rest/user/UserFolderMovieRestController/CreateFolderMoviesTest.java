@@ -3,7 +3,6 @@ package com.kata.cinema.base.rest.user.UserFolderMovieRestController;
 import com.kata.cinema.base.SpringContextTest;
 import com.kata.cinema.base.models.dto.request.FolderRequestDto;
 import com.kata.cinema.base.service.entity.FolderService;
-import com.kata.cinema.base.util.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +20,8 @@ public class CreateFolderMoviesTest extends SpringContextTest {
     @Autowired
     private FolderService folderService;
 
-    @Autowired
-    private JwtUtil jwtUtil;
-
     private String token;
 
-    @BeforeEach
-    public void init() {
-        token = jwtUtil.generateToken();
-    }
 
     /*
      * ТЕСТ-КЕЙС

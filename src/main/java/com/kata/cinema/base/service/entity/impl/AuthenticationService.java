@@ -1,4 +1,4 @@
-package com.kata.cinema.base.webapp.auth;
+package com.kata.cinema.base.service.entity.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kata.cinema.base.security.config.JwtService;
@@ -7,6 +7,9 @@ import com.kata.cinema.base.repository.UserRepository;
 import com.kata.cinema.base.security.token.Token;
 import com.kata.cinema.base.security.token.TokenRepository;
 import com.kata.cinema.base.security.token.TokenType;
+import com.kata.cinema.base.models.dto.auth.AuthenticationRequest;
+import com.kata.cinema.base.models.dto.auth.AuthenticationResponse;
+import com.kata.cinema.base.models.dto.auth.RegisterRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

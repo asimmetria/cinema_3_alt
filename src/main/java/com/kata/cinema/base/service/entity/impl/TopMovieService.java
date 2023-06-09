@@ -1,4 +1,4 @@
-package com.kata.cinema.base.my;
+package com.kata.cinema.base.service.entity.impl;
 
 import com.kata.cinema.base.models.entitys.Movie;
 import com.kata.cinema.base.models.entitys.Score;

@@ -2,12 +2,14 @@ package com.kata.cinema.base.rest.admin.AdminProductionStudiosRestController;
 
 import com.kata.cinema.base.SpringContextTest;
 import com.kata.cinema.base.models.dto.request.ProductionStudiosRequestDto;
-import com.kata.cinema.base.rest.util.IntegrationTestingAccessTokenUtil2;
+import com.kata.cinema.base.rest.util.IntegrationTestingAccessTokenUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
+
+import java.time.LocalDate;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -25,18 +27,17 @@ public class PutProductionStudioByIdTest extends SpringContextTest {
 
     @Test
     void putProductionStudio_successTest() throws Exception {
-        token = IntegrationTestingAccessTokenUtil2.obtainNewAccessToken("adm@gmail.ru", "admin", mockMvc);
+        token = IntegrationTestingAccessTokenUtil.obtainNewAccessToken("adm@gmail.ru", "admin", mockMvc);
 
         ProductionStudiosRequestDto body = new ProductionStudiosRequestDto();
         body.setName("ProductionStudios");
         body.setDescription("test_update");
-        body.setDateFoundation("2004-02-22");
+        body.setDateFoundation(LocalDate.now());
 
         mockMvc.perform(put("/api/admin/studios/{id}", 15)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .content(objectMapper.writeValueAsString(body))
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token))
                 .andExpect(status().isOk());
     }
 
@@ -47,12 +48,12 @@ public class PutProductionStudioByIdTest extends SpringContextTest {
 
     @Test
     void putProductionStudio_failedTest() throws Exception {
-        token = IntegrationTestingAccessTokenUtil2.obtainNewAccessToken("adm@gmail.ru", "admin", mockMvc);
+        token = IntegrationTestingAccessTokenUtil.obtainNewAccessToken("adm@gmail.ru", "admin", mockMvc);
 
         ProductionStudiosRequestDto body = new ProductionStudiosRequestDto();
         body.setName("ProductionStudios");
         body.setDescription("test_update2");
-        body.setDateFoundation("2005-02-22");
+        body.setDateFoundation(LocalDate.now());
 
         mockMvc.perform(put("/api/admin/studios/{id}", 1001)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)

@@ -27,7 +27,6 @@ public class ProductionStudios {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "date_foundation", nullable = false)
     private LocalDate dateFoundation;
 

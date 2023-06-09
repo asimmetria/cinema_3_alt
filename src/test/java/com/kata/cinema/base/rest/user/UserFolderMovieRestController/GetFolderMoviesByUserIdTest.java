@@ -2,7 +2,6 @@ package com.kata.cinema.base.rest.user.UserFolderMovieRestController;
 
 import com.kata.cinema.base.SpringContextTest;
 import com.kata.cinema.base.exception.NotFoundEntityException;
-import com.kata.cinema.base.util.JwtUtil;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,15 +23,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, value = "/db/scripts/rest/user/UserFolderMovieRestController/after.sql")
 public class GetFolderMoviesByUserIdTest extends SpringContextTest {
 
-    @Autowired
-    private JwtUtil jwtUtil;
-
     private String token;
 
-    @BeforeEach
-    public void init() {
-        token = jwtUtil.generateToken();
-    }
 
     /**
      * ТЕСТ-КЕЙС
