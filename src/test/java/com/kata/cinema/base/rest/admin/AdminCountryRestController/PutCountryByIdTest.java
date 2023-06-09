@@ -1,7 +1,7 @@
 package com.kata.cinema.base.rest.admin.AdminCountryRestController;
 
 import com.kata.cinema.base.SpringContextTest;
-import com.kata.cinema.base.util.JwtUtil;
+import com.kata.cinema.base.rest.util.IntegrationTestingAccessTokenUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +16,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, value = "/db/scripts/rest/admin/AdminCountryRestController/after.sql")
 public class PutCountryByIdTest extends SpringContextTest {
 
-    @Autowired
-    JwtUtil jwtUtil;
-
-    private String token;
-
-    @BeforeEach
-    public void init() {
-        token = jwtUtil.generateToken();
-    }
 
     /*
      * ТЕСТ-КЕЙС
@@ -33,6 +24,8 @@ public class PutCountryByIdTest extends SpringContextTest {
 
     @Test
     void putCountryById_successTest() throws Exception {
+        String token = IntegrationTestingAccessTokenUtil.obtainNewAccessToken("adm@gmail.ru", "admin", mockMvc);
+
         mockMvc.perform(put("/api/admin/countries/{id}", 33)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -46,6 +39,8 @@ public class PutCountryByIdTest extends SpringContextTest {
      */
     @Test
     void putCountryById_failedTest() throws Exception {
+        String token = IntegrationTestingAccessTokenUtil.obtainNewAccessToken("adm@gmail.ru", "admin", mockMvc);
+
         mockMvc.perform(put("/api/admin/countries/{id}", 50)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)

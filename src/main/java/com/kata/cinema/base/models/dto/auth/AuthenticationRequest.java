@@ -1,4 +1,4 @@
-package com.kata.cinema.base.webapp.auth;
+package com.kata.cinema.base.models.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package com.kata.cinema.base.my;
+package com.kata.cinema.base.repository.specification;
 
 import com.kata.cinema.base.models.entitys.Movie;
 import com.kata.cinema.base.models.enums.MPAA;

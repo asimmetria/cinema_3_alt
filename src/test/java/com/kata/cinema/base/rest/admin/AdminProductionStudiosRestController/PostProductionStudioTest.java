@@ -2,11 +2,13 @@ package com.kata.cinema.base.rest.admin.AdminProductionStudiosRestController;
 
 import com.kata.cinema.base.SpringContextTest;
 import com.kata.cinema.base.models.dto.request.ProductionStudiosRequestDto;
-import com.kata.cinema.base.rest.util.IntegrationTestingAccessTokenUtil2;
+import com.kata.cinema.base.rest.util.IntegrationTestingAccessTokenUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
+
+import java.time.LocalDate;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -24,12 +26,12 @@ public class PostProductionStudioTest extends SpringContextTest {
     @Test
     void postProductionStudio_successTest() throws Exception {
 
-        token = IntegrationTestingAccessTokenUtil2.obtainNewAccessToken("adm@gmail.ru", "admin", mockMvc);
+        token = IntegrationTestingAccessTokenUtil.obtainNewAccessToken("adm@gmail.ru", "admin", mockMvc);
 
         ProductionStudiosRequestDto body = new ProductionStudiosRequestDto();
         body.setName("ProductionStudios");
         body.setDescription("test_description");
-        body.setDateFoundation("2004-02-22");
+        body.setDateFoundation(LocalDate.now());
         mockMvc.perform(post("/api/admin/studios")
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .content(objectMapper.writeValueAsString(body))
@@ -45,7 +47,7 @@ public class PostProductionStudioTest extends SpringContextTest {
 
     @Test
     void postProductionStudio_failedTest() throws Exception {
-        token = IntegrationTestingAccessTokenUtil2.obtainNewAccessToken("adm@gmail.ru", "admin", mockMvc);
+        token = IntegrationTestingAccessTokenUtil.obtainNewAccessToken("adm@gmail.ru", "admin", mockMvc);
 
         mockMvc.perform(post("/api/admin/studios")
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)

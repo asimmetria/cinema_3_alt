@@ -2,7 +2,6 @@ package com.kata.cinema.base.rest.user.UserFolderPersonPositionalRestController;
 
 import com.kata.cinema.base.SpringContextTest;
 import com.kata.cinema.base.models.entitys.FolderPersonPositional;
-import com.kata.cinema.base.util.JwtUtil;
 import com.kata.cinema.base.webapp.facade.user.UserFolderPersonPositionalServiceFacade;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,15 +30,8 @@ public class UserFolderPersonPositionalRestControllerTest extends SpringContextT
     private UserFolderPersonPositionalServiceFacade userFolderPersonPositionalServiceFacade;
 
 
-    @Autowired
-    private JwtUtil jwtUtil;
-
     private String token;
 
-    @BeforeEach
-    public void init() {
-        token = jwtUtil.generateToken();
-    }
 
     /**
      * ТЕСТ-КЕЙС

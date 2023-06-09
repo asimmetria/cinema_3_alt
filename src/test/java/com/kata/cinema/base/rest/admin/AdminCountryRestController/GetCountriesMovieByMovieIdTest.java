@@ -2,10 +2,9 @@ package com.kata.cinema.base.rest.admin.AdminCountryRestController;
 
 import com.kata.cinema.base.SpringContextTest;
 
+import com.kata.cinema.base.rest.util.IntegrationTestingAccessTokenUtil;
 import org.hamcrest.core.Is;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
@@ -14,14 +13,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
-
+@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, value = "/db/scripts/rest/admin/AdminCountryRestController/before.sql")
+@Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, value = "/db/scripts/rest/admin/AdminCountryRestController/after.sql")
 public class GetCountriesMovieByMovieIdTest extends SpringContextTest {
-
-
-
-    private String token;
-
 
 
     /**
@@ -30,6 +24,8 @@ public class GetCountriesMovieByMovieIdTest extends SpringContextTest {
      */
     @Test
     void givenListCountriesOnMovieId_successTest() throws Exception {
+        String token = IntegrationTestingAccessTokenUtil.obtainNewAccessToken("adm@gmail.ru", "admin", mockMvc);
+
         mockMvc.perform(get("/api/countries/{id}", 21)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON))
@@ -48,6 +44,8 @@ public class GetCountriesMovieByMovieIdTest extends SpringContextTest {
      */
     @Test
     void givenListCountriesOnMovieId_failedTest() throws Exception {
+        String token = IntegrationTestingAccessTokenUtil.obtainNewAccessToken("adm@gmail.ru", "admin", mockMvc);
+
         mockMvc.perform(get("/api/countries/{id}", 90)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON))

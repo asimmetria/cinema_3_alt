@@ -5,7 +5,7 @@ import com.kata.cinema.base.SpringContextTest;
 import com.kata.cinema.base.models.dto.request.MovieRequestDto;
 import com.kata.cinema.base.models.enums.MPAA;
 import com.kata.cinema.base.models.enums.RARS;
-import com.kata.cinema.base.util.JwtUtil;
+import com.kata.cinema.base.rest.util.IntegrationTestingAccessTokenUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,15 +26,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, value = "/db/scripts/rest/movie/AdminMovieRestController/after.sql")
 public class AdminMovieRestControllerTest extends SpringContextTest {
 
-    @Autowired
-    JwtUtil jwtUtil;
 
-    private String token;
-
-    @BeforeEach
-    public void init() {
-        token = jwtUtil.generateToken();
-    }
 
     /**
      * ТЕСТ-КЕЙС
@@ -42,6 +34,8 @@ public class AdminMovieRestControllerTest extends SpringContextTest {
      */
     @Test
     void postMovie_successTest() throws Exception {
+        String token = IntegrationTestingAccessTokenUtil.obtainNewAccessToken("adm@gmail.ru", "admin", mockMvc);
+
         List<Long> genreIds = new ArrayList<>();
         List<Long> countryIds = new ArrayList<>();
         genreIds.add(1L);
@@ -72,6 +66,8 @@ public class AdminMovieRestControllerTest extends SpringContextTest {
      */
     @Test
     void putMovie_successTest() throws Exception {
+        String token = IntegrationTestingAccessTokenUtil.obtainNewAccessToken("adm@gmail.ru", "admin", mockMvc);
+
         List<Long> genreIds = new ArrayList<>();
         List<Long> countryIds = new ArrayList<>();
         genreIds.add(1L);

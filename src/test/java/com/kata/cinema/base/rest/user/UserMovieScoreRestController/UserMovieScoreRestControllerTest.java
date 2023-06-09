@@ -3,7 +3,6 @@ package com.kata.cinema.base.rest.user.UserMovieScoreRestController;
 import com.kata.cinema.base.SpringContextTest;
 import com.kata.cinema.base.models.entitys.Score;
 import com.kata.cinema.base.repository.ScoreRepository;
-import com.kata.cinema.base.util.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,16 +33,7 @@ public class UserMovieScoreRestControllerTest extends SpringContextTest {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    private JwtUtil jwtUtil;
-
     private String token;
-
-    @BeforeEach
-    public void init() {
-        token = jwtUtil.generateToken();
-    }
-
 
     /**
      * ТЕСТ-КЕЙС

@@ -55,7 +55,7 @@ public class User implements UserDetails {
     private LocalDate birthday;
 
     @Column(name = "enable")
-    private boolean enable;
+    private boolean enable = true;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

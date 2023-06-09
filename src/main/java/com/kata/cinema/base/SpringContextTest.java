@@ -14,22 +14,22 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.web.servlet.MockMvc;
 
-@ExtendWith(SpringExtension.class)
-@TestExecutionListeners({
-        DependencyInjectionTestExecutionListener.class,
-        SqlScriptsTestExecutionListener.class
-})
-@SpringBootTest(classes = CinemaBaseApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureMockMvc
-public class SpringContextTest {
-
-    @Autowired
-    protected MockMvc mockMvc;
-
-    @Autowired
-    protected ObjectMapper objectMapper;
-
-    @PersistenceContext
-    protected EntityManager entityManager;
-
-}
+//@ExtendWith(SpringExtension.class)
+//@TestExecutionListeners({
+//        DependencyInjectionTestExecutionListener.class,
+//        SqlScriptsTestExecutionListener.class
+//})
+//@SpringBootTest(classes = CinemaBaseApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+//@AutoConfigureMockMvc
+//public class SpringContextTest {
+//
+//    @Autowired
+//    protected MockMvc mockMvc;
+//
+//    @Autowired
+//    protected ObjectMapper objectMapper;
+//
+//    @PersistenceContext
+//    protected EntityManager entityManager;
+//
+//}

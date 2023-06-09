@@ -2,7 +2,7 @@ package com.kata.cinema.base.rest.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
-import com.kata.cinema.base.webapp.auth.AuthenticationRequest;
+import com.kata.cinema.base.models.dto.auth.AuthenticationRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -25,7 +25,8 @@ public final class IntegrationTestingAccessTokenUtil {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andReturn().getResponse().getContentAsString(), "$.token");
+                .andReturn().getResponse().getContentAsString(), "$.access_token");
+
     }
 
 }
