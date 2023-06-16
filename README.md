@@ -19,7 +19,7 @@
 3 шаг
 ![](src/main/resources/static/readme/img_3.png)
 
-в проекте используется checkstyle и мапстракт, для их корректной работы необходимо добавить шаг validate и clean перед билдом
+в проекте используется checkstyle и мапстракт, для их корректной работы необходимо добавить шаг clean перед билдом
 
 1 шаг
 ![](src/main/resources/static/readme/img_1.png)
@@ -30,14 +30,10 @@
 3 шаг
 ![](src/main/resources/static/readme/img_5.png)
 
-
 4 шаг
-![](src/main/resources/static/readme/img_6.png)
-
-5 шаг
 ![](src/main/resources/static/readme/img_7.png)
 
-6 шаг, проверить порядок!!
+5 шаг, проверить порядок!!
 ![](src/main/resources/static/readme/img_8.png)
 
 
