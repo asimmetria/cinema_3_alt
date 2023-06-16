@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "collection_movie_folder")
+@Table(name = "collection_movies")
 @Getter
 @Setter
 @NamedEntityGraphs({
