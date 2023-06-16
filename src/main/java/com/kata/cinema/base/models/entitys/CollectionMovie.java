@@ -26,8 +26,7 @@ import lombok.Setter;
 })
 public class CollectionMovie {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "collection_movie_folder_id_seq")
-    @SequenceGenerator(name = "collection_movie_folder_id_seq", sequenceName = "collection_movie_folder_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
