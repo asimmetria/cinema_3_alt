@@ -1,42 +1,13 @@
 package com.kata.cinema.base.config;
 
+import com.kata.cinema.base.exception.CollectionNotFoundException;
+import com.kata.cinema.base.exception.MovieNotFoundException;
 import com.kata.cinema.base.models.dto.request.MovieRequestDto;
 import com.kata.cinema.base.models.dto.request.ReviewRequestDto;
-import com.kata.cinema.base.models.entitys.FolderMovie;
-import com.kata.cinema.base.models.entitys.Media;
-import com.kata.cinema.base.models.entitys.Movie;
-import com.kata.cinema.base.models.entitys.Person;
-import com.kata.cinema.base.models.entitys.Profession;
-import com.kata.cinema.base.models.entitys.Review;
-import com.kata.cinema.base.models.entitys.Role;
-import com.kata.cinema.base.models.entitys.Score;
-import com.kata.cinema.base.models.entitys.User;
-import com.kata.cinema.base.models.enums.FolderMovieType;
-import com.kata.cinema.base.models.enums.MPAA;
-import com.kata.cinema.base.models.enums.Privacy;
-import com.kata.cinema.base.models.enums.RARS;
-import com.kata.cinema.base.models.enums.RoleNameEnum;
-import com.kata.cinema.base.models.enums.TypeReview;
-import com.kata.cinema.base.service.entity.FolderService;
-import com.kata.cinema.base.service.entity.MediaService;
-import com.kata.cinema.base.service.entity.MovieService;
-import com.kata.cinema.base.service.entity.PersonService;
-import com.kata.cinema.base.service.entity.ProfessionService;
-import com.kata.cinema.base.service.entity.ReviewService;
-import com.kata.cinema.base.service.entity.RoleService;
-import com.kata.cinema.base.service.entity.ScoreService;
-import com.kata.cinema.base.service.entity.UserService;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import com.kata.cinema.base.models.entitys.Collection;
+import com.kata.cinema.base.models.entitys.*;
+import com.kata.cinema.base.models.enums.*;
+import com.kata.cinema.base.service.entity.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -45,14 +16,19 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.*;
+
 @Component
 @ConditionalOnExpression("${run.init:true}")
 @RequiredArgsConstructor
 public class TestDataInitializer {
-
     private final RoleNameEnum[] roles = RoleNameEnum.values();
     private final FolderMovieType[] folderTypes = FolderMovieType.values();
-
     private final UserService userService;
     private final RoleService roleService;
     private final FolderService folderService;
@@ -63,6 +39,8 @@ public class TestDataInitializer {
     private final ScoreService scoreService;
     private final MediaService mediaService;
     private final ReviewService reviewService;
+    private final GenreService genreService;
+    private final CollectionService collectionService;
 
     @EventListener(ApplicationReadyEvent.class)
     @Order(1)
@@ -99,12 +77,9 @@ public class TestDataInitializer {
             newUser.setBirthday(birthday);
             newUser.setRoles(roles);
             userService.save(newUser);
-
             initFolders(newUser.getEmail());
-
             userNum++;
         }
-
         // инициализация администратора
         String email = "admin@gmail.com";
         String firstName = "admin";
@@ -124,9 +99,7 @@ public class TestDataInitializer {
         newAdmin.setBirthday(birthday);
         newAdmin.setRoles(adminRoles);
         userService.update(newAdmin);
-
         initFolders(newAdmin.getEmail());
-
         // инициализация издателя
         email = "publicist@gmail.com";
         firstName = "publicist";
@@ -146,25 +119,21 @@ public class TestDataInitializer {
         newPublicist.setBirthday(birthday);
         newPublicist.setRoles(publicistRoles);
         userService.update(newPublicist);
-
         initFolders(newPublicist.getEmail());
     }
 
     private void initFolders(String email) {
         User user = userService.findByEmail(email);
-
         for (FolderMovieType folderType : folderTypes) {
             if (folderType != FolderMovieType.CUSTOM) {
                 String name = folderType.getName();
                 String description = "описание описание описание описание описание описание описание описание ";
                 Privacy privacy = Privacy.PUBLIC;
-
                 FolderMovie folder = new FolderMovie();
                 folder.setName(name);
                 folder.setDescription(description);
                 folder.setPrivacy(privacy);
                 folder.setUser(user);
-
                 folderService.save(folder);
             }
         }
@@ -172,10 +141,10 @@ public class TestDataInitializer {
 
     @EventListener(ApplicationReadyEvent.class)
     @Order(3)
-    private void InitPerson() {
+    public void InitPerson() {
         Random random = new Random();
         int personNum = 1;
-        for (int i = 0 ; i < 50 ; i++ ) {
+        for (int i = 0; i < 50; i++) {
             String firstName = "Персона" + personNum;
             String lastName = "Фамилия" + personNum;
             String originalName = "Name" + personNum;
@@ -201,7 +170,7 @@ public class TestDataInitializer {
 
     @EventListener(ApplicationReadyEvent.class)
     @Order(4)
-    private void InitProfession() {
+    public void InitProfession() {
         List<String> prof = Arrays.asList(
                 "Актер",
                 "Режиссер",
@@ -210,9 +179,9 @@ public class TestDataInitializer {
                 "Оператор",
                 "Композитор",
                 "Художник",
-            "Монтаж",
-            "Звукорежиссер",
-            "Каскадер"
+                "Монтаж",
+                "Звукорежиссер",
+                "Каскадер"
         );
         for (String profession : prof) {
             Profession newProfession = new Profession();
@@ -223,23 +192,70 @@ public class TestDataInitializer {
 
     @Order(5)
     @EventListener(ApplicationReadyEvent.class)
+    public void initGenres() {
+        System.out.println("Starting Genre initialization");
+        for (int i = 1; i <= 10; i++) {
+            var genre = new Genre();
+            genre.setName("Жанр " + i);
+            genreService.save(genre);
+        }
+        System.out.println("Genre initialization completed");
+    }
+
+    @Order(6)
+    @EventListener(ApplicationReadyEvent.class)
     public void initMovies() {
         System.out.println("Starting Movie initialization");
-        for (int i = 1; i <= 10; i++) {
-            MovieRequestDto movieDto = new MovieRequestDto();
-            movieDto.setName("Movie " + i);
-            movieDto.setOriginalName("Original Movie " + i);
-            movieDto.setDateRelease(LocalDate.now().minusYears(i));
-            movieDto.setRars(RARS.EIGHTEEN_PLUS);
-            movieDto.setMpaa(MPAA.PARENTAL_GUIDANCE_SUGGESTED);
-            movieDto.setTime(120 + i);
-            movieDto.setDescription("Description for Movie " + i);
-            movieService.save(movieDto);
+        var random = new Random();
+        List<Long> genres = new ArrayList<>(genreService.findAll().stream()
+                .map(Genre::getId).toList());
+        for (int i = 1; i <= 100; i++) {
+            Collections.shuffle(genres, random);
+            var movie = new MovieRequestDto();
+            movie.setName("Фильм " + i);
+            movie.setOriginalName("Original Movie " + i);
+            movie.setDateRelease(LocalDate.ofEpochDay(random.nextLong(
+                    LocalDate.of(1990, 1, 1).toEpochDay(),
+                    LocalDate.now().plusDays(1).toEpochDay())));
+            movie.setRars(RARS.randomRARS());
+            movie.setMpaa(MPAA.randomMPAA());
+            movie.setTime(random.nextInt(100, 181));
+            movie.setDescription("Описание описание описание описание описание " + i);
+            movie.setGenreIds(genres.stream().limit(3).toList());
+            movieService.save(movie);
         }
         System.out.println("Movie initialization completed");
     }
 
-    @Order(6)
+    @Order(7)
+    @EventListener(ApplicationReadyEvent.class)
+    public void initCollections() {
+        System.out.println("Starting Collection initialization");
+        for (int i = 1; i <= 20; i++) {
+            var collection = new Collection();
+            collection.setName("Коллекция " + i);
+            collection.setEnable(i <= 15);
+            collectionService.save(collection);
+        }
+        System.out.println("Collection initialization completed");
+    }
+
+    @Order(8)
+    @EventListener(ApplicationReadyEvent.class)
+    public void initCollectionMovies() throws CollectionNotFoundException, MovieNotFoundException {
+        System.out.println("Starting CollectionMovies initialization");
+        List<Long> movies = new ArrayList<>(movieService.findAll().stream()
+                .map(Movie::getId).toList());
+        Random random = new Random();
+        List<Collection> collections = collectionService.findAll();
+        for (Collection collection : collections) {
+            Collections.shuffle(movies, random);
+            collectionService.addMovieToCollection(collection, movies.subList(0, random.nextInt(11)+5));
+        }
+        System.out.println("CollectionMovies initialization completed");
+    }
+
+    @Order(9)
     @EventListener(ApplicationReadyEvent.class)
     public void initScores() {
         System.out.println("Starting Score initialization");
@@ -266,7 +282,7 @@ public class TestDataInitializer {
         return now.minusDays(daysToSubtract);
     }
 
-    @Order(7)
+    @Order(10)
     @EventListener(ApplicationReadyEvent.class)
     public void initMedia() {
         System.out.println("Starting Media initialization");
@@ -288,7 +304,7 @@ public class TestDataInitializer {
         return result;
     }
 
-    @Order(8)
+    @Order(11)
     @EventListener(ApplicationReadyEvent.class)
     public void initReviews() {
         System.out.println("Starting Review initialization");
@@ -311,6 +327,4 @@ public class TestDataInitializer {
         }
         System.out.println("Review initialization completed");
     }
-
-
 }

@@ -21,14 +21,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Service
 @RequiredArgsConstructor
 public class CollectionServiceImpl implements CollectionService {
-
     private final MovieService movieService;
     private final MoviePaginationService moviePaginationService;
-
     private final CollectionMovieRepository collectionMovieRepository;
     private final CollectionRepository collectionRepository;
 
@@ -62,7 +59,6 @@ public class CollectionServiceImpl implements CollectionService {
     @Transactional
     @Override
     public void addMovieToCollection(Collection collection, List<Long> movieIds) throws MovieNotFoundException {
-
         if (movieIds != null && !movieIds.isEmpty()) {
             List<Movie> movies = movieService.getMoviesByIds(movieIds);
             if (movies.size() != movieIds.size()) {
@@ -82,7 +78,6 @@ public class CollectionServiceImpl implements CollectionService {
     @Transactional
     @Override
     public void deleteMovieFromCollection(Collection collection, List<Long> movieIds) throws MovieNotFoundException {
-
         if (movieIds != null && !movieIds.isEmpty()) {
             List<Movie> movies = movieService.getMoviesByIds(movieIds);
             if (movies.size() != movieIds.size()) {
@@ -93,16 +88,17 @@ public class CollectionServiceImpl implements CollectionService {
         }
     }
 
-
     @Transactional
     @Override
     public CollectionMoviesResponseDto getCollectionMovie(Long id, Long countryId, Long genreId, LocalDate date, CollectionSortType collectionSortType, int pageNumber, Long size) {
-
         Page<MovieResponseDto> pageMovieResponseDto = moviePaginationService.getPageMovieResponse(id, date, countryId, genreId, pageNumber, size, collectionSortType);
-
         CollectionMoviesResponseDto collectionMoviesResponseDto = collectionRepository.getCollectionDtoById(id);
         collectionMoviesResponseDto.setMovies(pageMovieResponseDto);
-
         return collectionMoviesResponseDto;
+    }
+
+    @Override
+    public List<Collection> findAll() {
+        return collectionRepository.findAll();
     }
 }
