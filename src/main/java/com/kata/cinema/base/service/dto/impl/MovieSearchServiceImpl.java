@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,6 +53,19 @@ public class MovieSearchServiceImpl implements MovieSearchService {
             .map(this::toSearchMovieResponseDto)
             .collect(Collectors.toList());
         return new PageImpl<>(dtos, pageable, moviesPage.getTotalElements());
+    }
+
+    @Override
+    public Page<SearchMovieResponseDto> getMoviesByAuthors(Map<Long, List<Long>> parameters, Integer pageNumber, Integer itemsOnPage) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, itemsOnPage);
+        Long professionId = parameters.keySet().stream().findFirst().get();
+        List<Long> personIds = parameters.get(professionId);
+        List<Movie> movies = movieRepository.getMoviesByAuthors(professionId, personIds);
+        List<SearchMovieResponseDto> dtos = movies
+                .stream()
+                .map(this::toSearchMovieResponseDto)
+                .collect(Collectors.toList());
+        return new PageImpl<>(dtos, pageable, movies.size());
     }
 
     private Sort getSort(MovieSortType sortType) {

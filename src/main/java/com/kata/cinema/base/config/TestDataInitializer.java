@@ -5,9 +5,33 @@ import com.kata.cinema.base.exception.MovieNotFoundException;
 import com.kata.cinema.base.models.dto.request.MovieRequestDto;
 import com.kata.cinema.base.models.dto.request.ReviewRequestDto;
 import com.kata.cinema.base.models.entitys.Collection;
-import com.kata.cinema.base.models.entitys.*;
-import com.kata.cinema.base.models.enums.*;
-import com.kata.cinema.base.service.entity.*;
+import com.kata.cinema.base.models.entitys.FolderMovie;
+import com.kata.cinema.base.models.entitys.Genre;
+import com.kata.cinema.base.models.entitys.Media;
+import com.kata.cinema.base.models.entitys.Person;
+import com.kata.cinema.base.models.entitys.Profession;
+import com.kata.cinema.base.models.entitys.Review;
+import com.kata.cinema.base.models.entitys.Role;
+import com.kata.cinema.base.models.entitys.Score;
+import com.kata.cinema.base.models.entitys.User;
+import com.kata.cinema.base.models.enums.MPAA;
+import com.kata.cinema.base.models.enums.Privacy;
+import com.kata.cinema.base.models.enums.RARS;
+import com.kata.cinema.base.models.enums.TypeReview;
+import com.kata.cinema.base.service.entity.CollectionService;
+import com.kata.cinema.base.service.entity.GenreService;
+import com.kata.cinema.base.service.entity.MediaService;
+import com.kata.cinema.base.service.entity.ReviewService;
+import com.kata.cinema.base.service.entity.RoleService;
+import com.kata.cinema.base.service.entity.UserService;
+import com.kata.cinema.base.service.entity.ScoreService;
+import com.kata.cinema.base.service.entity.FolderService;
+import com.kata.cinema.base.service.entity.PersonService;
+import com.kata.cinema.base.service.entity.ProfessionService;
+import com.kata.cinema.base.service.entity.MovieService;
+import com.kata.cinema.base.models.enums.FolderMovieType;
+import com.kata.cinema.base.models.enums.RoleNameEnum;
+import com.kata.cinema.base.models.entitys.Movie;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -21,7 +45,14 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
 
 @Component
 @ConditionalOnExpression("${run.init:true}")
@@ -250,7 +281,7 @@ public class TestDataInitializer {
         List<Collection> collections = collectionService.findAll();
         for (Collection collection : collections) {
             Collections.shuffle(movies, random);
-            collectionService.addMovieToCollection(collection, movies.subList(0, random.nextInt(11)+5));
+            collectionService.addMovieToCollection(collection, movies.subList(0, random.nextInt(11) + 5));
         }
         System.out.println("CollectionMovies initialization completed");
     }

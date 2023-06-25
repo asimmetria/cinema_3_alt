@@ -2,6 +2,7 @@ package com.kata.cinema.base.models.enums;
 
 import java.util.List;
 import java.util.Random;
+
 public enum RARS {
     ZERO_PLUS,
     SIX_PLUS,
@@ -12,7 +13,7 @@ public enum RARS {
     private static final List<RARS> VALUES =
             List.of(values());
 
-     public static RARS randomRARS() {
-        return VALUES.get(new Random().nextInt(0,VALUES.size()));
+    public static RARS randomRARS() {
+        return VALUES.get(new Random().nextInt(0, VALUES.size()));
     }
 }

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long>, JpaSpecificationExecutor<Movie> {
@@ -31,9 +32,9 @@ public interface MovieRepository extends JpaRepository<Movie, Long>, JpaSpecific
 
     @EntityGraph(attributePaths = {"scores"})
     @Query("SELECT new com.kata.cinema.base.models.dto.request.SearchMovieDto"
-        + "(m.id, m.name, m.originalName, m.previewUrl, m.dateRelease, "
-        + "(SELECT AVG(s.score) FROM Score s WHERE s.movie = m)) "
-        + "FROM Movie m WHERE m.name LIKE %:name%")
+            + "(m.id, m.name, m.originalName, m.previewUrl, m.dateRelease, "
+            + "(SELECT AVG(s.score) FROM Score s WHERE s.movie = m)) "
+            + "FROM Movie m WHERE m.name LIKE %:name%")
     List<SearchMovieDto> findByNameContaining(@Param("name") String name, Pageable pageable);
 
     @Query("SELECT m FROM Movie m WHERE (:name IS NULL OR m.name = :name) " +
@@ -75,5 +76,12 @@ public interface MovieRepository extends JpaRepository<Movie, Long>, JpaSpecific
                                                          @Param("rDate") LocalDate dataRel,
                                                          @Param("countryId") Long countryId,
                                                          @Param("genreId") Long genreId);
+
+
+    @Query("SELECT m FROM Movie m JOIN m.casts c " +
+            "WHERE c.profession.id IN (:professionIds) AND c.person.id IN (:personIds)")
+    List<Movie> getMoviesByAuthors(
+            @Param("professionIds") Long professionId,
+            @Param("personIds") List<Long> personIds);
 
 }

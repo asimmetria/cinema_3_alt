@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public interface MovieSearchService {
     Page<SearchMovieResponseDto> searchMovies(
@@ -24,4 +25,5 @@ public interface MovieSearchService {
             MovieSortType sortType
     );
 
+    Page<SearchMovieResponseDto> getMoviesByAuthors(Map<Long, List<Long>> parameters, Integer pageNumber, Integer itemsOnPage);
 }
